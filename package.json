@@ -21,6 +21,7 @@
         "@vitejs/plugin-vue": "^6.0.0",
         "@vue/eslint-config-typescript": "^14.3.0",
         "concurrently": "^9.0.1",
+        "emnapi": "^1.10.0",
         "eslint": "^9.17.0",
         "eslint-config-prettier": "^10.0.1",
         "eslint-import-resolver-typescript": "^4.4.4",
@@ -34,13 +35,14 @@
         "vue-tsc": "^2.2.4"
     },
     "dependencies": {
+        "@emnapi/core": "^1.10.0",
+        "@emnapi/runtime": "^1.10.0",
         "@inertiajs/vite": "^3.0.0",
         "@inertiajs/vue3": "^3.0.0",
         "@laravel/passkeys": "^0.2.0",
         "@vueuse/core": "^12.8.2",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
-        "emnapi": "^1.10.0",
         "laravel-precognition-vue": "^2.0.0",
         "laravel-vite-plugin": "^3.0.0",
         "lucide-vue-next": "^0.468.0",

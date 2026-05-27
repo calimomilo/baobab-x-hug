@@ -16,11 +16,10 @@ jobs:
       - name: Create SSH key and push to bare repo
         run: |
           mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE_KEY" > ../id_ed25519
-          chmod 600 ../id_ed25519
+          echo "$SSH_PRIVATE_KEY" > ../private.key
+          chmod 600 ../private.key
           echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-          git remote add production "ssh://$SSH_USER@$SSH_HOST/$REMOTE_PATH"
-          git push production main --force
+          GIT_SSH_COMMAND="ssh -i $SSH_KEY_PATH $SSH_USER@$SSH_HOST" git push ssh://$SSH_USER@$SSH_HOST/$REMOTE_PATH main
         shell: bash
         env:
           SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
@@ -28,4 +27,4 @@ jobs:
           SSH_USER: ${{vars.SSH_USER}}
           SSH_HOST: ${{vars.SSH_HOST}}
           REMOTE_PATH: ${{vars.REMOTE_PATH}}
-          SSH_KEY_PATH: ${{ github.workspace }}/../id_ed25519
+          SSH_KEY_PATH: ${{ github.workspace }}/../private.key

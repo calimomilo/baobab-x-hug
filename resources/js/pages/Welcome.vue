@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
-import { dashboard, login } from '@/routes';
-import { register } from '@/routes';
+import { dashboard } from '@/routes';
 </script>
 
 <template>
@@ -23,7 +22,7 @@ import { register } from '@/routes';
                 >
                     Dashboard
                 </Link>
-                <template v-else>
+                <!-- <template v-else>
                     <Link
                         :href="login()"
                         class="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
@@ -36,7 +35,7 @@ import { register } from '@/routes';
                     >
                         Register
                     </Link>
-                </template>
+                </template> -->
             </nav>
         </header>
         <div

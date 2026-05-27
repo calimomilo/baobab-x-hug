@@ -24,21 +24,7 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
           SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
-          SSH_USER: ${{secrets.SSH_USER}}
-          SSH_HOST: ${{secrets.SSH_HOST}}
-          REMOTE_PATH: ${{secrets.REMOTE_PATH}}
+          SSH_USER: ${{vars.SSH_USER}}
+          SSH_HOST: ${{vars.SSH_HOST}}
+          REMOTE_PATH: ${{vars.REMOTE_PATH}}
           SSH_KEY_PATH: ${{ github.workspace }}/../private.key
-
-    #   - name: Push to server bare repo
-    #     env:
-    #       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-    #       SSH_HOST: ${{ secrets.SSH_HOST }}
-    #       SSH_USER: ${{ secrets.SSH_USER }}
-    #       REMOTE_PATH: ${{ secrets.REMOTE_BARE_REPO_PATH }}
-    #     run: |
-    #       mkdir -p ~/.ssh
-    #       echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-    #       chmod 600 ~/.ssh/id_rsa
-    #       ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
-    #       git remote add production "$SSH_USER@$SSH_HOST:$REMOTE_PATH"
-    #       git push production main --force

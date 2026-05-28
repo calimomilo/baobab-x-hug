@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('primary_color');
             $table->string('secondary_color');
-            $table->string('logo');
+            $table->string('logo_url');
             $table->string('anonymous')->default('false');
             $table->timestamps();
         });

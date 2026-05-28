@@ -26,5 +26,5 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/private.key
           chmod 600 ~/.ssh/private.key
           echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-          GIT_SSH_COMMAND="ssh -i ~/.ssh/private.key $SSH_USER@$SSH_HOST" git push $SSH_USER@$SSH_HOST:$REMOTE_PATH main
+          GIT_SSH_COMMAND="ssh -i ~/.ssh/private.key $SSH_USER@$SSH_HOST" git push "$SSH_USER@$SSH_HOST:$REMOTE_PATH" main
         shell: bash

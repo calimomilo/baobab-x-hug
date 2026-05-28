@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('primary_color');
             $table->string('secondary_color');
             $table->string('logo_url');
-            $table->string('anonymous')->default('false');
+            $table->boolean('anonymous')->default(0);
             $table->timestamps();
         });
     }

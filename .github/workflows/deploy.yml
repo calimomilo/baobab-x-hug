@@ -23,8 +23,8 @@ jobs:
           REMOTE_PATH: ${{vars.REMOTE_PATH}}
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
           echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
           git remote add production "$SSH_USER@$SSH_HOST:$REMOTE_PATH"
           git push production main --force

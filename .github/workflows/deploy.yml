@@ -21,11 +21,10 @@ jobs:
           SSH_USER: ${{vars.SSH_USER}}
           SSH_HOST: ${{vars.SSH_HOST}}
           REMOTE_PATH: ${{vars.REMOTE_PATH}}
-          SSH_KEY_PATH: ${{ github.workspace }}/../private.key
         run: |
           mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE_KEY" > ../private.key
-          chmod 600 ../private.key
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/private.key
+          chmod 600 ~/.ssh/private.key
           echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-          GIT_SSH_COMMAND="ssh -i $SSH_KEY_PATH $SSH_USER@$SSH_HOST" git push ssh://$SSH_USER@$SSH_HOST/$REMOTE_PATH main
+          GIT_SSH_COMMAND="ssh -i ~/.ssh/private.key $SSH_USER@$SSH_HOST" git push $SSH_USER@$SSH_HOST:$REMOTE_PATH main
         shell: bash

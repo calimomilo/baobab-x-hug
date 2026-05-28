@@ -11,7 +11,7 @@ class BloodLeagueSeeder extends Seeder
 {
     public function run(): void
     {
-        $this->command->info('🩸 Démarrage du seeder Blood League v4...');
+        $this->command->info('seeder BloodLeagueSeeder en cours...');
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
         DB::table('wins')->truncate();
@@ -61,8 +61,8 @@ class BloodLeagueSeeder extends Seeder
                 'slug' => 'rolex',
                 'primary_color' => '#006039',
                 'secondary_color' => '#A37E2C',
-                'logo' => 'logos/rolex.svg',
-                'anonymous' => 'false',
+                'logo_url' => 'logos/rolex.svg',
+                'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
@@ -77,8 +77,8 @@ class BloodLeagueSeeder extends Seeder
                 'slug' => 'pictet',
                 'primary_color' => '#003E5C',
                 'secondary_color' => '#C8A464',
-                'logo' => 'logos/pictet.svg',
-                'anonymous' => 'false',
+                'logo_url' => 'logos/pictet.svg',
+                'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
@@ -93,8 +93,8 @@ class BloodLeagueSeeder extends Seeder
                 'slug' => 'richemont',
                 'primary_color' => '#1A1A1A',
                 'secondary_color' => '#B8860B',
-                'logo' => 'logos/richemont.svg',
-                'anonymous' => 'false',
+                'logo_url' => 'logos/richemont.svg',
+                'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,
             ],

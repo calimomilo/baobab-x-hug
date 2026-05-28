@@ -3,6 +3,7 @@ name: Deploy to production
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -14,13 +15,6 @@ jobs:
           fetch-depth: 0
 
       - name: Create SSH key and push to bare repo
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE_KEY" > ../private.key
-          chmod 600 ../private.key
-          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-          GIT_SSH_COMMAND="ssh -i $SSH_KEY_PATH $SSH_USER@$SSH_HOST" git push ssh://$SSH_USER@$SSH_HOST/$REMOTE_PATH main
-        shell: bash
         env:
           SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
           SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
@@ -28,3 +22,10 @@ jobs:
           SSH_HOST: ${{vars.SSH_HOST}}
           REMOTE_PATH: ${{vars.REMOTE_PATH}}
           SSH_KEY_PATH: ${{ github.workspace }}/../private.key
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ../private.key
+          chmod 600 ../private.key
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          GIT_SSH_COMMAND="ssh -i $SSH_KEY_PATH $SSH_USER@$SSH_HOST" git push ssh://$SSH_USER@$SSH_HOST/$REMOTE_PATH main
+        shell: bash

@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('primary_color');
             $table->string('secondary_color');
-            $table->string('logo');
-            $table->string('anonymous')->default('false');
+            $table->string('logo_url');
+            $table->boolean('anonymous')->default(0);
             $table->timestamps();
         });
     }

@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('collect_id')->constrained('collects')->onDelete('cascade');
             $table->string('session_id');
-            $table->enum('type_of', ['donor_result', 'appointment_clic', 'donor_share', 'supporter_result', 'supporter_share']);
+            $table->enum('data_type', ['donor_result', 'appointment_clic', 'donor_share', 'supporter_result', 'supporter_share']);
             $table->timestamps();
 
-            $table->unique(['session_id', 'type_of']);
+            $table->unique(['session_id', 'data_type']);
         });
     }
 

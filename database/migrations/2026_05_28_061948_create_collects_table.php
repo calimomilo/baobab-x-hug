@@ -20,9 +20,9 @@ return new class extends Migration
             $table->time('end_time');
             $table->string('location');
             $table->string('appointment_link');
-            $table->int('employees');
-            $table->int('appointments')->default(0);
-            $table->int('donations')->default(0);
+            $table->integer('employees');
+            $table->integer('appointments')->default(0);
+            $table->integer('donations')->default(0);
             $table->timestamps();
         });
     }

@@ -27,4 +27,4 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
           git remote add production "$SSH_USER@$SSH_HOST:$REMOTE_PATH"
-          git push production main --force
+          GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa $SSH_USER@$SSH_HOST" git push production main --force

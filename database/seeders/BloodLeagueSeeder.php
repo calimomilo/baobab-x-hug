@@ -13,7 +13,16 @@ class BloodLeagueSeeder extends Seeder
     {
         $this->command->info('seeder BloodLeagueSeeder en cours...');
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        $driver = DB::getDriverName();
+
+        if ($driver === 'mysql' || $driver === 'mariadb') {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        } elseif ($driver === 'sqlite') {
+            DB::statement('PRAGMA foreign_keys = OFF');
+        } elseif ($driver === 'pgsql') {
+            DB::statement('SET session_replication_role = replica');
+        }
+
         DB::table('wins')->truncate();
         DB::table('collect_data')->truncate();
         DB::table('collects')->truncate();
@@ -21,7 +30,14 @@ class BloodLeagueSeeder extends Seeder
         DB::table('companies')->truncate();
         DB::table('contact_forms')->truncate();
         DB::table('users')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
+        if ($driver === 'mysql' || $driver === 'mariadb') {
+            DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        } elseif ($driver === 'sqlite') {
+            DB::statement('PRAGMA foreign_keys = ON');
+        } elseif ($driver === 'pgsql') {
+            DB::statement('SET session_replication_role = DEFAULT');
+        }
 
         $this->seedSeasons();
         $this->seedCompanies();

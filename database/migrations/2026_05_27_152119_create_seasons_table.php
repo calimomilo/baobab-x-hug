@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('seasons', function (Blueprint $table) {
             $table->id();
             $table->integer('year_of')->unique();
+            $table->boolean('closed')->default(0);
             $table->timestamps();
         });
     }

@@ -24,4 +24,9 @@ class Company extends Model
     {
         return $this->get(['slug', 'primary_color', 'secondary_color', 'logo_url']);
     }
+
+    public function link()
+    {
+        return config('app.url').'/'.$this->get('slug');
+    }
 }

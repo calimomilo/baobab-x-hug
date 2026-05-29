@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[Fillable(['company_name', 'address', 'contact_name', 'email', 'phone', 'slug', 'primary_color', 'secondary_color', 'logo_url', 'anonymous'])]
 class Company extends Model
 {
     public function collects(): HasMany

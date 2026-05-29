@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class CompanyController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the company.
      */
     public function index()
     {
@@ -18,7 +18,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new company.
      */
     public function create()
     {
@@ -26,7 +26,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created company in storage.
      */
     public function store(Request $request)
     {
@@ -60,7 +60,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified company.
      */
     public function show(string $slug)
     {
@@ -80,7 +80,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified company.
      */
     public function edit(string $slug)
     {
@@ -94,17 +94,17 @@ class CompanyController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified company in storage.
      */
     public function update(Request $request, string $slug)
     {
         $validated = $request->validate([
             'company_name' => 'required|string|min:2|max:255',
-            'address' => 'required|string',
+            'address' => 'required|string|max:500',
             'contact_name' => 'nullable|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
-            'slug' => 'required|string|alpha_dash:ascii|min:4|max:42|unique:companies',
+            'slug' => 'required|string|alpha_dash:ascii|min:4|max:50|unique:companies',
             'primary_color' => 'required|hex_color',
             'secondary_color' => 'required|hex_color',
             'logo_url' => 'required|image',
@@ -134,9 +134,9 @@ class CompanyController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified company from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $slug)
     {
         $company = Company::where('slug', $slug)->first();
 

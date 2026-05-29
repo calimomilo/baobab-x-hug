@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
-
 
 class BloodLeagueSeeder extends Seeder
 {
@@ -54,9 +53,9 @@ class BloodLeagueSeeder extends Seeder
     {
         $now = Carbon::now();
         DB::table('seasons')->insert([
-            ['id' => 1, 'year_of' => 2024, 'created_at' => $now, 'updated_at' => $now],
-            ['id' => 2, 'year_of' => 2025, 'created_at' => $now, 'updated_at' => $now],
-            ['id' => 3, 'year_of' => 2026, 'created_at' => $now, 'updated_at' => $now],
+            ['id' => 1, 'year_of' => 2024, 'closed' => 1, 'created_at' => $now, 'updated_at' => $now],
+            ['id' => 2, 'year_of' => 2025, 'closed' => 1, 'created_at' => $now, 'updated_at' => $now],
+            ['id' => 3, 'year_of' => 2026, 'closed' => 0, 'created_at' => $now, 'updated_at' => $now],
         ]);
 
         $this->command->info('  → 3 saisons créées');
@@ -128,46 +127,46 @@ class BloodLeagueSeeder extends Seeder
         $raw = [
             // ========== SAISON 2024 ==========
             // Rolex 2024
-            [1, 1, 1, '2024-03-12', '09:00:00', '17:00:00', 'Rolex Acacias — Salle de conférence A', 'https://rdv.hug.ch/rolex-2024-q1', 5200, 72, 58],
-            [2, 1, 1, '2024-06-18', '09:00:00', '17:00:00', 'Rolex Plan-les-Ouates — Auditoire central', 'https://rdv.hug.ch/rolex-2024-q2', 5200, 88, 71],
-            [3, 1, 1, '2024-11-05', '09:00:00', '17:00:00', 'Rolex Acacias — Hall principal', 'https://rdv.hug.ch/rolex-2024-q4', 5200, 95, 78],
+            [1, 1, 1, '2024-03-12', '09:00:00', '17:00:00', 'Rolex Acacias — Salle de conférence A', 'https://rdv.hug.ch/rolex-2024-q1', 5200, 72, 58, 1],
+            [2, 1, 1, '2024-06-18', '09:00:00', '17:00:00', 'Rolex Plan-les-Ouates — Auditoire central', 'https://rdv.hug.ch/rolex-2024-q2', 5200, 88, 71, 1],
+            [3, 1, 1, '2024-11-05', '09:00:00', '17:00:00', 'Rolex Acacias — Hall principal', 'https://rdv.hug.ch/rolex-2024-q4', 5200, 95, 78, 1],
             // Pictet 2024
-            [4, 2, 1, '2024-02-20', '08:30:00', '16:30:00', 'Pictet Acacias — Centre de formation', 'https://rdv.hug.ch/pictet-2024-q1', 3400, 54, 38],
-            [5, 2, 1, '2024-05-14', '08:30:00', '16:30:00', 'Pictet Acacias — Auditoire', 'https://rdv.hug.ch/pictet-2024-q2', 3400, 58, 42],
-            [6, 2, 1, '2024-09-10', '08:30:00', '16:30:00', 'Pictet Acacias — Salle plénière', 'https://rdv.hug.ch/pictet-2024-q3', 3400, 61, 44],
-            [7, 2, 1, '2024-12-03', '08:30:00', '16:30:00', 'Pictet Acacias — Centre de formation', 'https://rdv.hug.ch/pictet-2024-q4', 3400, 56, 40],
+            [4, 2, 1, '2024-02-20', '08:30:00', '16:30:00', 'Pictet Acacias — Centre de formation', 'https://rdv.hug.ch/pictet-2024-q1', 3400, 54, 38, 1],
+            [5, 2, 1, '2024-05-14', '08:30:00', '16:30:00', 'Pictet Acacias — Auditoire', 'https://rdv.hug.ch/pictet-2024-q2', 3400, 58, 42, 1],
+            [6, 2, 1, '2024-09-10', '08:30:00', '16:30:00', 'Pictet Acacias — Salle plénière', 'https://rdv.hug.ch/pictet-2024-q3', 3400, 61, 44, 1],
+            [7, 2, 1, '2024-12-03', '08:30:00', '16:30:00', 'Pictet Acacias — Centre de formation', 'https://rdv.hug.ch/pictet-2024-q4', 3400, 56, 40, 1],
             // Richemont 2024
-            [8, 3, 1, '2024-04-23', '09:00:00', '17:00:00', 'Richemont Bellevue — Centre de conférences', 'https://rdv.hug.ch/richemont-2024-q2', 2800, 42, 28],
-            [9, 3, 1, '2024-10-15', '09:00:00', '17:00:00', 'Richemont Bellevue — Hall A', 'https://rdv.hug.ch/richemont-2024-q4', 2800, 38, 25],
+            [8, 3, 1, '2024-04-23', '09:00:00', '17:00:00', 'Richemont Bellevue — Centre de conférences', 'https://rdv.hug.ch/richemont-2024-q2', 2800, 42, 28, 1],
+            [9, 3, 1, '2024-10-15', '09:00:00', '17:00:00', 'Richemont Bellevue — Hall A', 'https://rdv.hug.ch/richemont-2024-q4', 2800, 38, 25, 1],
 
             // ========== SAISON 2025 ==========
             // Rolex 2025
-            [10, 1, 2, '2025-02-25', '09:00:00', '17:00:00', 'Rolex Acacias — Salle de conférence A', 'https://rdv.hug.ch/rolex-2025-q1', 5200, 95, 82],
-            [11, 1, 2, '2025-05-20', '09:00:00', '17:00:00', 'Rolex Plan-les-Ouates — Auditoire central', 'https://rdv.hug.ch/rolex-2025-q2', 5200, 102, 89],
-            [12, 1, 2, '2025-09-09', '09:00:00', '17:00:00', 'Rolex Acacias — Hall principal', 'https://rdv.hug.ch/rolex-2025-q3', 5200, 110, 95],
-            [13, 1, 2, '2025-11-25', '09:00:00', '17:00:00', 'Rolex Plan-les-Ouates — Auditoire central', 'https://rdv.hug.ch/rolex-2025-q4', 5200, 98, 86],
+            [10, 1, 2, '2025-02-25', '09:00:00', '17:00:00', 'Rolex Acacias — Salle de conférence A', 'https://rdv.hug.ch/rolex-2025-q1', 5200, 95, 82, 1],
+            [11, 1, 2, '2025-05-20', '09:00:00', '17:00:00', 'Rolex Plan-les-Ouates — Auditoire central', 'https://rdv.hug.ch/rolex-2025-q2', 5200, 102, 89, 1],
+            [12, 1, 2, '2025-09-09', '09:00:00', '17:00:00', 'Rolex Acacias — Hall principal', 'https://rdv.hug.ch/rolex-2025-q3', 5200, 110, 95, 1],
+            [13, 1, 2, '2025-11-25', '09:00:00', '17:00:00', 'Rolex Plan-les-Ouates — Auditoire central', 'https://rdv.hug.ch/rolex-2025-q4', 5200, 98, 86, 1],
             // Pictet 2025
-            [14, 2, 2, '2025-02-18', '08:30:00', '16:30:00', 'Pictet Acacias — Centre de formation', 'https://rdv.hug.ch/pictet-2025-q1', 3400, 62, 46],
-            [15, 2, 2, '2025-05-13', '08:30:00', '16:30:00', 'Pictet Acacias — Auditoire', 'https://rdv.hug.ch/pictet-2025-q2', 3400, 65, 49],
-            [16, 2, 2, '2025-09-16', '08:30:00', '16:30:00', 'Pictet Acacias — Salle plénière', 'https://rdv.hug.ch/pictet-2025-q3', 3400, 71, 54],
-            [17, 2, 2, '2025-12-02', '08:30:00', '16:30:00', 'Pictet Acacias — Centre de formation', 'https://rdv.hug.ch/pictet-2025-q4', 3400, 68, 51],
+            [14, 2, 2, '2025-02-18', '08:30:00', '16:30:00', 'Pictet Acacias — Centre de formation', 'https://rdv.hug.ch/pictet-2025-q1', 3400, 62, 46, 1],
+            [15, 2, 2, '2025-05-13', '08:30:00', '16:30:00', 'Pictet Acacias — Auditoire', 'https://rdv.hug.ch/pictet-2025-q2', 3400, 65, 49, 1],
+            [16, 2, 2, '2025-09-16', '08:30:00', '16:30:00', 'Pictet Acacias — Salle plénière', 'https://rdv.hug.ch/pictet-2025-q3', 3400, 71, 54, 1],
+            [17, 2, 2, '2025-12-02', '08:30:00', '16:30:00', 'Pictet Acacias — Centre de formation', 'https://rdv.hug.ch/pictet-2025-q4', 3400, 68, 51, 1],
             // Richemont 2025 (progression → The Climber)
-            [18, 3, 2, '2025-03-11', '09:00:00', '17:00:00', 'Richemont Bellevue — Centre de conférences', 'https://rdv.hug.ch/richemont-2025-q1', 2800, 58, 42],
-            [19, 3, 2, '2025-07-08', '09:00:00', '17:00:00', 'Richemont Bellevue — Hall A', 'https://rdv.hug.ch/richemont-2025-q3', 2800, 72, 55],
-            [20, 3, 2, '2025-11-18', '09:00:00', '17:00:00', 'Richemont Bellevue — Hall A', 'https://rdv.hug.ch/richemont-2025-q4', 2800, 78, 61],
+            [18, 3, 2, '2025-03-11', '09:00:00', '17:00:00', 'Richemont Bellevue — Centre de conférences', 'https://rdv.hug.ch/richemont-2025-q1', 2800, 58, 42, 1],
+            [19, 3, 2, '2025-07-08', '09:00:00', '17:00:00', 'Richemont Bellevue — Hall A', 'https://rdv.hug.ch/richemont-2025-q3', 2800, 72, 55, 1],
+            [20, 3, 2, '2025-11-18', '09:00:00', '17:00:00', 'Richemont Bellevue — Hall A', 'https://rdv.hug.ch/richemont-2025-q4', 2800, 78, 61, 1],
 
             // ========== SAISON 2026 (en cours) ==========
             // Rolex 2026 — collecte 1 terminée
-            [21, 1, 3, '2026-02-24', '09:00:00', '17:00:00', 'Rolex Acacias — Salle de conférence A', 'https://rdv.hug.ch/rolex-2026-q1', 5200, 108, 94],
+            [21, 1, 3, '2026-02-24', '09:00:00', '17:00:00', 'Rolex Acacias — Salle de conférence A', 'https://rdv.hug.ch/rolex-2026-q1', 5200, 108, 94, 1],
             // Rolex 2026 — collecte LIVE (mi-journée)
-            [22, 1, 3, Carbon::now()->format('Y-m-d'), '09:00:00', '17:00:00', 'Rolex Plan-les-Ouates — Auditoire central', 'https://rdv.hug.ch/rolex-2026-q2', 5200, 47, 12],
+            [22, 1, 3, Carbon::now()->format('Y-m-d'), '09:00:00', '17:00:00', 'Rolex Plan-les-Ouates — Auditoire central', 'https://rdv.hug.ch/rolex-2026-q2', 5200, 47, 12, 0],
             // Pictet 2026
-            [23, 2, 3, '2026-03-04', '08:30:00', '16:30:00', 'Pictet Acacias — Salle plénière', 'https://rdv.hug.ch/pictet-2026-q1', 3400, 72, 56],
+            [23, 2, 3, '2026-03-04', '08:30:00', '16:30:00', 'Pictet Acacias — Salle plénière', 'https://rdv.hug.ch/pictet-2026-q1', 3400, 72, 56, 1],
             // Richemont 2026
-            [24, 3, 3, '2026-04-08', '09:00:00', '17:00:00', 'Richemont Bellevue — Hall A', 'https://rdv.hug.ch/richemont-2026-q1', 2800, 84, 67],
+            [24, 3, 3, '2026-04-08', '09:00:00', '17:00:00', 'Richemont Bellevue — Hall A', 'https://rdv.hug.ch/richemont-2026-q1', 2800, 84, 67, 1],
         ];
 
-        $collects = array_map(fn($r) => [
+        $collects = array_map(fn ($r) => [
             'id' => $r[0],
             'company_id' => $r[1],
             'season_id' => $r[2],
@@ -181,32 +180,32 @@ class BloodLeagueSeeder extends Seeder
             'donations' => $r[10],
             'created_at' => $now,
             'updated_at' => $now,
+            'completed' => $r[11],
         ], $raw);
 
         DB::table('collects')->insert($collects);
         $this->command->info('  → 24 collectes créées');
     }
 
-
     private function seedCollectData(): void
     {
         $data = [];
         $now = Carbon::now();
-        $token = fn() => bin2hex(random_bytes(16));
+        $token = fn () => bin2hex(random_bytes(16));
 
         // ========== Saison 2024 ==========
-        $this->fillCollectData($data, 1,  78, 73, 24, 33, 26, $token, $now);
-        $this->fillCollectData($data, 2,  95, 89, 32, 41, 31, $token, $now);
+        $this->fillCollectData($data, 1, 78, 73, 24, 33, 26, $token, $now);
+        $this->fillCollectData($data, 2, 95, 89, 32, 41, 31, $token, $now);
         $this->fillCollectData($data, 3, 102, 96, 38, 44, 35, $token, $now);
-        $this->fillCollectData($data, 4,  60, 55, 14, 26, 18, $token, $now);
-        $this->fillCollectData($data, 5,  64, 59, 16, 27, 20, $token, $now);
-        $this->fillCollectData($data, 6,  68, 62, 18, 29, 22, $token, $now);
-        $this->fillCollectData($data, 7,  62, 57, 14, 27, 19, $token, $now);
-        $this->fillCollectData($data, 8,  47, 43,  8, 20, 13, $token, $now);
-        $this->fillCollectData($data, 9,  43, 39, 10, 18, 12, $token, $now);
+        $this->fillCollectData($data, 4, 60, 55, 14, 26, 18, $token, $now);
+        $this->fillCollectData($data, 5, 64, 59, 16, 27, 20, $token, $now);
+        $this->fillCollectData($data, 6, 68, 62, 18, 29, 22, $token, $now);
+        $this->fillCollectData($data, 7, 62, 57, 14, 27, 19, $token, $now);
+        $this->fillCollectData($data, 8, 47, 43, 8, 20, 13, $token, $now);
+        $this->fillCollectData($data, 9, 43, 39, 10, 18, 12, $token, $now);
 
         // ========== Saison 2025 ==========
-        $this->fillCollectData($data, 10, 105, 97,  44, 45, 36, $token, $now);
+        $this->fillCollectData($data, 10, 105, 97, 44, 45, 36, $token, $now);
         $this->fillCollectData($data, 11, 112, 104, 50, 48, 40, $token, $now);
         $this->fillCollectData($data, 12, 121, 112, 56, 52, 43, $token, $now);
         $this->fillCollectData($data, 13, 108, 100, 46, 46, 38, $token, $now);
@@ -221,15 +220,15 @@ class BloodLeagueSeeder extends Seeder
         // ========== Saison 2026 ==========
         $this->fillCollectData($data, 21, 119, 110, 60, 51, 42, $token, $now);
         // Collecte LIVE (état mi-journée pour démo)
-        $this->fillCollectData($data, 22,  52,  47,  7, 22, 18, $token, $now);
-        $this->fillCollectData($data, 23,  79,  73, 30, 34, 28, $token, $now);
-        $this->fillCollectData($data, 24,  92,  85, 42, 39, 32, $token, $now);
+        $this->fillCollectData($data, 22, 52, 47, 7, 22, 18, $token, $now);
+        $this->fillCollectData($data, 23, 79, 73, 30, 34, 28, $token, $now);
+        $this->fillCollectData($data, 24, 92, 85, 42, 39, 32, $token, $now);
 
         foreach (array_chunk($data, 500) as $chunk) {
             DB::table('collect_data')->insert($chunk);
         }
 
-        $this->command->info('  → ' . count($data) . ' lignes collect_data créées');
+        $this->command->info('  → '.count($data).' lignes collect_data créées');
     }
 
     /**
@@ -267,7 +266,6 @@ class BloodLeagueSeeder extends Seeder
             }
         }
     }
-
 
     private function seedWins(): void
     {

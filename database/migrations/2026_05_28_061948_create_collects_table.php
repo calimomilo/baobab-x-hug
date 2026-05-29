@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('employees');
             $table->integer('appointments')->default(0);
             $table->integer('donations')->default(0);
+            $table->boolean('completed')->default(0);
             $table->timestamps();
         });
     }

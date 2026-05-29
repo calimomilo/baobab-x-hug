@@ -79,7 +79,7 @@ class CollectController extends Controller
      */
     public function edit(string $id)
     {
-        $company = Collect::findOrFail($id);
+        $collect = Collect::findOrFail($id);
 
         // return page inertia /collects/$collect->$id/edit
     }
@@ -101,12 +101,12 @@ class CollectController extends Controller
         $collect = Collect::findOrFail($id);
 
         $collect->updateOrFail([
-            'date_of' => $validated('date_of'),
-            'start_time' => $validated('start_time'),
-            'end_time' => $validated('end_time'),
-            'location' => $validated('location'),
-            'appointment_link' => $validated('appointment_link'),
-            'employees' => $validated('employees'),
+            'date_of' => $validated['date_of'],
+            'start_time' => $validated['start_time'],
+            'end_time' => $validated['end_time'],
+            'location' => $validated['location'],
+            'appointment_link' => $validated['appointment_link'],
+            'employees' => $validated['employees'],
         ]);
 
         // return page inertia /collects/$collect->id

@@ -6,6 +6,7 @@ use App\Models\Collect;
 use App\Models\Company;
 use App\Models\Season;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CollectController extends Controller
 {
@@ -39,10 +40,13 @@ class CollectController extends Controller
             'location' => 'required|string|max:500',
             'appointment_link' => 'required|string|max:500',
             'employees' => 'required|integer|min:0',
+            'season_year' => ['required|date_format:Y', Rule::date()->afterOrEqual(today()->year)],
         ]);
 
         $company = Company::findOrFail($request->company_id);
-        $season = Season::findOrFail($request->season_id);
+        $season = Season::where('year_of', '=', $validated['season_year'], true)->firstOrCreate([
+            'year_of' => $validated['season_year'],
+        ]);
 
         $collect = new Collect;
 

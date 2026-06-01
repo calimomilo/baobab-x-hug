@@ -2,10 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Collect;
 use App\Models\Company;
-use App\Models\Season;
 use Illuminate\Support\Facades\DB;
-
 
 class BloodLeagueScorer
 {
@@ -14,15 +13,15 @@ class BloodLeagueScorer
      */
     public function computeScore(int $companyId, int $seasonId): array
     {
-        $collects = DB::table('collects')
-            ->where('company_id', $companyId)
+        $collects = Collect::where('company_id', '=', $companyId, true)
             ->where('season_id', $seasonId)
-            ->where('donations', '>', 0) // ne compter que les collectes terminées
+            ->where('completed', '=', 1) // ne compter que les collectes terminées
+            ->with('data')
             ->get();
 
-        $totalAppointments = $collects->sum('appointments');
-        $totalDonations = $collects->sum('donations');
-        $employees = $collects->first()->employees ?? 0;
+        $totalAppointments = $collects->pluck('appointments')->sum();
+        $totalDonations = $collects->pluck('donations')->sum();
+        $employees = $collects->pluck('employees')->sum();
 
         // Compte les supporters via collect_data (type supporter_result)
         $totalSupporters = DB::table('collect_data')
@@ -62,7 +61,6 @@ class BloodLeagueScorer
         ];
     }
 
-
     public function computeLabel(int $companyId, int $seasonId): ?string
     {
         $myScore = $this->computeScore($companyId, $seasonId)['total'];
@@ -72,7 +70,7 @@ class BloodLeagueScorer
         }
 
         // Récupère les scores de toutes les entreprises de cette saison
-        $allCompanies = DB::table('companies')->pluck('id');
+        $allCompanies = Company::pluck('id', null);
         $scores = [];
         foreach ($allCompanies as $id) {
             $s = $this->computeScore($id, $seasonId)['total'];
@@ -85,8 +83,13 @@ class BloodLeagueScorer
         $rank = array_search($myScore, $scores);
         $percentile = ($rank / count($scores)) * 100;
 
-        if ($percentile <= 15) return 'Blood Legend';
-        if ($percentile <= 50) return 'Blood Gold';
+        if ($percentile <= 15) {
+            return 'Blood Legend';
+        }
+        if ($percentile <= 50) {
+            return 'Blood Gold';
+        }
+
         return 'Blood';
     }
 
@@ -97,7 +100,9 @@ class BloodLeagueScorer
      */
     private function scoreEfficacite(int $appointments, int $donations): int
     {
-        if ($appointments === 0) return 0;
+        if ($appointments === 0) {
+            return 0;
+        }
         $taux = ($donations / $appointments) * 100;
 
         return match (true) {
@@ -130,7 +135,9 @@ class BloodLeagueScorer
      */
     private function scoreDonneurs(int $employees, int $donations): int
     {
-        if ($employees === 0) return 0;
+        if ($employees === 0) {
+            return 0;
+        }
         $taux = ($donations / $employees) * 100;
 
         return match (true) {
@@ -149,7 +156,9 @@ class BloodLeagueScorer
      */
     private function scoreSupporters(int $employees, int $supporters): int
     {
-        if ($employees === 0) return 0;
+        if ($employees === 0) {
+            return 0;
+        }
         $taux = ($supporters / $employees) * 100;
 
         return match (true) {

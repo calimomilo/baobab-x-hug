@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Collect;
 use App\Models\Company;
-use Illuminate\Support\Facades\DB;
 
 class BloodLeagueScorer
 {
@@ -21,18 +20,26 @@ class BloodLeagueScorer
 
         $totalAppointments = $collects->pluck('appointments')->sum();
         $totalDonations = $collects->pluck('donations')->sum();
-        $employees = $collects->pluck('employees')->sum();
+        $totalEmployees = $collects->pluck('employees')->sum();
 
-        // Compte les supporters via collect_data (type supporter_result)
-        $totalSupporters = DB::table('collect_data')
-            ->whereIn('collect_id', $collects->pluck('id'))
-            ->where('data_type', 'supporter_result')
-            ->count();
+        // Compte les supporters (type supporter_result)
+        $totalSupporters = $collects->reduce(function ($carry, $item) {
+            $supporters = $item->data->where('data_type', '=', 'supporter_result')->count();
+
+            return $carry + $supporters;
+        }, 0);
+
+        // Compte les supporters actifs (type supporter_share)
+        $totalSupporterShares = $collects->reduce(function ($carry, $item) {
+            $shares = $item->data->where('data_type', '=', 'supporter_share')->count();
+
+            return $carry + $shares;
+        }, 0);
 
         $efficacite = $this->scoreEfficacite($totalAppointments, $totalDonations);
         $frequence = $this->scoreFrequence($collects->count());
-        $donneurs = $this->scoreDonneurs($employees, $totalDonations);
-        $supporters = $this->scoreSupporters($employees, $totalSupporters);
+        $donneurs = $this->scoreDonneurs($totalEmployees, $totalDonations);
+        $supporters = $this->scoreSupporters($totalSupporters, $totalSupporterShares);
 
         return [
             'efficacite' => $efficacite,
@@ -47,15 +54,16 @@ class BloodLeagueScorer
                 'appointments' => $totalAppointments,
                 'donations' => $totalDonations,
                 'supporters' => $totalSupporters,
-                'employees' => $employees,
+                'supporter_shares' => $totalSupporterShares,
+                'employees' => $totalEmployees,
                 'taux_efficacite' => $totalAppointments > 0
                     ? round(($totalDonations / $totalAppointments) * 100, 2)
                     : 0,
-                'taux_participation' => $employees > 0
-                    ? round(($totalDonations / $employees) * 100, 2)
+                'taux_participation' => $totalEmployees > 0
+                    ? round(($totalDonations / $totalEmployees) * 100, 2)
                     : 0,
-                'taux_supporters' => $employees > 0
-                    ? round(($totalSupporters / $employees) * 100, 2)
+                'taux_supporters' => $totalSupporters > 0
+                    ? round(($totalSupporterShares / $totalSupporters) * 100, 2)
                     : 0,
             ],
         ];
@@ -154,12 +162,12 @@ class BloodLeagueScorer
     /**
      * Supporters (12 pts max) — supporters mobilisés / effectif
      */
-    private function scoreSupporters(int $employees, int $supporters): int
+    private function scoreSupporters(int $supporters, int $supporterShares): int
     {
-        if ($employees === 0) {
+        if ($supporters === 0) {
             return 0;
         }
-        $taux = ($supporters / $employees) * 100;
+        $taux = ($supporterShares / $supporters) * 100;
 
         return match (true) {
             $taux >= 90 => 12,

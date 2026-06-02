@@ -13,8 +13,13 @@ import AppLayout from '@/layouts/AppLayout.vue';
             </h1>
             <h2 class="hidden text-center font-medium uppercase tracking-[8%] max-w-[40%] md:block ">Blood League transforme les collectes de sang en entreprise en une compétition positive.</h2>
             <Link href="/contact" class="md:absolute md:bottom-[20%] md:right-[calc(20vw-80px)] lg:bottom-[8%]">
-                <img src="../../assets/Round_Button.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="w-40 h-40 lg:w-50 lg:h-50">
+                <img src="../../assets/Round_Button.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="w-40 h-40 lg:w-50 lg:h-50 hover:scale-110 hover:rotate-25 transition duration-150 ease-in-out"> <!-- figure out how to make pink -->
             </Link>
+        </section>
+        <section id="blood-league" class="relative h-[calc(100vh-76px)] flex flex-col justify-center items-center bg-brand-rose-300">
+            <div class="flex flex-col text-white">
+                <h3></h3>
+            </div>
         </section>
     </AppLayout>
 </template>

@@ -24,7 +24,7 @@ const props = defineProps({
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
-    <div class="flex min-h-screen flex-col font-cooper text-black">
+    <div class="flex min-h-screen flex-col font-cooper text-black"> <!-- bring header to front -->
         <header class="bg-brand-sage-300 text-brand-sage-950 flex py-4 px-6 justify-between items-center sticky top-0">
         <!-- <header class="bg-brand-white flex py-4 px-6 justify-between items-center sticky top-0"> -->
             <Link href="/" class="flex gap-3 items-center">
@@ -63,7 +63,7 @@ const props = defineProps({
                     </Sheet>
                 </div>
 
-            <div class="hidden lg:flex gap-2">
+            <div class="hidden lg:flex lg:gap-2">
                 <MenuButton href="/leaderboard" display="desktop" selected>Leaderboard</MenuButton>
                 <MenuButton href="/blood-league" display="desktop">La Blood League</MenuButton>
                 <MenuButton href="/don-du-sang" display="desktop">Pourquoi donner ?</MenuButton>

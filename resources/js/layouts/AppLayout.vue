@@ -5,11 +5,10 @@ import MenuButton from '@/components/MenuButton.vue';
 import {
     Sheet,
     SheetContent,
-    SheetHeader,
+    SheetFooter,
     SheetTitle,
     SheetTrigger,
  } from '@/components/ui/sheet';
-import SheetFooter from '@/components/ui/sheet/SheetFooter.vue';
 
 const props = defineProps({
     title : {type: String, default: 'HUG Blood League'},

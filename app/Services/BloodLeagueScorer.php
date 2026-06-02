@@ -127,10 +127,10 @@ class BloodLeagueScorer
             $raw = $score['raw'];
 
             // The Flood — taux de participation
-            $this->challenge($winners['The Flood'], $companyId, $raw['taux_participation']);
+            $winners['The Flood'] = $this->challenge($winners['The Flood'], $companyId, $raw['taux_participation']);
 
             // The Pulse — supporters
-            $this->challenge($winners['The Pulse'], $companyId, $raw['taux_supporters']);
+            $winners['The Pulse'] = $this->challenge($winners['The Pulse'], $companyId, $raw['taux_supporters']);
 
             // The Climber — progression du score total vs saison précédente
             if ($previousSeasonId !== null) {
@@ -143,11 +143,11 @@ class BloodLeagueScorer
 
             // The New Vein — meilleur taux d'efficacité parmi les nouvelles entreprises
             if ($this->isNewcomer($companyId, $seasonId)) {
-                $this->challenge($winners['The New Vein'], $companyId, $raw['taux_efficacite']);
+                $this->challenge($winners['The New Vein'], $companyId, $score['total']);
             }
         }
 
-        $this->persistWinners($seasonId, $winners);
+        // $this->persistWinners($seasonId, $winners);
 
         return $winners;
     }
@@ -155,11 +155,13 @@ class BloodLeagueScorer
     /**
      * maj le vanqueur si le candidat fait mieux
      */
-    private function challenge(array &$current, int $companyId, float $value): void
+    private function challenge(array &$current, int $companyId, float $value): array
     {
         if ($current['value'] === null || $value > $current['value']) {
             $current = ['company_id' => $companyId, 'value' => $value];
         }
+
+        return $current;
     }
 
     /**
@@ -167,7 +169,7 @@ class BloodLeagueScorer
      */
     private function previousSeasonId(int $seasonId): ?int
     {
-        $season = Season::find($seasonId, ['*']);
+        $season = Season::find($seasonId, '*');
 
         if ($season === null) {
             return null;

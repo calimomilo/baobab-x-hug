@@ -56,20 +56,9 @@ class SeasonController extends Controller
     {
         $companies = Company::pluck('id', null);
         $season = Season::findOrFail($id);
+        $winners = app(BloodLeagueScorer::class)->electWinners($season->id);
 
-        // calcul des vainqueurs -> pas pu comprendre comment calculer ça
-
-        // $efficiencyScores = [];
-        // $frequenceScores = [];
-        // $donorScores = [];
-        // $supporterScores = [];
-        // foreach ($companies as $company) {
-        //     $score = app(BloodLeagueScorer::class)->computeScore($company, $id);
-        //     $efficiencyScores[$company] = $score['efficience'];
-        //     $frequenceScores[$company] = $score['frequence'];
-        //     $donorScores[$company] = $score['donneurs'];
-        //     $supporterScores[$company] = $score['supporters'];
-        // }
+        // return inertia page /seasons/season->id/close
     }
 
     /**
@@ -111,7 +100,7 @@ class SeasonController extends Controller
         $season = Season::findOrFail($id);
 
         if ($season->status === SeasonStatus::CLOSED) {
-            return response()->json(['message' => 'Season closed.'], 422); // vérifier si ça fait pas du caca en front, redirect
+            return response()->json(['message' => 'Season closed.'], 422); // vérifier si ça fait pas n'imp en front, redirect
         }
 
         // return page inertia /seasons/season->year/edit
@@ -125,7 +114,7 @@ class SeasonController extends Controller
         $season = Season::findOrFail($id);
 
         if ($season->status === SeasonStatus::CLOSED) {
-            return response()->json(['message' => 'Season closed.'], 422); // vérifier si ça fait pas du caca en front, redirect
+            return response()->json(['message' => 'Season closed.'], 422); // vérifier si ça fait pas n'imp en front, redirect
         }
 
         $validated = $request->validate([

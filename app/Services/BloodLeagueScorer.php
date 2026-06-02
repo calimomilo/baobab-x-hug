@@ -111,10 +111,10 @@ class BloodLeagueScorer
         $previousSeasonId = $this->previousSeasonId($seasonId);
 
         $winners = [
-            'The Climber' => ['company_id' => null, 'value' => null],
-            'The Flood' => ['company_id' => null, 'value' => null],
-            'The Pulse' => ['company_id' => null, 'value' => null],
-            'The New Vein' => ['company_id' => null, 'value' => null],
+            'climber' => ['company_id' => null, 'value' => null],
+            'flood' => ['company_id' => null, 'value' => null],
+            'pulse' => ['company_id' => null, 'value' => null],
+            'new_vein' => ['company_id' => null, 'value' => null],
         ];
 
         foreach (Company::pluck('id', null) as $companyId) {
@@ -127,23 +127,23 @@ class BloodLeagueScorer
             $raw = $score['raw'];
 
             // The Flood — taux de participation
-            $winners['The Flood'] = $this->challenge($winners['The Flood'], $companyId, $raw['taux_participation']);
+            $winners['flood'] = $this->challenge($winners['flood'], $companyId, $raw['taux_participation']);
 
             // The Pulse — supporters
-            $winners['The Pulse'] = $this->challenge($winners['The Pulse'], $companyId, $raw['taux_supporters']);
+            $winners['pulse'] = $this->challenge($winners['pulse'], $companyId, $raw['taux_supporters']);
 
             // The Climber — progression du score total vs saison précédente
             if ($previousSeasonId !== null) {
                 $previousTotal = $this->computeScore($companyId, $previousSeasonId)['total'];
                 if ($previousTotal > 0) {
                     $progression = (($score['total'] - $previousTotal) / $previousTotal) * 100;
-                    $this->challenge($winners['The Climber'], $companyId, $progression);
+                    $this->challenge($winners['climber'], $companyId, $progression);
                 }
             }
 
             // The New Vein — meilleur taux d'efficacité parmi les nouvelles entreprises
             if ($this->isNewcomer($companyId, $seasonId)) {
-                $this->challenge($winners['The New Vein'], $companyId, $score['total']);
+                $this->challenge($winners['new_vein'], $companyId, $score['total']);
             }
         }
 

@@ -25,11 +25,13 @@ const props = defineProps({
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
     <div class="flex min-h-screen flex-col font-cooper text-brand-sage-950">
-        <header class="bg-brand-sage-300 flex py-4 px-6 justify-between items-center">
+        <header class="bg-brand-sage-300 flex py-4 px-6 justify-between items-center sticky top-0">
+        <!-- <header class="bg-brand-white flex py-4 px-6 justify-between items-center sticky top-0"> -->
             <Link href="/" class="flex gap-3 items-center">
                 <img src="../../assets/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-11 lg:h-12">
                 <span class="hidden lg:inline">✕</span>
                 <img src="../../assets/logo_hug_h_gris.png" alt="Logo HUG" class="h-11 hidden lg:inline">
+                <!-- <img src="../../assets/logo_hug_h_quadri.png" alt="Logo HUG" class="h-11 hidden lg:inline"> -->
             </Link>
 
             <div class="lg:hidden">

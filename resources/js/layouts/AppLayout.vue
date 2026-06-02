@@ -24,8 +24,8 @@ const props = defineProps({
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
-    <div class="flex min-h-screen flex-col font-cooper text-brand-sage-950">
-        <header class="bg-brand-sage-300 flex py-4 px-6 justify-between items-center sticky top-0">
+    <div class="flex min-h-screen flex-col font-cooper text-black">
+        <header class="bg-brand-sage-300 text-brand-sage-950 flex py-4 px-6 justify-between items-center sticky top-0">
         <!-- <header class="bg-brand-white flex py-4 px-6 justify-between items-center sticky top-0"> -->
             <Link href="/" class="flex gap-3 items-center">
                 <img src="../../assets/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-11 lg:h-12">

@@ -3,13 +3,18 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CollectController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DisplayController;
 use Illuminate\Support\Facades\Route;
 
-Route::inertia('/', 'Welcome')->name('home');
+// Route::inertia('/', 'Welcome')->name('home');
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('/auth/login', 'showLogin')->name('login');
     Route::post('/auth/login', 'login');
+});
+
+Route::controller(DisplayController::class)->group(function () {
+    Route::get('/', 'displayHome')->name('home');
 });
 
 Route::middleware('auth')->group(function () {

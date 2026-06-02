@@ -25,9 +25,9 @@ const props = defineProps({
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
     <div class="flex min-h-screen flex-col font-cooper text-brand-sage-950">
-        <header class="bg-brand-sage-300 flex p-3 justify-between items-center">
+        <header class="bg-brand-sage-300 flex py-4 px-6 justify-between items-center">
             <Link href="/" class="flex gap-3 items-center">
-                <img src="../../assets/BloodLeague_logo_noir.png" alt="Logo Blood League" class="h-11 lg:h-12">
+                <img src="../../assets/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-11 lg:h-12">
                 <span class="hidden lg:inline">✕</span>
                 <img src="../../assets/logo_hug_h_gris.png" alt="Logo HUG" class="h-11 hidden lg:inline">
             </Link>
@@ -54,7 +54,7 @@ const props = defineProps({
                                 </nav>
                             </div>
                             <SheetFooter class="flex justify-start p-0">
-                                <img src="../../assets/BloodLeague_logo_noir.png" alt="Logo Blood League" class="h-11 self-start">
+                                <img src="../../assets/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-11 self-start">
                                 <img src="../../assets/logo_hug_h_gris.png" alt="Logo HUG" class="h-11 self-start">
                             </SheetFooter>
                         </SheetContent>

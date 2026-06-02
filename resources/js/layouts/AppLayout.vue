@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
+import { Menu } from 'lucide-vue-next';
 import MenuButton from '@/components/MenuButton.vue';
+import {
+    Sheet,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+ } from '@/components/ui/sheet';
+import SheetFooter from '@/components/ui/sheet/SheetFooter.vue';
 
 const props = defineProps({
     title : {type: String, default: 'HUG Blood League'},
@@ -16,34 +25,48 @@ const props = defineProps({
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
-    <div class="flex min-h-screen flex-col font-cooper">
+    <div class="flex min-h-screen flex-col font-cooper text-brand-sage-950">
         <header class="bg-brand-sage-300 flex p-3 justify-between items-center">
-            <Link href="/" class="flex gap-3 items-center text-white">
-                <img src="../../assets/BloodLeague_logo_blanc_filled.png" alt="Logo Blood League" class="h-10 lg:h-12">
+            <Link href="/" class="flex gap-3 items-center">
+                <img src="../../assets/BloodLeague_logo_noir.png" alt="Logo Blood League" class="h-11 lg:h-12">
                 <span class="hidden lg:inline">✕</span>
-                <img src="../../assets/LOG HUG_H_NEGATIF fond transparent.png" alt="Logo HUG" class="h-10 hidden lg:inline">
+                <img src="../../assets/logo_hug_h_gris.png" alt="Logo HUG" class="h-11 hidden lg:inline">
             </Link>
-            <!-- <NavigationMenu>
-                <NavigationMenuList>
-                    <NavigationMenuItem>
-                        <NavigationMenuLink as-child :class="navigationMenuTriggerStyle()">
-                            <a href="/leaderboard">LeaderBoard</a>
-                        </NavigationMenuLink>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                        <NavigationMenuTrigger>En savoir plus</NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                            <a href="/blood-league" :class="navigationMenuTriggerStyle()" class="bg-transparent">Qu'est-ce que la Blood League ?</a>
-                            <a href="/don-du-sang" :class="navigationMenuTriggerStyle()" class="bg-transparent">Pourquoi donner ?</a>
-                        </NavigationMenuContent>
-                    </NavigationMenuItem>
-                </NavigationMenuList>
-            </NavigationMenu> -->
+
+            <div class="lg:hidden">
+                    <Sheet>
+                        <SheetTrigger :as-child="true">
+                            <button class="h-11 w-11">
+                                <Menu class="mx-auto h-6 w-6 fill-current" />
+                            </Button>
+                        </SheetTrigger>
+                        <SheetContent side="left" class="w-[300px] h-screen p-6">
+                            <SheetTitle class="sr-only"
+                                >NMenu de navigation</SheetTitle
+                            >
+                            <div
+                                class="flex h-full flex-1 flex-col justify-between space-y-4 py-6"
+                            >
+                                <nav class="-mx-3 space-y-1 font-cooper">
+                                    <MenuButton href="/leaderboard" display="mobile" selected>Leaderboard</MenuButton>
+                                    <MenuButton href="/blood-league" display="mobile">La Blood League</MenuButton>
+                                    <MenuButton href="/don-du-sang" display="mobile">Pourquoi donner ?</MenuButton>
+                                    <MenuButton href="/contact" display="mobile" type="highlight-pink">Organiser une collecte</MenuButton>
+                                </nav>
+                            </div>
+                            <SheetFooter class="flex justify-start p-0">
+                                <img src="../../assets/BloodLeague_logo_noir.png" alt="Logo Blood League" class="h-11 self-start">
+                                <img src="../../assets/logo_hug_h_gris.png" alt="Logo HUG" class="h-11 self-start">
+                            </SheetFooter>
+                        </SheetContent>
+                    </Sheet>
+                </div>
+
             <div class="hidden lg:flex gap-2">
-                <MenuButton href="/leaderboard" selected>Leaderboard</MenuButton>
-                <MenuButton href="/blood-league">La Blood League</MenuButton>
-                <MenuButton href="/don-du-sang">Pourquoi donner ?</MenuButton>
-                <MenuButton href="/contact" type="highlight-pink">Organiser une collecte</MenuButton>
+                <MenuButton href="/leaderboard" display="desktop" selected>Leaderboard</MenuButton>
+                <MenuButton href="/blood-league" display="desktop">La Blood League</MenuButton>
+                <MenuButton href="/don-du-sang" display="desktop">Pourquoi donner ?</MenuButton>
+                <MenuButton href="/contact" display="desktop" type="highlight-pink">Organiser une collecte</MenuButton>
             </div>
         </header>
         <slot />

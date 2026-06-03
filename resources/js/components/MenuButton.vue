@@ -19,7 +19,6 @@ const { isCurrentUrl } = useCurrentUrl();
             'text-brand-sage-950 hover:bg-white/60 active:bg-white/80' : props.type==='normal',
             'text-white font-semibold bg-brand-rose-400 hover:bg-brand-rose-500/100 active:bg-brand-rose-600/100' : props.type==='highlight-pink',}">
         <slot />
-        <!-- <hr v-if="props.selected" class="border-2 mx-1 rounded-full"> -->
     </Link>
     <Link v-if="props.display==='mobile'" :href="props.href"
         class="w-full flex justify-start items-center h-11 rounded px-3"

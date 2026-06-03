@@ -26,7 +26,7 @@ const props = defineProps({
     </Head>
     <div class="flex min-h-screen flex-col font-cooper text-black">
         <header class="bg-brand-sage-300 text-brand-sage-950 flex py-4 px-6 justify-between items-center sticky top-0 z-10">
-        <!-- <header class="bg-brand-white flex py-4 px-6 justify-between items-center sticky top-0 z-10"> -->
+        <!-- <header class="bg-white flex py-4 px-6 justify-between items-center sticky top-0 z-10"> -->
             <Link href="/" class="flex gap-3 items-center">
                 <img src="../../assets/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-11 lg:h-12">
                 <span class="hidden lg:inline">✕</span>
@@ -50,7 +50,7 @@ const props = defineProps({
                             >
                                 <nav class="-mx-3 space-y-1 font-cooper">
                                     <MenuButton href="/leaderboard" display="mobile" selected>Leaderboard</MenuButton>
-                                    <MenuButton href="/blood-league" display="mobile">La Blood League</MenuButton>
+                                    <MenuButton href="/blood-league" display="mobile">Blood League</MenuButton>
                                     <MenuButton href="/don-du-sang" display="mobile">Pourquoi donner ?</MenuButton>
                                     <MenuButton href="/contact" display="mobile" type="highlight-pink">Organiser une collecte</MenuButton>
                                 </nav>
@@ -65,7 +65,7 @@ const props = defineProps({
 
             <div class="hidden lg:flex lg:gap-2">
                 <MenuButton href="/leaderboard" display="desktop" selected>Leaderboard</MenuButton>
-                <MenuButton href="/blood-league" display="desktop">La Blood League</MenuButton>
+                <MenuButton href="/blood-league" display="desktop">Blood League</MenuButton>
                 <MenuButton href="/don-du-sang" display="desktop">Pourquoi donner ?</MenuButton>
                 <MenuButton href="/contact" display="desktop" type="highlight-pink">Organiser une collecte</MenuButton>
             </div>

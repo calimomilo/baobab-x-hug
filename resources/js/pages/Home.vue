@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
+import LogoLoop from '@/components/bits/LogoLoop.vue';
+import type { LogoItemImage } from '@/components/bits/LogoLoop.vue';
 import Card from '@/components/Card.vue';
+import CompanyCard from '@/components/CompanyCard.vue';
 import Button from '@/components/ui/button/Button.vue';
 import {
     Carousel,
@@ -9,12 +12,33 @@ import {
 } from '@/components/ui/carousel';
 import AppLayout from '@/layouts/AppLayout.vue';
 
+type company = {
+    id: number,
+    company_name: string,
+    logo_url: string,
+    label: {
+        name: string,
+        slug: string,
+    }
+}
+const props = defineProps({
+    companies: Array<company>
+})
+
+const companiesList = <Array<LogoItemImage>>[];
+
+props.companies?.forEach(company => {
+    companiesList.push({ src: `${company.logo_url}`, alt: `${company.company_name}`, href: "" })
+})
+
 // const isLg = window.innerWidth >= 1024;
 </script>
 
 <template>
+        <!-- FIRST SCREEN : HERO -->
+
     <AppLayout title="Accueil" desc="Bienvenue sur le site de la Blood League par les HUG" active="home">
-        <section id="hero" class="relative h-[calc(100vh-76px)] flex flex-col justify-center items-center gap-20 md:gap-6">
+        <section id="hero" class="relative min-h-[calc(100vh-76px)] flex flex-col justify-center items-center gap-20 md:gap-6">
             <h1 class="flex flex-col text-center text-2xl font-bold gap-2 items-center -mt-[10vh] md:text-4xl md:gap-3 lg:text-[64px] lg:gap-6">
                 <span class="-rotate-6 -translate-x-[calc(10vw)] md:-translate-x-[calc(20vw-100px)] lg:-translate-x-[calc(20vw-150px)]">Mobilisez votre équipe.</span>
                 <span class="rotate-4 translate-x-[calc(10vw+15px)] lg:translate-x-[calc(25vw-80px)] lg:translate-y-2">Sauvez des vies.</span>
@@ -28,7 +52,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 
         <!-- SECOND SCREEN : INFOS BLOOD LEAGUE -->
 
-        <section id="blood-league" class="relative min-h-[calc(100vh-76px)] flex flex-col justify-start items-start pt-10 bg-brand-rose-300 lg:px-40">
+        <section id="blood-league" class="relative min-h-[calc(100vh-76px)] flex flex-col justify-start items-start pt-16 bg-brand-rose-300 lg:px-40">
             <div class="flex flex-col px-4 text-white gap-4 lg:flex-row">
                 <h2 class="text-[38px]/[130%] font-semibold lg:w-[40vw] lg:shrink">La Blood League, c'est quoi ?</h2>
                 <div class="lg:shrink-2">
@@ -39,7 +63,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
                 </div>
             </div>
             
-            <Carousel class="w-full pt-8 pb-10 my-auto" :opts="{
+            <Carousel class="w-full pt-8 pb-10 my-auto lg:w-auto" :opts="{
                 loop: true,
                 // draggable: isLg
                 }">
@@ -61,6 +85,39 @@ import AppLayout from '@/layouts/AppLayout.vue';
                     </CarouselItem>
                 </CarouselContent>
             </Carousel>
+        </section>
+        
+        <!-- THIRD SCREEN : ENTREPRISES LABELLISEES -->
+
+        <section id="companies" class="bg-brand-teal-500 pt-16 pb-8 flex flex-col items-center text-white">
+            <h2 class="text-[38px]/[130%] font-semibold px-4 mb-4 lg:w-[40vw] lg:shrink">Les entreprises labellisées</h2>
+            <Link href="/leaderboard">
+                <Button class="bg-white hover:bg-brand-neutral-100 active:bg-brand-neutral-200 text-brand-teal-500 font-semibold">Voir le leaderboard</Button>
+            </Link>
+            <div class="w-full flex flex-col min-h-60 justify-center overflow-hidden">
+                <LogoLoop
+                    :logos="companiesList"
+                    :speed="60"
+                    direction="left"
+                    :logoHeight="48"
+                    :gap="60"
+                    :pauseOnHover="true"
+                    :scaleOnHover="true"
+                    :fadeOut="true"
+                    fadeOutColor="#00B8B1"
+                    ariaLabel="Entreprises labellisées"
+                    />
+                </div>
+            <!-- <Carousel class="w-full pt-8 pb-10 my-auto" :opts="{
+                loop: true,
+                // draggable: isLg
+                }">
+                <CarouselContent class="">
+                    <CarouselItem v-for="company in props.companies" :key="company.id" class="basis-[328px] pb-6 pr-2">
+                        <CompanyCard :company="company"></CompanyCard>
+                    </CarouselItem>
+                </CarouselContent>
+            </Carousel> -->
         </section>
     </AppLayout>
 </template>

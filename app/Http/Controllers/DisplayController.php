@@ -24,8 +24,8 @@ class DisplayController extends Controller
             ];
         });
 
-        echo $companies;
+        $base = $companies->select(['company_name', 'logo_url', 'label']);
 
-        return Inertia::render('Home', ['companies' => $companies]);
+        return Inertia::render('Home', ['companies' => $base]);
     }
 }

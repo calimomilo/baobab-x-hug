@@ -2,10 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Company;
-use App\Models\Season;
+use App\Enums\Label;
 use Illuminate\Support\Facades\DB;
-
 
 class BloodLeagueScorer
 {
@@ -62,8 +60,7 @@ class BloodLeagueScorer
         ];
     }
 
-
-    public function computeLabel(int $companyId, int $seasonId): ?string
+    public function computeLabel(int $companyId, int $seasonId): ?Label
     {
         $myScore = $this->computeScore($companyId, $seasonId)['total'];
 
@@ -85,9 +82,14 @@ class BloodLeagueScorer
         $rank = array_search($myScore, $scores);
         $percentile = ($rank / count($scores)) * 100;
 
-        if ($percentile <= 15) return 'Blood Legend';
-        if ($percentile <= 50) return 'Blood Gold';
-        return 'Blood';
+        if ($percentile <= 15) {
+            return Label::LEGEND;
+        }
+        if ($percentile <= 50) {
+            return Label::GOLD;
+        }
+
+        return Label::CLASSIC;
     }
 
     // ============== Sous-scores ==============
@@ -97,7 +99,9 @@ class BloodLeagueScorer
      */
     private function scoreEfficacite(int $appointments, int $donations): int
     {
-        if ($appointments === 0) return 0;
+        if ($appointments === 0) {
+            return 0;
+        }
         $taux = ($donations / $appointments) * 100;
 
         return match (true) {
@@ -130,7 +134,9 @@ class BloodLeagueScorer
      */
     private function scoreDonneurs(int $employees, int $donations): int
     {
-        if ($employees === 0) return 0;
+        if ($employees === 0) {
+            return 0;
+        }
         $taux = ($donations / $employees) * 100;
 
         return match (true) {
@@ -149,7 +155,9 @@ class BloodLeagueScorer
      */
     private function scoreSupporters(int $employees, int $supporters): int
     {
-        if ($employees === 0) return 0;
+        if ($employees === 0) {
+            return 0;
+        }
         $taux = ($supporters / $employees) * 100;
 
         return match (true) {

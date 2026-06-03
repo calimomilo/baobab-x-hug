@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\Season;
+use App\Services\BloodLeagueScorer;
 use Inertia\Inertia;
 
 class DisplayController extends Controller
@@ -14,8 +15,17 @@ class DisplayController extends Controller
     public function displayHome()
     {
         // $season = Season::where('')
-        $entreprises = Company::all();
+        $companies = Company::all();
+        $companies->map(function ($company) {
+            $label = app(BloodLeagueScorer::class)->computeLabel($company->id, 2);
+            $company->label = [
+                'name' => $label->name(),
+                'slug' => $label,
+            ];
+        });
 
-        return Inertia::render('Home');
+        echo $companies;
+
+        return Inertia::render('Home', ['companies' => $companies]);
     }
 }

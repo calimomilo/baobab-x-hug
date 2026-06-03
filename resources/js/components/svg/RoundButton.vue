@@ -1,16 +1,37 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 
-const props = defineProps({
-    id : {type: String, default: 'id'},
-    src : {type: String, default: null},
-    alt : {type: String, default: ''},
-    background : {type: String, default: '#000000'}
-})
+interface CircularTextProps {
+  text: string;
+  className?: string;
+}
 
-const svg = document.querySelector(`#${props.id}`);
-svg?.setAttribute('fill', props.background);
+const props = withDefaults(defineProps<CircularTextProps>(), {
+  className: ''
+});
+
+const letters = computed(() => Array.from(props.text));
+
+const getLetterTransform = (index: number) => {
+  const rotationDeg = (360 / letters.value.length) * index;
+  const factor = Math.PI / letters.value.length;
+  const x = factor * index;
+  const y = factor * index;
+
+  return `rotateZ(${rotationDeg}deg) translate3d(${x}px, ${y}px, 0)`;
+};
 </script>
 
 <template>
-    <img v-if="props.src" :id="props.id" :src="props.src" :alt="props.alt">
+    <span
+      v-for="(letter, i) in letters"
+      :key="i"
+      class="inline-block absolute inset-0 text-2xl transition-all duration-500 ease-[cubic-bezier(0,0,0,1)]"
+      :style="{
+        transform: getLetterTransform(i),
+        WebkitTransform: getLetterTransform(i)
+      }"
+    >
+      {{ letter }}
+    </span>
 </template>

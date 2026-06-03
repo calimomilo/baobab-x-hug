@@ -3,7 +3,6 @@ import { Link } from '@inertiajs/vue3';
 import LogoLoop from '@/components/bits/LogoLoop.vue';
 import type { LogoItemImage } from '@/components/bits/LogoLoop.vue';
 import Card from '@/components/Card.vue';
-import CompanyCard from '@/components/CompanyCard.vue';
 import Button from '@/components/ui/button/Button.vue';
 import {
     Carousel,
@@ -56,14 +55,14 @@ props.companies?.forEach(company => {
             <div class="flex flex-col px-4 text-white gap-4 lg:flex-row">
                 <h2 class="text-[38px]/[130%] font-semibold lg:w-[40vw] lg:shrink">La Blood League, c'est quoi ?</h2>
                 <div class="lg:shrink-2">
-                    <p class="font-medium mb-4">CE TEXTE VA ENCORE CHANGER Rejoindre Blood League c'est simple. Vous prenez contact avec le CTS, on crée votre page co-brandée aux couleurs de votre entreprise, et vous recevez un kit de communication clé en main pour mobiliser vos employés. Aucun visuel à créer, aucune logistique à gérer seul.</p>
+                    <p class="font-medium mb-4">La Blood League, c'est à la fois un championnat entre entreprises, un label RSE reconnu et une cérémonie annuelle de remise de prix. En organisant une collecte de sang pour vos employés, vous entrez dans la ligue, accumulez des points et concourez pour des médailles tout en contribuant concrètement à la santé publique genevoise.</p>
                     <Link href="/blood-league">
                         <Button class="bg-brand-teal-500 hover:bg-brand-teal-600 active:bg-brand-teal-700 font-semibold">En savoir plus</Button>
                     </Link>
                 </div>
             </div>
             
-            <Carousel class="w-full pt-8 pb-10 my-auto lg:w-auto" :opts="{
+            <Carousel class="w-full pt-8 pb-10 my-auto lg:w-auto lg:mx-auto" :opts="{
                 loop: true,
                 // draggable: isLg
                 }">
@@ -75,12 +74,12 @@ props.companies?.forEach(company => {
                     </CarouselItem>
                     <CarouselItem class="basis-[328px]">
                         <Card title="The Blood League Label" badge="Label RSE" color="teal">
-                            Chaque entreprise engagée reparte avec une reconnaissance concrète. En fin de saison, toutes les entreprises participantes reçoivent un label officiel à afficher sur leur site, dans leur rapport RSE ou sur LinkedIn.
+                            Chaque entreprise engagée repart avec une reconnaissance concrète. En fin de saison, toutes les entreprises participantes reçoivent un label officiel à afficher sur leur site, dans leur rapport RSE ou sur LinkedIn.
                         </Card>
                     </CarouselItem>
                     <CarouselItem class="basis-[328px]">
                         <Card title="The Blood League Awards" badge="Cérémonie" color="sage">
-                            Une ligue de don du sang en entreprise. Les entreprises organisent des collectes pour leurs employés et accumulent des points tout au long de l'année selon leur efficacité et leur mobilisation. Plus une entreprise prépare bien ses employés en amont, plus son score est élevé.
+                            Chaque saison, les meilleures entreprises de la Blood League sont récompensées. Lors de la cérémonie annuelle des Blood League Awards, cinq médailles sont décernées pour saluer la progression, la participation, la fidélité et le renouveau célébrant toutes les formes d'excellence, quelle que soit la taille de l'entreprise.
                         </Card>
                     </CarouselItem>
                 </CarouselContent>
@@ -90,7 +89,7 @@ props.companies?.forEach(company => {
         <!-- THIRD SCREEN : ENTREPRISES LABELLISEES -->
 
         <section id="companies" class="bg-brand-teal-500 pt-16 pb-8 flex flex-col items-center text-white">
-            <h2 class="text-[38px]/[130%] font-semibold px-4 mb-4 lg:w-[40vw] lg:shrink">Les entreprises labellisées</h2>
+            <h2 class="text-[38px]/[130%] font-semibold px-4 mb-4 lg:textcenter">Les entreprises labellisées</h2>
             <Link href="/leaderboard">
                 <Button class="bg-white hover:bg-brand-neutral-100 active:bg-brand-neutral-200 text-brand-teal-500 font-semibold">Voir le leaderboard</Button>
             </Link>
@@ -118,6 +117,30 @@ props.companies?.forEach(company => {
                     </CarouselItem>
                 </CarouselContent>
             </Carousel> -->
+        </section>
+
+        <!-- FOURTH SCREEN : CONTACT -->
+
+        <section id="contact" class="relative min-h-[calc(100vh-76px)] flex flex-col justify-start items-center pt-16 bg-brand-rose-400 lg:px-40 text-white">
+            <h2 class="text-[38px]/[130%] font-semibold px-4 mb-4 lg:w-[40vw] lg:hidden">Organiser une collecte</h2>
+            <img src="../../assets/cts-appel-don-du-sang.jpg" alt="" class="w-9/10 h-[50vh] rounded-lg object-cover lg:h-[70vh]">
+            <Link href="/contact" class="absolute bottom-[10%] lg:bottom-[40%] lg:right-[8%]">
+                <img src="../../assets/round_button_lance.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="w-40 h-40 rotate-3 lg:w-50 lg:h-50 hover:scale-110 hover:rotate-30 transition duration-150 ease-in-out"> <!-- figure out how to make pink -->
+            </Link>
+            <div class="hidden lg:block absolute px-4 py-2 bottom-[8%] w-[60vw] text-center bg-brand-rose-400 rounded-lg">
+                <h2 class="text-[38px]/[130%] font-semibold px-4 mb-4">Organiser une collecte</h2>
+                <p class="text-center font-medium uppercase tracking-[8%]">Vous avez un espace disponible et des employés motivés ? Le CTS s'occupe du reste. Matériel, personnel médical, créneaux, tout est pris en charge. Vous diffusez le lien, vos employés s'inscrivent.</p>
+            </div>
+        </section>
+
+        <!-- FIFTH SCREEN : INFOS DON -->
+
+        <section id="don" class="bg-brand-sage-500 py-16 flex flex-col items-center text-white gap-8 lg:px-60">
+            <h2 class="text-[38px]/[130%] font-semibold px-4 ">Pourquoi donner ?</h2>
+            <p class="text-center font-medium uppercase tracking-[8%] mx-12">Vous vous demandez quel est l'impact réel du don du sang, ou quelles sont les conditions pour pouvoir donner ? Découvrez plus d'informations sur le don du sang.</p>
+            <Link href="/don-du-sang">
+                <Button class="bg-white hover:bg-brand-neutral-100 active:bg-brand-neutral-200 text-brand-sage-500 font-semibold">En savoir plus</Button>
+            </Link>
         </section>
     </AppLayout>
 </template>

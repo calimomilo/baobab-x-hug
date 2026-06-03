@@ -84,7 +84,7 @@ class CompanyController extends Controller
      */
     public function edit(string $slug)
     {
-        $company = Company::where('slug', $slug)->first();
+        $company = Company::where('slug', '=', $slug, true)->first();
 
         if (! $company) {
             return response()->json(['message' => 'Company not found.'], 404);
@@ -111,7 +111,7 @@ class CompanyController extends Controller
             'anonymous' => 'required|boolean',
         ]);
 
-        $company = Company::where('slug', $slug)->first();
+        $company = Company::where('slug', '=', $slug, true)->first();
 
         if (! $company) {
             return response()->json(['message' => 'Company not found.'], 404);
@@ -138,7 +138,7 @@ class CompanyController extends Controller
      */
     public function destroy(string $slug)
     {
-        $company = Company::where('slug', $slug)->first();
+        $company = Company::where('slug', '=', $slug, true)->first();
 
         if (! $company) {
             return response()->json(['message' => 'Company not found.'], 404);

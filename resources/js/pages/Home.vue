@@ -28,24 +28,24 @@ import AppLayout from '@/layouts/AppLayout.vue';
                 <h2 class="text-[38px]/[130%] font-semibold">La Blood League, c'est quoi ?</h2>
                 <p class="font-medium">CE TEXTE VA ENCORE CHANGER Rejoindre Blood League c'est simple. Vous prenez contact avec le CTS, on crée votre page co-brandée aux couleurs de votre entreprise, et vous recevez un kit de communication clé en main pour mobiliser vos employés. Aucun visuel à créer, aucune logistique à gérer seul.</p>
                 <Link href="/blood-league">
-                    <Button></Button>
+                    <Button class="bg-brand-teal-500 hover:bg-brand-teal-600 active:bg-brand-teal-700">En savoir plus</Button>
                 </Link>
             </div>
             
             <Carousel class="w-full pt-8 pb-10 my-auto" :opts="{loop: true}">
                 <CarouselContent class="">
                     <CarouselItem class="basis-[328px]">
-                        <Card title="The Blood League" badge="Championnat" background="white" color="rose">
+                        <Card title="The Blood League" badge="Championnat" color="rose">
                             Une ligue de don du sang en entreprise. Les entreprises organisent des collectes pour leurs employés et accumulent des points tout au long de l'année selon leur efficacité et leur mobilisation. Plus une entreprise prépare bien ses employés en amont, plus son score est élevé.
                         </Card>
                     </CarouselItem>
                     <CarouselItem class="basis-[328px]">
-                        <Card title="The Blood League Label" badge="Label RSE" background="white" color="teal">
+                        <Card title="The Blood League Label" badge="Label RSE" color="teal">
                             Chaque entreprise engagée reparte avec une reconnaissance concrète. En fin de saison, toutes les entreprises participantes reçoivent un label officiel à afficher sur leur site, dans leur rapport RSE ou sur LinkedIn.
                         </Card>
                     </CarouselItem>
                     <CarouselItem class="basis-[328px]">
-                        <Card title="The Blood League Awards" badge="Cérémonie" background="white" color="sage">
+                        <Card title="The Blood League Awards" badge="Cérémonie" color="sage">
                             Une ligue de don du sang en entreprise. Les entreprises organisent des collectes pour leurs employés et accumulent des points tout au long de l'année selon leur efficacité et leur mobilisation. Plus une entreprise prépare bien ses employés en amont, plus son score est élevé.
                         </Card>
                     </CarouselItem>

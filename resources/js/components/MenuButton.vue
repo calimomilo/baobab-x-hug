@@ -4,7 +4,6 @@ import { useCurrentUrl } from '@/composables/useCurrentUrl';
 
 const props = defineProps({
     href : {type: String, default: ''},
-    selected : {type: Boolean, default: false},
     type : {type: String, default: 'normal'},
     display : {type: String, default: 'desktop'}
 })

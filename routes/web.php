@@ -17,7 +17,7 @@ Route::controller(AuthController::class)->group(function () {
 Route::controller(DisplayController::class)->group(function () {
     Route::get('/', 'displayHome')->name('home');
     Route::get('/leaderboard', 'displayHome')->name('leaderboard');
-    Route::get('/blood-league', 'displayHome')->name('blood-league');
+    Route::get('/blood-league', 'displayBloodLeague')->name('blood-league');
     Route::get('/don-du-sang', 'displayHome')->name('don-du-sang');
 });
 

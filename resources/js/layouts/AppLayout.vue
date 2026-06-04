@@ -37,7 +37,7 @@ const props = defineProps({
             <div class="lg:hidden">
                     <Sheet>
                         <SheetTrigger :as-child="true">
-                            <button class="h-11 w-11">
+                            <Button class="h-11 w-11">
                                 <Menu class="mx-auto h-6 w-6 fill-current" />
                             </Button>
                         </SheetTrigger>

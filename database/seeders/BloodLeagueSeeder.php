@@ -53,9 +53,9 @@ class BloodLeagueSeeder extends Seeder
     {
         $now = Carbon::now();
         DB::table('seasons')->insert([
-            ['id' => 1, 'year_of' => 2024, 'closed' => 1, 'created_at' => $now, 'updated_at' => $now],
-            ['id' => 2, 'year_of' => 2025, 'closed' => 1, 'created_at' => $now, 'updated_at' => $now],
-            ['id' => 3, 'year_of' => 2026, 'closed' => 0, 'created_at' => $now, 'updated_at' => $now],
+            ['id' => 1, 'year_of' => 2024, 'status' => 'closed', 'created_at' => $now, 'updated_at' => $now],
+            ['id' => 2, 'year_of' => 2025, 'status' => 'closed', 'created_at' => $now, 'updated_at' => $now],
+            ['id' => 3, 'year_of' => 2026, 'status' => 'open', 'created_at' => $now, 'updated_at' => $now],
         ]);
 
         $this->command->info('  → 3 saisons créées');

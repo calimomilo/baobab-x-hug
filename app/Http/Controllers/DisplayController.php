@@ -14,8 +14,8 @@ class DisplayController extends Controller
      */
     public function displayHome()
     {
-        // $season = Season::where('')
-        $companies = Company::all();
+        $collectIds = Season::where('status', 'open')->with('collects')->first()->collects->pluck('company_id');
+        $companies = Company::whereIn('id', $collectIds)->get();
         $companies->map(function ($company) {
             $label = app(BloodLeagueScorer::class)->computeLabel($company->id, 2);
             $company->label = [

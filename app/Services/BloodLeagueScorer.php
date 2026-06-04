@@ -15,7 +15,7 @@ class BloodLeagueScorer
      */
     public function computeScore(int $companyId, int $seasonId): array
     {
-        $collects = Collect::where('company_id', '=', $companyId, true)
+        $collects = Collect::where('company_id', $companyId)
             ->where('season_id', $seasonId)
             ->where('completed', '=', 1) // ne compter que les collectes terminées
             ->with('data')

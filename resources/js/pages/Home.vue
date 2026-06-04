@@ -57,7 +57,7 @@ props.companies?.forEach(company => {
                 <div class="lg:shrink-2">
                     <p class="font-medium mb-4">La Blood League, c'est à la fois un championnat entre entreprises, un label RSE reconnu et une cérémonie annuelle de remise de prix. En organisant une collecte de sang pour vos employés, vous entrez dans la ligue, accumulez des points et concourez pour des médailles tout en contribuant concrètement à la santé publique genevoise.</p>
                     <Link href="/blood-league">
-                        <Button class="bg-brand-teal-500 hover:bg-brand-teal-600 active:bg-brand-teal-700 font-semibold">En savoir plus</Button>
+                        <Button class="bg-white hover:bg-brand-neutral-100 active:bg-brand-neutral-200 text-brand-rose-300 font-semibold">En savoir plus</Button>
                     </Link>
                 </div>
             </div>
@@ -68,19 +68,25 @@ props.companies?.forEach(company => {
                 }">
                 <CarouselContent class="">
                     <CarouselItem class="basis-[328px]">
-                        <Card title="The Blood League" badge="Championnat" color="rose">
-                            Une ligue de don du sang en entreprise. Les entreprises organisent des collectes pour leurs employés et accumulent des points tout au long de l'année selon leur efficacité et leur mobilisation. Plus une entreprise prépare bien ses employés en amont, plus son score est élevé.
-                        </Card>
+                        <Link href="/blood-league">
+                            <Card title="The Blood League" badge="Championnat" color="rose">
+                                Une ligue de don du sang en entreprise. Les entreprises organisent des collectes pour leurs employés et accumulent des points tout au long de l'année selon leur efficacité et leur mobilisation. Plus une entreprise prépare bien ses employés en amont, plus son score est élevé.
+                            </Card>
+                        </Link>
                     </CarouselItem>
                     <CarouselItem class="basis-[328px]">
-                        <Card title="The Blood League Label" badge="Label RSE" color="teal">
-                            Chaque entreprise engagée repart avec une reconnaissance concrète. En fin de saison, toutes les entreprises participantes reçoivent un label officiel à afficher sur leur site, dans leur rapport RSE ou sur LinkedIn.
-                        </Card>
+                        <Link href="/blood-league">
+                            <Card title="The Blood League Label" badge="Label RSE" color="teal">
+                                Chaque entreprise engagée repart avec une reconnaissance concrète. En fin de saison, toutes les entreprises participantes reçoivent un label officiel à afficher sur leur site, dans leur rapport RSE ou sur LinkedIn.
+                            </Card>
+                        </Link>
                     </CarouselItem>
                     <CarouselItem class="basis-[328px]">
-                        <Card title="The Blood League Awards" badge="Cérémonie" color="sage">
-                            Chaque saison, les meilleures entreprises de la Blood League sont récompensées. Lors de la cérémonie annuelle des Blood League Awards, cinq médailles sont décernées pour saluer la progression, la participation, la fidélité et le renouveau célébrant toutes les formes d'excellence, quelle que soit la taille de l'entreprise.
-                        </Card>
+                        <Link href="/blood-league#awards">
+                            <Card title="The Blood League Awards" badge="Cérémonie" color="sage">
+                                Chaque saison, les meilleures entreprises de la Blood League sont récompensées. Lors de la cérémonie annuelle des Blood League Awards, cinq médailles sont décernées pour saluer la progression, la participation, la fidélité et le renouveau célébrant toutes les formes d'excellence, quelle que soit la taille de l'entreprise.
+                            </Card>
+                        </Link>
                     </CarouselItem>
                 </CarouselContent>
             </Carousel>
@@ -135,7 +141,7 @@ props.companies?.forEach(company => {
 
         <!-- FIFTH SCREEN : INFOS DON -->
 
-        <section id="don" class="bg-brand-sage-500 py-16 flex flex-col items-center text-white gap-8 lg:px-60">
+        <section id="don" class="bg-brand-sage-400 py-16 flex flex-col items-center gap-8 lg:px-60">
             <h2 class="text-[38px]/[130%] font-semibold px-4 ">Pourquoi donner ?</h2>
             <p class="text-center font-medium uppercase tracking-[8%] mx-12">Vous vous demandez quel est l'impact réel du don du sang, ou quelles sont les conditions pour pouvoir donner ? Découvrez plus d'informations sur le don du sang.</p>
             <Link href="/don-du-sang">

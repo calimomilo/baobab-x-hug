@@ -7,9 +7,170 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* FONTS */
+@font-face {
+    font-family: 'Cooper Hewitt';
+    src: local('CooperHewitt-Bold'),
+        url('../fonts/CooperHewitt-Bold.woff2') format('woff2'),
+        url('../fonts/CooperHewitt-Bold.woff') format('woff'),
+        url('../fonts/CooperHewitt-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cooper Hewitt';
+    src: local('CooperHewitt-BoldItalic'),
+        url('../fonts/CooperHewitt-BoldItalic.woff2') format('woff2'),
+        url('../fonts/CooperHewitt-BoldItalic.woff') format('woff'),
+        url('../fonts/CooperHewitt-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cooper Hewitt';
+    src: local('CooperHewitt-Book'),
+        url('../fonts/CooperHewitt-Book.woff2') format('woff2'),
+        url('../fonts/CooperHewitt-Book.woff') format('woff'),
+        url('../fonts/CooperHewitt-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cooper Hewitt';
+    src: local('CooperHewitt-BookItalic'),
+        url('../fonts/CooperHewitt-BookItalic.woff2') format('woff2'),
+        url('../fonts/CooperHewitt-BookItalic.woff') format('woff'),
+        url('../fonts/CooperHewitt-BookItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cooper Hewitt';
+    src: local('CooperHewitt-Heavy'),
+        url('../fonts/CooperHewitt-Heavy.woff2') format('woff2'),
+        url('../fonts/CooperHewitt-Heavy.woff') format('woff'),
+        url('../fonts/CooperHewitt-Heavy.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cooper Hewitt';
+    src: local('CooperHewitt-HeavyItalic'),
+        url('../fonts/CooperHewitt-HeavyItalic.woff2') format('woff2'),
+        url('../fonts/CooperHewitt-HeavyItalic.woff') format('woff'),
+        url('../fonts/CooperHewitt-HeavyItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cooper Hewitt';
+    src: local('CooperHewitt-Light'),
+        url('../fonts/CooperHewitt-Light.woff2') format('woff2'),
+        url('../fonts/CooperHewitt-Light.woff') format('woff'),
+        url('../fonts/CooperHewitt-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cooper Hewitt';
+    src: local('CooperHewitt-LightItalic'),
+        url('../fonts/CooperHewitt-LightItalic.woff2') format('woff2'),
+        url('../fonts/CooperHewitt-LightItalic.woff') format('woff'),
+        url('../fonts/CooperHewitt-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cooper Hewitt';
+    src: local('CooperHewitt-Medium'),
+        url('../fonts/CooperHewitt-Medium.woff2') format('woff2'),
+        url('../fonts/CooperHewitt-Medium.woff') format('woff'),
+        url('../fonts/CooperHewitt-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cooper Hewitt';
+    src: local('CooperHewitt-MediumItalic'),
+        url('../fonts/CooperHewitt-MediumItalic.woff2') format('woff2'),
+        url('../fonts/CooperHewitt-MediumItalic.woff') format('woff'),
+        url('../fonts/CooperHewitt-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cooper Hewitt';
+    src: local('CooperHewitt-Semibold'),
+        url('../fonts/CooperHewitt-Semibold.woff2') format('woff2'),
+        url('../fonts/CooperHewitt-Semibold.woff') format('woff'),
+        url('../fonts/CooperHewitt-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cooper Hewitt';
+    src: local('CooperHewitt-SemiboldItalic'),
+        url('../fonts/CooperHewitt-SemiboldItalic.woff2') format('woff2'),
+        url('../fonts/CooperHewitt-SemiboldItalic.woff') format('woff'),
+        url('../fonts/CooperHewitt-SemiboldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cooper Hewitt';
+    src: local('CooperHewitt-Thin'),
+        url('../fonts/CooperHewitt-Thin.woff2') format('woff2'),
+        url('../fonts/CooperHewitt-Thin.woff') format('woff'),
+        url('../fonts/CooperHewitt-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cooper Hewitt';
+    src: local('CooperHewitt-ThinItalic'),
+        url('../fonts/CooperHewitt-ThinItalic.woff2') format('woff2'),
+        url('../fonts/CooperHewitt-ThinItalic.woff') format('woff'),
+        url('../fonts/CooperHewitt-ThinItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* THEMING */
+
 @theme inline {
     --font-sans:
         Instrument Sans, ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+
+    --font-cooper:'Cooper Hewitt', Instrument Sans, ui-sans-serif, system-ui, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
 
@@ -59,6 +220,126 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+
+    --color-brand-teal-50: #F7F9F9;
+    --color-brand-teal-100: #E8F1F1;
+    --color-brand-teal-200: #C8E2DF;
+    --color-brand-teal-300: #94D5D2;
+    --color-brand-teal-400: #65C6C1;
+    --color-brand-teal-500: #00B8B1;
+    --color-brand-teal-600: #009692;
+    --color-brand-teal-700: #097673;
+    --color-brand-teal-800: #0C5C59;
+    --color-brand-teal-900: #153A37;
+    --color-brand-teal-950: #102827;
+
+    --color-brand-sage-50: #F7F9F7;
+    --color-brand-sage-100: #E8F1ED;
+    --color-brand-sage-200: #CAE0D2;
+    --color-brand-sage-300: #93CFA9;
+    --color-brand-sage-400: #65BA8A;
+    --color-brand-sage-500: #26AD6A;
+    --color-brand-sage-600: #1B8F57;
+    --color-brand-sage-700: #237048;
+    --color-brand-sage-800: #1D5839;
+    --color-brand-sage-900: #1A3827;
+    --color-brand-sage-950: #12271B;
+    
+    --color-brand-rose-50: #FFEAF4;
+    --color-brand-rose-100: #FFC0DE;
+    --color-brand-rose-200: #FF93C9;
+    --color-brand-rose-300: #FF4CA7;
+    --color-brand-rose-400: #F60065;
+    --color-brand-rose-500: #C60052;
+    --color-brand-rose-600: #9D0040;
+    --color-brand-rose-700: #70002E;
+    --color-brand-rose-800: #44001C;
+    --color-brand-rose-900: #2E0011;
+    --color-brand-rose-950: #170009;
+    
+    --color-brand-indigo-50: #F5F5F9;
+    --color-brand-indigo-100: #E8E8F3;
+    --color-brand-indigo-200: #CBCBE4;
+    --color-brand-indigo-300: #9C9BDF;
+    --color-brand-indigo-400: #6260DF;
+    --color-brand-indigo-500: #3833D4;
+    --color-brand-indigo-600: #2A28B1;
+    --color-brand-indigo-700: #262583;
+    --color-brand-indigo-800: #1E1D67;
+    --color-brand-indigo-900: #191940;
+    --color-brand-indigo-950: #12112E;
+    
+    --color-brand-violet-50: #FBF5FA;
+    --color-brand-violet-100: #F3E7F4;
+    --color-brand-violet-200: #E0C8E6;
+    --color-brand-violet-300: #D593E5;
+    --color-brand-violet-400: #CC4BEA;
+    --color-brand-violet-500: #BB04E3;
+    --color-brand-violet-600: #9B00BE;
+    --color-brand-violet-700: #75138C;
+    --color-brand-violet-800: #5B0D6D;
+    --color-brand-violet-900: #3B1244;
+    --color-brand-violet-950: #2A0D31;
+    
+    --color-brand-info-50: #F0F5FA;
+    --color-brand-info-100: #E0EBF5;
+    --color-brand-info-200: #C1D7EB;
+    --color-brand-info-300: #A3C3E1;
+    --color-brand-info-400: #84AFD7;
+    --color-brand-info-500: #5691C8;
+    --color-brand-info-600: #3C7CB9;
+    --color-brand-info-700: #2D5D8B;
+    --color-brand-info-800: #1E3E5C;
+    --color-brand-info-900: #14293E;
+    --color-brand-info-950: #0A151F;
+    
+    --color-brand-success-50: #F8FAF0;
+    --color-brand-success-100: #EAEFD2;
+    --color-brand-success-200: #DCE4B4;
+    --color-brand-success-300: #C0CE78;
+    --color-brand-success-400: #B2C45A;
+    --color-brand-success-500: #A1B441;
+    --color-brand-success-600: #869636;
+    --color-brand-success-700: #5E6926;
+    --color-brand-success-800: #434B1B;
+    --color-brand-success-900: #282D10;
+    --color-brand-success-950: #1B1E0B;
+    
+    --color-brand-warning-50: #FDF6ED;
+    --color-brand-warning-100: #F6DBB7;
+    --color-brand-warning-200: #F1C893;
+    --color-brand-warning-300: #EFBF81;
+    --color-brand-warning-400: #EAAA5C;
+    --color-brand-warning-500: #E59738;
+    --color-brand-warning-600: #E38B26;
+    --color-brand-warning-700: #B56B17;
+    --color-brand-warning-800: #7E4910;
+    --color-brand-warning-900: #482A09;
+    --color-brand-warning-950: #241505;
+    
+    --color-brand-neutral-50: #F8F6F3;
+    --color-brand-neutral-100: #E8E3DF;
+    --color-brand-neutral-200: #D4CBC3;
+    --color-brand-neutral-300: #C1B5AA;
+    --color-brand-neutral-400: #B0A397;
+    --color-brand-neutral-500: #9C8F83;
+    --color-brand-neutral-600: #7A7067;
+    --color-brand-neutral-700: #61584F;
+    --color-brand-neutral-800: #403A34;
+    --color-brand-neutral-900: #292521;
+    --color-brand-neutral-950: #1B1816;
+    
+    --color-brand-error-50: #FEF2F2;
+    --color-brand-error-100: #FFE2E2;
+    --color-brand-error-200: #FFC9C9;
+    --color-brand-error-300: #FFA2A2;
+    --color-brand-error-400: #FF7274;
+    --color-brand-error-500: #FB2C36;
+    --color-brand-error-600: #E7000B;
+    --color-brand-error-700: #C10007;
+    --color-brand-error-800: #9F0712;
+    --color-brand-error-900: #82181A;
+    --color-brand-error-950: #460809;
 }
 
 /*
@@ -126,7 +407,7 @@
     --sidebar: hsl(0 0% 98%);
 }
 
-.dark {
+/* .dark {
     --background: hsl(0 0% 3.9%);
     --foreground: hsl(0 0% 98%);
     --card: hsl(0 0% 3.9%);
@@ -159,8 +440,9 @@
     --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
     --sidebar-border: hsl(0 0% 15.9%);
     --sidebar-ring: hsl(217.2 91.2% 59.8%);
-    --sidebar: hsl(240 5.9% 10%);
-}
+    --sidebar: hsl(240 5.9% 10%); 
+}*/
+
 
 @layer base {
     * {

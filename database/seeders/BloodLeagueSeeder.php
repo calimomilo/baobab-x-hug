@@ -53,9 +53,9 @@ class BloodLeagueSeeder extends Seeder
     {
         $now = Carbon::now();
         DB::table('seasons')->insert([
-            ['id' => 1, 'year_of' => 2024, 'closed' => 1, 'created_at' => $now, 'updated_at' => $now],
-            ['id' => 2, 'year_of' => 2025, 'closed' => 1, 'created_at' => $now, 'updated_at' => $now],
-            ['id' => 3, 'year_of' => 2026, 'closed' => 0, 'created_at' => $now, 'updated_at' => $now],
+            ['id' => 1, 'year_of' => 2024, 'status' => 'closed', 'created_at' => $now, 'updated_at' => $now],
+            ['id' => 2, 'year_of' => 2025, 'status' => 'closed', 'created_at' => $now, 'updated_at' => $now],
+            ['id' => 3, 'year_of' => 2026, 'status' => 'open', 'created_at' => $now, 'updated_at' => $now],
         ]);
 
         $this->command->info('  → 3 saisons créées');
@@ -76,7 +76,7 @@ class BloodLeagueSeeder extends Seeder
                 'slug' => 'rolex',
                 'primary_color' => '#006039',
                 'secondary_color' => '#A37E2C',
-                'logo_url' => 'logos/rolex.svg',
+                'logo_url' => 'https://www.freepnglogos.com/uploads/rolex-png-logo/rolex-png-logo-0.png',
                 'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,
@@ -92,7 +92,7 @@ class BloodLeagueSeeder extends Seeder
                 'slug' => 'pictet',
                 'primary_color' => '#003E5C',
                 'secondary_color' => '#C8A464',
-                'logo_url' => 'logos/pictet.svg',
+                'logo_url' => 'https://green-finance.fr/wp-content/uploads/2020/12/pictet_logo.png',
                 'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,
@@ -108,7 +108,7 @@ class BloodLeagueSeeder extends Seeder
                 'slug' => 'richemont',
                 'primary_color' => '#1A1A1A',
                 'secondary_color' => '#B8860B',
-                'logo_url' => 'logos/richemont.svg',
+                'logo_url' => 'https://logodix.com/logo/2024456.png',
                 'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,

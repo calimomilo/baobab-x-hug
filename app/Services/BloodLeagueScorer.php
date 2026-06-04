@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\Label;
 use App\Models\Collect;
 use App\Models\Company;
 use App\Models\Season;
@@ -14,7 +15,7 @@ class BloodLeagueScorer
      */
     public function computeScore(int $companyId, int $seasonId): array
     {
-        $collects = Collect::where('company_id', '=', $companyId, true)
+        $collects = Collect::where('company_id', $companyId)
             ->where('season_id', $seasonId)
             ->where('completed', '=', 1) // ne compter que les collectes terminées
             ->with('data')
@@ -71,7 +72,7 @@ class BloodLeagueScorer
         ];
     }
 
-    public function computeLabel(int $companyId, int $seasonId): ?string
+    public function computeLabel(int $companyId, int $seasonId): ?Label
     {
         $myScore = $this->computeScore($companyId, $seasonId)['total'];
 
@@ -94,13 +95,13 @@ class BloodLeagueScorer
         $percentile = ($rank / count($scores)) * 100;
 
         if ($percentile <= 15) {
-            return 'Blood Legend';
+            return Label::LEGEND;
         }
         if ($percentile <= 50) {
-            return 'Blood Gold';
+            return Label::GOLD;
         }
 
-        return 'Blood';
+        return Label::CLASSIC;
     }
 
     /**

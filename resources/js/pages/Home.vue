@@ -1,0 +1,146 @@
+<script setup lang="ts">
+import { Link } from '@inertiajs/vue3';
+import LogoLoop from '@/components/bits/LogoLoop.vue';
+import type { LogoItemImage } from '@/components/bits/LogoLoop.vue';
+import Card from '@/components/Card.vue';
+import Button from '@/components/ui/button/Button.vue';
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem
+} from '@/components/ui/carousel';
+import AppLayout from '@/layouts/AppLayout.vue';
+
+type company = {
+    id: number,
+    company_name: string,
+    logo_url: string,
+    label: {
+        name: string,
+        slug: string,
+    }
+}
+const props = defineProps({
+    companies: Array<company>
+})
+
+const companiesList = <Array<LogoItemImage>>[];
+
+props.companies?.forEach(company => {
+    companiesList.push({ src: `${company.logo_url}`, alt: `${company.company_name}`, href: "" })
+})
+
+// const isLg = window.innerWidth >= 1024;
+</script>
+
+<template>
+        <!-- FIRST SCREEN : HERO -->
+
+    <AppLayout title="Accueil" desc="Bienvenue sur le site de la Blood League par les HUG" active="home">
+        <section id="hero" class="relative min-h-[calc(100vh-76px)] flex flex-col justify-center items-center gap-20 md:gap-6">
+            <h1 class="flex flex-col text-center text-2xl font-bold gap-2 items-center -mt-[10vh] md:text-4xl md:gap-3 lg:text-[64px] lg:gap-6">
+                <span class="-rotate-6 -translate-x-[calc(10vw)] md:-translate-x-[calc(20vw-100px)] lg:-translate-x-[calc(20vw-150px)]">Mobilisez votre équipe.</span>
+                <span class="rotate-4 translate-x-[calc(10vw+15px)] lg:translate-x-[calc(25vw-80px)] lg:translate-y-2">Sauvez des vies.</span>
+                <span>Rejoignez la Blood League.</span>
+            </h1>
+            <p class="hidden text-center font-medium uppercase tracking-[8%] max-w-[40%] md:block ">Blood League transforme les collectes de sang en entreprise en une compétition positive.</p>
+            <Link href="/contact" class="md:absolute md:bottom-[20%] md:right-[calc(20vw-80px)] lg:bottom-[15%]">
+                <img src="../../assets/round_button_organize.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="w-40 h-40 rotate-3 lg:w-50 lg:h-50 hover:scale-110 hover:rotate-30 transition duration-150 ease-in-out"> <!-- figure out how to make pink -->
+            </Link>
+        </section>
+
+        <!-- SECOND SCREEN : INFOS BLOOD LEAGUE -->
+
+        <section id="blood-league" class="relative min-h-[calc(100vh-76px)] flex flex-col justify-start items-start pt-16 bg-brand-rose-300 lg:px-40">
+            <div class="flex flex-col px-4 text-white gap-4 lg:flex-row">
+                <h2 class="text-[38px]/[130%] font-semibold lg:w-[40vw] lg:shrink">La Blood League, c'est quoi ?</h2>
+                <div class="lg:shrink-2">
+                    <p class="font-medium mb-4">La Blood League, c'est à la fois un championnat entre entreprises, un label RSE reconnu et une cérémonie annuelle de remise de prix. En organisant une collecte de sang pour vos employés, vous entrez dans la ligue, accumulez des points et concourez pour des médailles tout en contribuant concrètement à la santé publique genevoise.</p>
+                    <Link href="/blood-league">
+                        <Button class="bg-brand-teal-500 hover:bg-brand-teal-600 active:bg-brand-teal-700 font-semibold">En savoir plus</Button>
+                    </Link>
+                </div>
+            </div>
+            
+            <Carousel class="w-full pt-8 pb-10 my-auto lg:w-auto lg:mx-auto" :opts="{
+                loop: true,
+                // draggable: isLg
+                }">
+                <CarouselContent class="">
+                    <CarouselItem class="basis-[328px]">
+                        <Card title="The Blood League" badge="Championnat" color="rose">
+                            Une ligue de don du sang en entreprise. Les entreprises organisent des collectes pour leurs employés et accumulent des points tout au long de l'année selon leur efficacité et leur mobilisation. Plus une entreprise prépare bien ses employés en amont, plus son score est élevé.
+                        </Card>
+                    </CarouselItem>
+                    <CarouselItem class="basis-[328px]">
+                        <Card title="The Blood League Label" badge="Label RSE" color="teal">
+                            Chaque entreprise engagée repart avec une reconnaissance concrète. En fin de saison, toutes les entreprises participantes reçoivent un label officiel à afficher sur leur site, dans leur rapport RSE ou sur LinkedIn.
+                        </Card>
+                    </CarouselItem>
+                    <CarouselItem class="basis-[328px]">
+                        <Card title="The Blood League Awards" badge="Cérémonie" color="sage">
+                            Chaque saison, les meilleures entreprises de la Blood League sont récompensées. Lors de la cérémonie annuelle des Blood League Awards, cinq médailles sont décernées pour saluer la progression, la participation, la fidélité et le renouveau célébrant toutes les formes d'excellence, quelle que soit la taille de l'entreprise.
+                        </Card>
+                    </CarouselItem>
+                </CarouselContent>
+            </Carousel>
+        </section>
+        
+        <!-- THIRD SCREEN : ENTREPRISES LABELLISEES -->
+
+        <section id="companies" class="bg-brand-teal-500 pt-16 pb-8 flex flex-col items-center text-white">
+            <h2 class="text-[38px]/[130%] font-semibold px-4 mb-4 lg:textcenter">Les entreprises labellisées</h2>
+            <Link href="/leaderboard">
+                <Button class="bg-white hover:bg-brand-neutral-100 active:bg-brand-neutral-200 text-brand-teal-500 font-semibold">Voir le leaderboard</Button>
+            </Link>
+            <div class="w-full flex flex-col min-h-60 justify-center overflow-hidden">
+                <LogoLoop
+                    :logos="companiesList"
+                    :speed="60"
+                    direction="left"
+                    :logoHeight="48"
+                    :gap="60"
+                    :pauseOnHover="true"
+                    :scaleOnHover="true"
+                    :fadeOut="true"
+                    fadeOutColor="#00B8B1"
+                    ariaLabel="Entreprises labellisées"
+                    />
+                </div>
+            <!-- <Carousel class="w-full pt-8 pb-10 my-auto" :opts="{
+                loop: true,
+                // draggable: isLg
+                }">
+                <CarouselContent class="">
+                    <CarouselItem v-for="company in props.companies" :key="company.id" class="basis-[328px] pb-6 pr-2">
+                        <CompanyCard :company="company"></CompanyCard>
+                    </CarouselItem>
+                </CarouselContent>
+            </Carousel> -->
+        </section>
+
+        <!-- FOURTH SCREEN : CONTACT -->
+
+        <section id="contact" class="relative min-h-[calc(100vh-76px)] flex flex-col justify-start items-center pt-16 bg-brand-rose-400 lg:px-40 text-white">
+            <h2 class="text-[38px]/[130%] font-semibold px-4 mb-4 lg:w-[40vw] lg:hidden">Organiser une collecte</h2>
+            <img src="../../assets/cts-appel-don-du-sang.jpg" alt="" class="w-9/10 h-[50vh] rounded-lg object-cover lg:h-[70vh]">
+            <Link href="/contact" class="absolute bottom-[10%] lg:bottom-[40%] lg:right-[8%]">
+                <img src="../../assets/round_button_lance.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="w-40 h-40 rotate-3 lg:w-50 lg:h-50 hover:scale-110 hover:rotate-30 transition duration-150 ease-in-out"> <!-- figure out how to make pink -->
+            </Link>
+            <div class="hidden lg:block absolute px-4 py-2 bottom-[8%] w-[60vw] text-center bg-brand-rose-400 rounded-lg">
+                <h2 class="text-[38px]/[130%] font-semibold px-4 mb-4">Organiser une collecte</h2>
+                <p class="text-center font-medium uppercase tracking-[8%]">Vous avez un espace disponible et des employés motivés ? Le CTS s'occupe du reste. Matériel, personnel médical, créneaux, tout est pris en charge. Vous diffusez le lien, vos employés s'inscrivent.</p>
+            </div>
+        </section>
+
+        <!-- FIFTH SCREEN : INFOS DON -->
+
+        <section id="don" class="bg-brand-sage-500 py-16 flex flex-col items-center text-white gap-8 lg:px-60">
+            <h2 class="text-[38px]/[130%] font-semibold px-4 ">Pourquoi donner ?</h2>
+            <p class="text-center font-medium uppercase tracking-[8%] mx-12">Vous vous demandez quel est l'impact réel du don du sang, ou quelles sont les conditions pour pouvoir donner ? Découvrez plus d'informations sur le don du sang.</p>
+            <Link href="/don-du-sang">
+                <Button class="bg-white hover:bg-brand-neutral-100 active:bg-brand-neutral-200 text-brand-sage-500 font-semibold">En savoir plus</Button>
+            </Link>
+        </section>
+    </AppLayout>
+</template>

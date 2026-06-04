@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CollectController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DisplayController;
+use App\Http\Controllers\SeasonController;
 use Illuminate\Support\Facades\Route;
 
 // Route::inertia('/', 'Welcome')->name('home');
@@ -26,6 +27,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('collects', CollectController::class);
     Route::put('/collects/{id}/complete', [CollectController::class, 'complete']);
     Route::put('/collects/{id}/incomplete', [CollectController::class, 'incomplete']);
+
+    Route::get('/seasons/open', [SeasonController::class, 'showOpen']);
+    Route::post('/seasons/open', [SeasonController::class, 'open']);
+    Route::resource('seasons', SeasonController::class)->only(['show', 'edit', 'update', 'destroy']);
+    Route::get('/seasons/{id}/close', [SeasonController::class, 'showClose']);
+    Route::put('/seasons/{id}/close', [SeasonController::class, 'close']);
 
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 });

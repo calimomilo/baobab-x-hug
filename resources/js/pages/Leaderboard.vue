@@ -2,6 +2,7 @@
 import { Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import Badge from '@/components/Badge.vue';
+import CharacterLoop from '@/components/CharacterLoop.vue';
 import CompanyCard from '@/components/CompanyCard.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 
@@ -123,5 +124,6 @@ const filter = (filter: string) => {
             </Link>
             <img src="/assets/mascottes/WriteBlueStar.svg" alt="" class="hidden lg:block  absolute h-80 right-5 bottom-5">
         </section>
+        <CharacterLoop/>
     </AppLayout>
 </template>

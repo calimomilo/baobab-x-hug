@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
+import CharacterLoop from '@/components/CharacterLoop.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 
 const conditions = [
@@ -46,5 +47,6 @@ const conditions = [
             </Link>
             <img src="/assets/mascottes/WriteBlueStar.svg" alt="Mascotte écrit" class="hidden lg:block  absolute h-80 right-5 bottom-5">
         </section>
+        <CharacterLoop/>
     </AppLayout>
 </template>

@@ -21,7 +21,7 @@ const conditions = [
         <section id="hero" class="relative min-h-[calc(100vh-76px)] flex flex-col px-8 py-12 gap-4 font-medium lg:px-40 lg:flex-row lg:justify-center">
             <div class="flex flex-col px-8 py-12 gap-4 self-start my-auto">
                 <h2 class="w-9/10 text-2xl font-bold md:text-[50px] md:w-full">Pourquoi donner ?</h2>
-                <h4 class="uppercase tracking-[8%] text-sm mb-4">Le don du sang : un geste simple, un impact réel.</h4>
+                <h4 class="uppercase tracking-[8%] mb-4">Le don du sang : un geste simple, un impact réel.</h4>
                 <p>Chaque don réalisé lors d'une collecte  contribue directement à l'approvisionnement du canton de Genève. En plus de ça, il fait progresser votre équipe dans le classement de la Blood League.</p>
             </div>
             <img src="/assets/mascottes/DrinkPinkFlower.svg" alt="" class="scale-x-[-1] my-auto max-h-100 lg:h-100">

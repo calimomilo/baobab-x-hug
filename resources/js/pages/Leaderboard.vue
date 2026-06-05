@@ -54,7 +54,7 @@ const filter = (filter: string) => {
 </script>
 
 <template>
-    <AppLayout title="Accueil" desc="Découvrez les entreprises participant à la saison en cours.">
+    <AppLayout title="Leaderboard" desc="Découvrez les entreprises participant à la saison en cours.">
         <section id="results" class="relative min-h-[calc(100vh-76px)] flex flex-col px-8 py-20 gap-15 font-medium lg:px-24 lg:py-36 lg:text-xl">
             <div class="flex flex-col gap-y-4 gap-x-8 justify-center items-center md:flex-row">
                 <img src="/assets/logos/BloodLeague_logo_noir.png" alt="" class="w-40">

@@ -6,6 +6,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\SeasonController;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
 
 // Route::inertia('/', 'Welcome')->name('home');
@@ -20,10 +21,10 @@ Route::controller(DisplayController::class)->group(function () {
     Route::get('/leaderboard', 'displayLeaderboard')->name('leaderboard');
     Route::get('/blood-league', 'displayBloodLeague')->name('blood-league');
     Route::get('/don-du-sang', 'displayDonDuSang')->name('don-du-sang');
-    Route::get('/contact', 'displayHome')->name('contact');
 });
 
-Route::post('/contact', [ContactFormController::class, 'store']);
+Route::get('/contact', [ContactFormController::class, 'create'])->name('contact');
+Route::post('/contact', [ContactFormController::class, 'store'])->middleware([HandlePrecognitiveRequests::class]);
 
 Route::middleware('auth')->group(function () {
     Route::resource('companies', CompanyController::class);

@@ -41,12 +41,8 @@ const props = defineProps({
                             </Button>
                         </SheetTrigger>
                         <SheetContent side="left" class="w-[300px] h-screen p-6">
-                            <SheetTitle class="sr-only"
-                                >NMenu de navigation</SheetTitle
-                            >
-                            <div
-                                class="flex h-full flex-1 flex-col justify-between space-y-4 py-6"
-                            >
+                            <SheetTitle class="sr-only">NMenu de navigation</SheetTitle>
+                            <div class="flex h-full flex-1 flex-col justify-between space-y-4 py-6" >
                                 <nav class="-mx-3 space-y-1 font-cooper">
                                     <MenuButton href="/leaderboard" display="mobile">Leaderboard</MenuButton>
                                     <MenuButton href="/blood-league" display="mobile">Blood League</MenuButton>

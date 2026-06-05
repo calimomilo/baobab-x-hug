@@ -116,95 +116,46 @@ props.companies?.forEach((company) => {
 
         <!-- SECOND SCREEN : INFOS BLOOD LEAGUE -->
 
-        <section
-            id="blood-league"
-            class="relative flex min-h-[calc(100vh-76px)] flex-col items-start justify-start bg-brand-rose-300 pt-16 lg:px-40"
-        >
+        <section id="blood-league" class="relative flex min-h-[calc(100vh-76px)] flex-col items-start justify-start bg-brand-rose-300 pt-16 lg:px-40">
             <div class="flex flex-col gap-4 px-4 text-white lg:flex-row">
-                <h2
-                    class="text-[38px]/[130%] font-semibold lg:w-[40vw] lg:shrink"
-                >
+                <h2 class="text-[38px]/[130%] font-semibold lg:w-[40vw] lg:shrink">
                     La Blood League, c'est quoi ?
                 </h2>
                 <div class="lg:shrink-2">
                     <p class="mb-4 font-medium">
-                        La Blood League, c'est à la fois un championnat entre
-                        entreprises, un label RSE reconnu et une cérémonie
-                        annuelle de remise de prix. En organisant une collecte
-                        de sang pour vos employés, vous entrez dans la ligue,
-                        accumulez des points et concourez pour des médailles
-                        tout en contribuant concrètement à la santé publique
-                        genevoise.
+                        La Blood League, c'est à la fois un championnat entre entreprises, un label RSE reconnu et une cérémonie annuelle de remise de prix. En organisant une collecte de sang pour vos employés, vous entrez dans la ligue, accumulez des points et concourez pour des médailles tout en contribuant concrètement à la santé publique genevoise.
                     </p>
                     <Link href="/blood-league">
-                        <Button
-                            class="bg-white font-semibold text-brand-rose-300 hover:bg-brand-neutral-100 active:bg-brand-neutral-200"
-                            >En savoir plus</Button
-                        >
+                        <Button class="bg-white font-semibold text-brand-rose-300 hover:bg-brand-neutral-100 active:bg-brand-neutral-200">En savoir plus</Button>
                     </Link>
                 </div>
             </div>
 
-            <img
-                src="/assets/mascottes/LightGreenTri.svg"
-                alt="Mascotte à une idée"
-                class="absolute top-40 left-6 hidden h-[calc(15vw+150px)] lg:block"
-            />
+            <img src="/assets/mascottes/LightGreenTri.svg" alt="Mascotte à une idée" class="absolute top-40 left-6 hidden h-[calc(15vw+150px)] lg:block"/>
 
-            <Carousel
-                class="my-auto w-full pt-8 pb-10 lg:mx-auto lg:w-auto"
-                :opts="{
+            <Carousel class="my-auto w-full pt-8 pb-10 lg:mx-auto lg:w-auto" :opts="{
                     loop: true,
                     // draggable: isLg
-                }"
-            >
+                }">
                 <CarouselContent class="">
                     <CarouselItem class="basis-[328px]">
                         <Link href="/blood-league">
-                            <Card
-                                title="The Blood League"
-                                badge="Championnat"
-                                color="rose"
-                            >
-                                Une ligue de don du sang en entreprise. Les
-                                entreprises organisent des collectes pour leurs
-                                employés et accumulent des points tout au long
-                                de l'année selon leur efficacité et leur
-                                mobilisation. Plus une entreprise prépare bien
-                                ses employés en amont, plus son score est élevé.
+                            <Card title="The Blood League" badge="Championnat" color="rose">
+                                Une ligue de don du sang en entreprise. Les entreprises organisent des collectes pour leurs employés et accumulent des points tout au long de l'année selon leur efficacité et leur mobilisation. Plus une entreprise prépare bien ses employés en amont, plus son score est élevé.
                             </Card>
                         </Link>
                     </CarouselItem>
                     <CarouselItem class="basis-[328px]">
                         <Link href="/blood-league">
-                            <Card
-                                title="The Blood League Label"
-                                badge="Label RSE"
-                                color="teal"
-                            >
-                                Chaque entreprise engagée repart avec une
-                                reconnaissance concrète. En fin de saison,
-                                toutes les entreprises participantes reçoivent
-                                un label officiel à afficher sur leur site, dans
-                                leur rapport RSE ou sur LinkedIn.
+                            <Card title="The Blood League Label" badge="Label RSE" color="teal">
+                                Chaque entreprise engagée repart avec une reconnaissance concrète. En fin de saison, toutes les entreprises participantes reçoivent un label officiel à afficher sur leur site, dans leur rapport RSE ou sur LinkedIn.
                             </Card>
                         </Link>
                     </CarouselItem>
                     <CarouselItem class="basis-[328px]">
                         <Link href="/blood-league#awards">
-                            <Card
-                                title="The Blood League Awards"
-                                badge="Cérémonie"
-                                color="sage"
-                            >
-                                Chaque saison, les meilleures entreprises de la
-                                Blood League sont récompensées. Lors de la
-                                cérémonie annuelle des Blood League Awards, cinq
-                                médailles sont décernées pour saluer la
-                                progression, la participation, la fidélité et le
-                                renouveau célébrant toutes les formes
-                                d'excellence, quelle que soit la taille de
-                                l'entreprise.
+                            <Card title="The Blood League Awards" badge="Cérémonie" color="sage">
+                                Chaque saison, les meilleures entreprises de la Blood League sont récompensées. Lors de la cérémonie annuelle des Blood League Awards, cinq médailles sont décernées pour saluer la progression, la  participation, la fidélité et le renouveau célébrant toutes les formes d'excellence, quelle que soit la  taille de l'entreprise.
                             </Card>
                         </Link>
                     </CarouselItem>
@@ -259,42 +210,17 @@ props.companies?.forEach((company) => {
 
         <!-- FOURTH SCREEN : CONTACT -->
 
-        <section
-            id="contact"
-            class="relative flex min-h-[calc(100vh-76px)] flex-col items-center justify-start bg-brand-rose-400 pt-16 text-white lg:px-40"
-        >
-            <h2
-                class="mb-4 px-4 text-[38px]/[130%] font-semibold lg:hidden lg:w-[40vw]"
-            >
-                Organiser une collecte
-            </h2>
-            <img
-                src="/assets/cts-appel-don-du-sang.jpg"
-                alt="Prise de sang pour un don"
-                class="h-[50vh] w-9/10 rounded-lg object-cover lg:h-[70vh]"
-            />
-            <Link
-                href="/contact"
-                class="absolute bottom-[10%] lg:right-[8%] lg:bottom-[40%]"
-            >
-                <img
-                    src="/assets/round_button_lance.svg"
-                    alt="Bouton noir rond avec le texte Organiser une collecte"
-                    class="h-40 w-40 rotate-3 transition duration-150 ease-in-out hover:scale-110 hover:rotate-30 lg:h-50 lg:w-50"
-                />
+        <section id="contact" class="relative flex min-h-[calc(100vh-76px)] flex-col items-center justify-start bg-brand-rose-400 pt-16 text-white lg:px-40" >
+            <h2 class="mb-4 px-4 text-[38px]/[130%] font-semibold lg:hidden lg:w-[40vw]" >Organiser une collecte</h2>
+            <img src="/assets/cts-appel-don-du-sang.jpg" alt="Prise de sang pour un don" class="h-[50vh] w-9/10 rounded-lg object-cover lg:h-[70vh]" />
+            <Link href="/contact" class="absolute bottom-[10%] lg:right-[8%] lg:bottom-[40%]" >
+                <img src="/assets/round_button_lance.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="h-40 w-40 rotate-3 transition duration-150 ease-in-out hover:scale-110 hover:rotate-30 lg:h-50 lg:w-50" />
                 <!-- figure out how to make pink -->
             </Link>
-            <div
-                class="absolute bottom-[8%] hidden w-[60vw] rounded-lg bg-brand-rose-400 px-4 py-2 text-center lg:block"
-            >
-                <h2 class="mb-4 px-4 text-[38px]/[130%] font-semibold">
-                    Organiser une collecte
-                </h2>
+            <div class="absolute bottom-[8%] hidden w-[60vw] rounded-lg bg-brand-rose-400 px-4 py-2 text-center lg:block" >
+                <h2 class="mb-4 px-4 text-[38px]/[130%] font-semibold">Organiser une collecte</h2>
                 <p class="text-center font-medium tracking-[8%] uppercase">
-                    Vous avez un espace disponible et des employés motivés ? Le
-                    CTS s'occupe du reste. Matériel, personnel médical,
-                    créneaux, tout est pris en charge. Vous diffusez le lien,
-                    vos employés s'inscrivent.
+                    Vous avez un espace disponible et des employés motivés ? Le CTS s'occupe du reste. Matériel, personnel médical, créneaux, tout est pris en charge. Vous diffusez le lien, vos employés s'inscrivent.
                 </p>
             </div>
         </section>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CollectController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\SeasonController;
 use Illuminate\Support\Facades\Route;
@@ -22,8 +23,12 @@ Route::controller(DisplayController::class)->group(function () {
     Route::get('/contact', 'displayHome')->name('contact');
 });
 
+Route::post('/contact', [ContactFormController::class, 'store']);
+
 Route::middleware('auth')->group(function () {
     Route::resource('companies', CompanyController::class);
+
+    Route::resource('contacts', ContactFormController::class)->only(['index', 'show', 'destroy']);
 
     Route::resource('collects', CollectController::class);
     Route::put('/collects/{id}/complete', [CollectController::class, 'complete']);

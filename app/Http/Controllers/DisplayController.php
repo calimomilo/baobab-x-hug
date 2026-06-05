@@ -28,4 +28,9 @@ class DisplayController extends Controller
 
         return Inertia::render('Home', ['companies' => $base]);
     }
+
+    public function displayBloodLeague()
+    {
+        return Inertia::render('BloodLeague');
+    }
 }

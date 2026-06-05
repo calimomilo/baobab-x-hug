@@ -74,7 +74,7 @@ props.companies?.forEach(company => {
                 </div>
             </div>
 
-            <img src="../../assets/mascottes/LightGreenTri.svg" alt="" class="hidden lg:block absolute h-[calc(15vw+150px)] top-40 left-6">
+            <img src="/assets/mascottes/LightGreenTri.svg" alt="" class="hidden lg:block absolute h-[calc(15vw+150px)] top-40 left-6">
             
             <Carousel class="w-full pt-8 pb-10 my-auto lg:w-auto lg:mx-auto" :opts="{
                 loop: true,
@@ -156,14 +156,14 @@ props.companies?.forEach(company => {
         <!-- FIFTH SCREEN : INFOS DON -->
 
         <section id="don" class="relative bg-brand-sage-400 py-16 flex flex-col items-center gap-8 lg:px-60">
-            <img src="../../assets/mascottes/YeahPinkFlam.svg" alt="" class="md:relative right-[25vw] md:-mt-4 md:-mb-15 lg:absolute lg:h-[80%] lg:top-[15%] lg:-left-20">
-            <img src="../../assets/mascottes/ScreamBlueNona.svg" alt="" class="scale-x-[-1] hidden lg:block lg:absolute lg:h-[80%] lg:top-[15%] lg:-right-15">
+            <img src="/assets/mascottes/YeahPinkFlam.svg" alt="" class="md:relative right-[25vw] md:-mt-4 md:-mb-15 lg:absolute lg:h-[80%] lg:top-[15%] lg:-left-20">
+            <img src="/assets/mascottes/ScreamBlueNona.svg" alt="" class="scale-x-[-1] hidden lg:block lg:absolute lg:h-[80%] lg:top-[15%] lg:-right-15">
             <h2 class="text-[38px]/[130%] font-semibold px-4 ">Pourquoi donner ?</h2>
             <p class="text-center font-medium uppercase tracking-[8%] mx-12">Vous vous demandez quel est l'impact réel du don du sang, ou quelles sont les conditions pour pouvoir donner ? Découvrez plus d'informations sur le don du sang.</p>
             <Link href="/don-du-sang">
                 <Button class="bg-white hover:bg-brand-neutral-100 active:bg-brand-neutral-200 text-brand-sage-500 font-semibold">En savoir plus</Button>
             </Link>
-            <img src="../../assets/mascottes/ScreamBlueNona.svg" alt="" class="scale-x-[-1] mt-4 md:relative left-[25vw] md:-mb-6 md:-mt-15 lg:hidden">
+            <img src="/assets/mascottes/ScreamBlueNona.svg" alt="" class="scale-x-[-1] mt-4 md:relative left-[25vw] md:-mb-6 md:-mt-15 lg:hidden">
         </section>
         <CharacterLoop />
     </AppLayout>

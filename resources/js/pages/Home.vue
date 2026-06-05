@@ -3,6 +3,7 @@ import { Link } from '@inertiajs/vue3';
 import LogoLoop from '@/components/bits/LogoLoop.vue';
 import type { LogoItemImage } from '@/components/bits/LogoLoop.vue';
 import Card from '@/components/Card.vue';
+import CharacterLoop from '@/components/CharacterLoop.vue';
 import Button from '@/components/ui/button/Button.vue';
 import {
     Carousel,
@@ -45,7 +46,7 @@ props.companies?.forEach(company => {
             </h1>
             <p class="hidden text-center font-medium uppercase tracking-[8%] max-w-[40%] md:block ">Blood League transforme les collectes de sang en entreprise en une compétition positive.</p>
             <Link href="/contact" class="md:absolute md:bottom-[20%] md:right-[calc(20vw-80px)] lg:bottom-[15%]">
-                <img src="../../assets/round_button_organize.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="w-40 h-40 rotate-3 lg:w-50 lg:h-50 hover:scale-110 hover:rotate-30 transition duration-150 ease-in-out"> <!-- figure out how to make pink -->
+                <img src="/assets/round_button_organize.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="w-40 h-40 rotate-3 lg:w-50 lg:h-50 hover:scale-110 hover:rotate-30 transition duration-150 ease-in-out"> <!-- figure out how to make pink -->
             </Link>
         </section>
 
@@ -123,9 +124,9 @@ props.companies?.forEach(company => {
 
         <section id="contact" class="relative min-h-[calc(100vh-76px)] flex flex-col justify-start items-center pt-16 bg-brand-rose-400 lg:px-40 text-white">
             <h2 class="text-[38px]/[130%] font-semibold px-4 mb-4 lg:w-[40vw] lg:hidden">Organiser une collecte</h2>
-            <img src="../../assets/cts-appel-don-du-sang.jpg" alt="" class="w-9/10 h-[50vh] rounded-lg object-cover lg:h-[70vh]">
+            <img src="/assets/cts-appel-don-du-sang.jpg" alt="" class="w-9/10 h-[50vh] rounded-lg object-cover lg:h-[70vh]">
             <Link href="/contact" class="absolute bottom-[10%] lg:bottom-[40%] lg:right-[8%]">
-                <img src="../../assets/round_button_lance.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="w-40 h-40 rotate-3 lg:w-50 lg:h-50 hover:scale-110 hover:rotate-30 transition duration-150 ease-in-out"> <!-- figure out how to make pink -->
+                <img src="/assets/round_button_lance.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="w-40 h-40 rotate-3 lg:w-50 lg:h-50 hover:scale-110 hover:rotate-30 transition duration-150 ease-in-out"> <!-- figure out how to make pink -->
             </Link>
             <div class="hidden lg:block absolute px-4 py-2 bottom-[8%] w-[60vw] text-center bg-brand-rose-400 rounded-lg">
                 <h2 class="text-[38px]/[130%] font-semibold px-4 mb-4">Organiser une collecte</h2>
@@ -142,5 +143,6 @@ props.companies?.forEach(company => {
                 <Button class="bg-white hover:bg-brand-neutral-100 active:bg-brand-neutral-200 text-brand-sage-500 font-semibold">En savoir plus</Button>
             </Link>
         </section>
+        <CharacterLoop />
     </AppLayout>
 </template>

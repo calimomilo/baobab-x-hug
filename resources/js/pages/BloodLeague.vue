@@ -14,18 +14,18 @@ import AppLayout from '@/layouts/AppLayout.vue';
                 <h2 class="w-9/10 text-2xl font-bold md:text-[50px] md:w-full">Qu'est-ce que la Blood League ?</h2>
                 <div class="flex flex-col justify-center gap-8 md:flex-row md:justify-start">
                     <p>La Blood League est une ligue de don du sang en entreprise. Les entreprises organisent des collectes pour leurs employé.e.s et accumulent des points tout au long de l'année selon leur efficacité et leur mobilisation. Plus une entreprise prépare bien ses employé.e.s en amont, plus son score est élevé.</p>
-                    <img src="/assets/mascottes/LightGreenTri.svg" alt="" class="h-60 scale-x-[-1] -mb-6">
+                    <img src="/assets/mascottes/LightGreenTri.svg" alt="Mascotte à une idée" class="h-60 scale-x-[-1] -mb-6">
                 </div>
             </div>
             <div id="label" class="flex flex-col justify-center gap-8 font-medium md:text-xl">
                 <h2 class="w-9/10 text-2xl text-end self-end font-bold md:text-[50px] md:w-full md:text-start">Qu'est-ce qu'un Blood League Label ?</h2>
-                <div>La ligue est divisée en trois divisions : 
+                <div>La ligue est divisée en trois divisions :
                     <div class="inline-block bg-brand-sage-300 text-brand-sage-900 px-[2px] -skew-x-8">
                         <span class="inline-block skew-x-8">Classic</span>
-                    </div>, 
+                    </div>,
                     <div class="inline-block bg-brand-warning-300 text-brand-warning-800 px-[2px] -skew-x-8">
                         <span class="inline-block skew-x-8">Gold</span>
-                    </div> et 
+                    </div> et
                     <div class="inline-block bg-brand-violet-300 text-brand-violet-900 px-[2px] -skew-x-8">
                         <span class="inline-block skew-x-8">Legend</span>
                     </div>, dans lesquelles les entreprises progressent au fil des saisons.
@@ -70,7 +70,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
             <Link href="/contact" class="lg:relative lg:right-90 lg:bottom-5">
                 <img src="/assets/round_button_organize.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="w-40 h-40 -rotate-10 lg:w-50 lg:h-50 hover:scale-110 hover:rotate-20 transition duration-150 ease-in-out"> <!-- figure out how to make pink -->
             </Link>
-            <img src="/assets/mascottes/WriteBlueStar.svg" alt="" class="hidden lg:block  absolute h-80 right-5 bottom-5">
+            <img src="/assets/mascottes/WriteBlueStar.svg" alt="Mascotte écrit" class="hidden lg:block  absolute h-80 right-5 bottom-5">
         </section>
     </AppLayout>
 </template>

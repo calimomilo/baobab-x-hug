@@ -49,15 +49,15 @@ props.companies?.forEach(company => {
                 <img src="/assets/round_button_organize.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="w-40 h-40 rotate-3 lg:w-50 lg:h-50 hover:scale-110 hover:rotate-30 transition duration-150 ease-in-out"> <!-- figure out how to make pink -->
             </Link>
             <div>
-                <img src="../../assets/mascottes/KneelBlueFlower.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[14vh] left-[6vw] md:top-[20vh] md:left-[6vw] lg:top-[15vh] lg:left-[6vw]">
-                <img src="../../assets/mascottes/PlantPinkTri.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[8vh] left-[44vw] md:top-[12vh] md:left-[44vw] lg:top-[6vh] lg:left-[44vw]">
-                <img src="../../assets/mascottes/EgiptGreenTri.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[18vh] left-[80vw] md:top-[24vh] md:left-[78vw] lg:top-[12vh] lg:left-[80vw]">
-                <img src="../../assets/mascottes/PeacePinkTri.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[38vh] left-[10vw] md:top-[50vh] md:left-[14vw] lg:top-[44vh] lg:left-[10vw]">
-                <img src="../../assets/mascottes/ClockBlueHexa.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[42vh] left-[76vw] md:top-[44vh] md:left-[88vw] lg:top-[32vh] lg:left-[90vw]">
-                <img src="../../assets/mascottes/HiGreenStar.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[34vh] left-[38vw] md:top-[33vh] md:left-[32vw] lg:top-[33vh] lg:left-[36vw]">
-                <img src="../../assets/mascottes/LoveBlueCerf.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[72vh] left-[48vw] md:top-[62vh] md:left-[35vw] lg:top-[64vh] lg:left-[35vw]">
-                <img src="../../assets/mascottes/NinjaPinkNona.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[62vh] left-[80vw] md:top-[72vh] md:left-[60vw] lg:top-[72vh] lg:left-[62vw]">
-                <img src="../../assets/mascottes/RunGreenFlower.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[64vh] left-[13vw] md:top-[68vh] md:left-[8vw] lg:top-[68vh] lg:left-[15vw]">
+                <img src="/assets/mascottes/KneelBlueFlower.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[14vh] left-[6vw] md:top-[20vh] md:left-[6vw] lg:top-[15vh] lg:left-[6vw]">
+                <img src="/assets/mascottes/PlantPinkTri.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[8vh] left-[44vw] md:top-[12vh] md:left-[44vw] lg:top-[6vh] lg:left-[44vw]">
+                <img src="/assets/mascottes/EgiptGreenTri.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[18vh] left-[80vw] md:top-[24vh] md:left-[78vw] lg:top-[12vh] lg:left-[80vw]">
+                <img src="/assets/mascottes/PeacePinkTri.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[38vh] left-[10vw] md:top-[50vh] md:left-[14vw] lg:top-[44vh] lg:left-[10vw]">
+                <img src="/assets/mascottes/ClockBlueHexa.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[42vh] left-[76vw] md:top-[44vh] md:left-[88vw] lg:top-[32vh] lg:left-[90vw]">
+                <img src="/assets/mascottes/HiGreenStar.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[34vh] left-[38vw] md:top-[33vh] md:left-[32vw] lg:top-[33vh] lg:left-[36vw]">
+                <img src="/assets/mascottes/LoveBlueCerf.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[72vh] left-[48vw] md:top-[62vh] md:left-[35vw] lg:top-[64vh] lg:left-[35vw]">
+                <img src="/assets/mascottes/NinjaPinkNona.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[62vh] left-[80vw] md:top-[72vh] md:left-[60vw] lg:top-[72vh] lg:left-[62vw]">
+                <img src="/assets/mascottes/RunGreenFlower.svg" alt="" class="absolute h-[calc(8vw+30px)] top-[64vh] left-[13vw] md:top-[68vh] md:left-[8vw] lg:top-[68vh] lg:left-[15vw]">
             </div>
         </section>
 

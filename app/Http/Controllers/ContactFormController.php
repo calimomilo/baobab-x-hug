@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactForm;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ContactFormController extends Controller
 {
@@ -18,6 +19,14 @@ class ContactFormController extends Controller
     }
 
     /**
+     * Show the form for creating a new contact.
+     */
+    public function create()
+    {
+        return Inertia::render('Contact');
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -29,6 +38,7 @@ class ContactFormController extends Controller
             'contact_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
+            'message' => 'nullable|string|max:1000',
         ]);
 
         $contact = ContactForm::create([
@@ -38,6 +48,7 @@ class ContactFormController extends Controller
             'contact_name' => $validated['contact_name'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
+            'message' => $validated['message'],
         ]);
 
         // return page inertia /contacts/$contact->id

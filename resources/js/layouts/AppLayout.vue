@@ -27,10 +27,10 @@ const props = defineProps({
         <header class="bg-brand-sage-300 text-brand-sage-950 flex py-4 px-6 justify-between items-center sticky top-0 z-10">
         <!-- <header class="bg-white flex py-4 px-6 justify-between items-center sticky top-0 z-10"> -->
             <Link href="/" class="flex gap-3 items-center">
-                <img src="../../assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-11 lg:h-12">
+                <img src="/assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-11 lg:h-12">
                 <span class="hidden lg:inline">✕</span>
-                <img src="../../assets/logos/logo_hug_h_gris.png" alt="Logo HUG" class="h-11 hidden lg:inline">
-                <!-- <img src="../../assets/logos/logo_hug_h_quadri.png" alt="Logo HUG" class="h-11 hidden lg:inline"> -->
+                <img src="/assets/logos/logo_hug_h_gris.png" alt="Logo HUG" class="h-11 hidden lg:inline">
+                <!-- <img src="/assets/logos/logo_hug_h_quadri.png" alt="Logo HUG" class="h-11 hidden lg:inline"> -->
             </Link>
 
             <div class="lg:hidden">
@@ -55,8 +55,8 @@ const props = defineProps({
                                 </nav>
                             </div>
                             <SheetFooter class="flex justify-start p-0">
-                                <img src="../../assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-11 self-start">
-                                <img src="../../assets/logos/logo_hug_h_gris.png" alt="Logo HUG" class="h-11 self-start">
+                                <img src="/assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-11 self-start">
+                                <img src="/assets/logos/logo_hug_h_gris.png" alt="Logo HUG" class="h-11 self-start">
                             </SheetFooter>
                         </SheetContent>
                     </Sheet>

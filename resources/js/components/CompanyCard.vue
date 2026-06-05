@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import LabelIcon from './svg/LabelIcon.vue';
 
-
-
 const props = defineProps({
     company : {type: Object, default: null},
 })

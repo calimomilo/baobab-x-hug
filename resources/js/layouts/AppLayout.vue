@@ -13,7 +13,6 @@ import {
 const props = defineProps({
     title : {type: String, default: 'HUG Blood League'},
     desc : {type: String, default: 'Site de la HUG Blood League'},
-    active : {type: String, default: null}
 })
 
 </script>
@@ -49,7 +48,7 @@ const props = defineProps({
                                 class="flex h-full flex-1 flex-col justify-between space-y-4 py-6"
                             >
                                 <nav class="-mx-3 space-y-1 font-cooper">
-                                    <MenuButton href="/leaderboard" display="mobile" selected>Leaderboard</MenuButton>
+                                    <MenuButton href="/leaderboard" display="mobile">Leaderboard</MenuButton>
                                     <MenuButton href="/blood-league" display="mobile">Blood League</MenuButton>
                                     <MenuButton href="/don-du-sang" display="mobile">Pourquoi donner ?</MenuButton>
                                     <MenuButton href="/contact" display="mobile" type="highlight-pink">Organiser une collecte</MenuButton>
@@ -64,7 +63,7 @@ const props = defineProps({
                 </div>
 
             <div class="hidden lg:flex lg:gap-2">
-                <MenuButton href="/leaderboard" display="desktop" selected>Leaderboard</MenuButton>
+                <MenuButton href="/leaderboard" display="desktop">Leaderboard</MenuButton>
                 <MenuButton href="/blood-league" display="desktop">Blood League</MenuButton>
                 <MenuButton href="/don-du-sang" display="desktop">Pourquoi donner ?</MenuButton>
                 <MenuButton href="/contact" display="desktop" type="highlight-pink">Organiser une collecte</MenuButton>

@@ -33,4 +33,9 @@ class DisplayController extends Controller
     {
         return Inertia::render('DonDuSang');
     }
+
+    public function displayBloodLeague()
+    {
+        return Inertia::render('BloodLeague');
+    }
 }

@@ -19,7 +19,7 @@ Route::controller(DisplayController::class)->group(function () {
     Route::get('/leaderboard', 'displayLeaderboard')->name('leaderboard');
     Route::get('/blood-league', 'displayBloodLeague')->name('blood-league');
     Route::get('/don-du-sang', 'displayDonDuSang')->name('don-du-sang');
-    Route::get('/contact', 'displayHome')->name('don-du-sang');
+    Route::get('/contact', 'displayHome')->name('contact');
 });
 
 Route::middleware('auth')->group(function () {

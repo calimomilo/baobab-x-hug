@@ -4,12 +4,28 @@ import AppLayout from '@/layouts/AppLayout.vue';
 
 const conditions = [
     {
-        title: 'bla bla bla',
-        desc: 'sdlkkkkkkkkkslv j ofiew jewojdc woeijd wcij  oeifjcwej weoijcewoijxc eijf   oiewfjcoewijc ewijc.'
+        title: 'Avoir entre 18 et 75 ans',
+        desc: 'Le don est ouvert dès 18 ans, sans limite supérieure stricte pour les donneurs réguliers en bonne santé.'
     },
     {
-        title: 'bla bla bla',
-        desc: 'sdlkkkkkkkkkslv j ofiew jewojdc woeijd wcij  oeifjcwej weoijcewoijxc eijf   oiewfjcoewijc ewijc.'
+        title: 'Peser au moins 50 kg',
+        desc: 'Ce seuil garantit ta sécurité pendant et après le prélèvement.'
+    },
+    {
+        title: 'Être en bonne santé le jour J',
+        desc: 'Pas de rhume, fièvre, infection en cours ni fatigue inhabituelle. Un vaccin récent, un traitement médicamenteux ou une intervention dentaire peuvent reporter ton don.'
+    },
+    {
+        title: 'Respecter le délai entre deux dons',
+        desc: '8 semaines minimum entre deux dons. Jusquà 4 dons par an pour les hommes, 3 pour les femmes.'
+    },
+    {
+        title: 'Quelques situations spécifiques à vérifier',
+        desc: 'Voyage hors dEurope récent, tatouage de moins de 4 mois, grossesse, ou certains antécédents médicaux peuvent temporairement ou définitivement empêcher le don.'
+    },
+    {
+        title: 'Pas sûr de pouvoir donner ?',
+        desc: 'Faites le test via notre checker online.'
     }
 ]
 

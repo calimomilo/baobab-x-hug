@@ -119,24 +119,12 @@ props.companies?.forEach((company) => {
 
         <!-- THIRD SCREEN : ENTREPRISES LABELLISEES -->
 
-        <section
-            id="companies"
-            class="flex flex-col items-center bg-brand-teal-500 pt-16 pb-8 text-white"
-        >
-            <h2
-                class="lg:textcenter mb-4 px-4 text-[38px]/[130%] font-semibold"
-            >
-                Les entreprises labellisées
-            </h2>
+        <section id="companies" class="flex flex-col items-center bg-brand-teal-500 pt-16 pb-8 text-white">
+            <h2 class="lg:textcenter mb-4 px-4 text-[38px]/[130%] font-semibold">Les entreprises labellisées</h2>
             <Link href="/leaderboard">
-                <Button
-                    class="bg-white font-semibold text-brand-teal-500 hover:bg-brand-neutral-100 active:bg-brand-neutral-200"
-                    >Voir le leaderboard</Button
-                >
+                <Button class="bg-white font-semibold text-brand-teal-500 hover:bg-brand-neutral-100 active:bg-brand-neutral-200">Voir le leaderboard</Button>
             </Link>
-            <div
-                class="flex min-h-60 w-full flex-col justify-center overflow-hidden"
-            >
+            <div class="flex min-h-60 w-full flex-col justify-center overflow-hidden">
                 <LogoLoop
                     :logos="companiesList"
                     :speed="60"

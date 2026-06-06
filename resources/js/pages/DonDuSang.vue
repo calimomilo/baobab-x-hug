@@ -28,7 +28,7 @@ const conditions = [
             </div>
             <img src="/assets/mascottes/DrinkPinkFlower.svg" alt="Mascotte boit" class="scale-x-[-1] my-auto max-h-100 lg:h-100">
         </section>
-        <section id="infos" class="relative min-h-[calc(100vh-76px)] flex flex-col px-8 py-12 gap-20 font-medium lg:px-40 lg:text-lg">
+        <section id="infos" class="relative min-h-[calc(100vh-76px)] flex flex-col px-8 py-12 gap-10 font-medium items-center md:items-stretch lg:px-40 lg:text-lg lg:gap-20">
             <div class="flex flex-col gap-4">
                 <h4 class="font-medium tracking-[8%] uppercase">L'impact pour les receveurs</h4>
                 <h3 class="text-xl font-semibold md:text-2xl">Le sang ne se fabrique pas, il se donne.</h3>
@@ -46,7 +46,7 @@ const conditions = [
                     <Tile color="rose" title="A, B, AB ou O ?">Après votre premier don, le CTS vous communique votre groupe sanguin. Une information à garder toute la vie.</Tile>
                     <Tile color="rose" title="Blood League">
                         <p>Chaque don fait en entreprise vous permet de faire gagner des points à votre entreprise et de gravir les échelons de la Blood League.</p>
-                        <Link href="/blood-league" class="block text-sm font-normal italic underline text-brand-indigo-800 mt-2">En savoir plus</Link>
+                        <Link href="/blood-league" class="block text-sm font-normal italic underline text-brand-indigo-600 hover:text-brand-indigo-400 mt-2">En savoir plus</Link>
                     </Tile>
                 </div>
             </div>

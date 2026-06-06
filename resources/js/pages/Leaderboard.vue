@@ -57,13 +57,13 @@ const filter = (filter: string) => {
     <AppLayout title="Leaderboard" desc="Découvrez les entreprises participant à la saison en cours.">
         <section id="results" class="relative min-h-[calc(100vh-76px)] flex flex-col px-8 py-20 gap-15 font-medium lg:px-24 lg:py-36 lg:text-xl">
             <div class="flex flex-col gap-y-4 gap-x-8 justify-center items-center md:flex-row">
-                <img src="/assets/logos/BloodLeague_logo_noir.png" alt="" class="w-40">
+                <img src="/assets/logos/BloodLeague_logo_noir.png" alt="Logo Blood League" class="w-40">
                 <h1 class="text-2xl font-bold md:text-[50px]">Résultats de la saison {{ props.season }}</h1>
             </div>
             <div class="flex flex-wrap gap-4 justify-center">
                 <div class="flex gap-4 w-76 grow shrink-0 justify-end items-center">
                     <div class="flex flex-col items-start justify-between rounded-lg min-w-38 w-[calc(50%-2px)] aspect-square bg-brand-violet-200 p-4 md:max-w-80">
-                        <img src="/assets/mascottes/ScreamBlueNona.svg" alt="" class="h-[calc(100%-60px)] mb-2">
+                        <img src="/assets/mascottes/ScreamBlueNona.svg" alt="Mascotte crie" class="h-[calc(100%-60px)] mb-2">
                         <div>
                             <p class="text-lg font-semibold lg:text-xl">{{ companiesAmount }}</p>
                             <p>Entreprises</p>
@@ -79,14 +79,14 @@ const filter = (filter: string) => {
                 </div>
                 <div class="flex gap-4 w-76 grow shrink-0 items-center">
                     <div class="flex flex-col items-start justify-between rounded-lg min-w-38 w-[calc(50%-2px)] aspect-square bg-brand-sage-200 p-4 md:max-w-80">
-                        <img src="/assets/mascottes/YeahPinkFlam.svg" alt="" class="h-[calc(100%-60px)] mb-2">
+                        <img src="/assets/mascottes/YeahPinkFlam.svg" alt="Mascotte supporte" class="h-[calc(100%-60px)] mb-2">
                         <div>
                             <p class="text-lg font-semibold lg:text-xl">{{ supportersAmount }}</p>
                             <p>Supporters</p>
                         </div>
                     </div>
                     <div class="flex flex-col items-start justify-between rounded-lg min-w-38 w-[calc(50%-2px)] aspect-square bg-brand-teal-200 p-4 md:max-w-80">
-                        <img src="/assets/mascottes/DrinkPinkFlower.svg" alt="" class="h-[calc(100%-60px)] mb-2 scale-x-[-1]">
+                        <img src="/assets/mascottes/DrinkPinkFlower.svg" alt="Mascotte boît" class="h-[calc(100%-60px)] mb-2 scale-x-[-1]">
                         <div>
                             <p class="text-lg font-semibold lg:text-xl">{{ efficiencyMean }}%</p>
                             <p>Efficacité</p>
@@ -122,7 +122,7 @@ const filter = (filter: string) => {
             <Link href="/contact" class="lg:relative lg:right-90 lg:bottom-5">
                 <img src="/assets/round_button_organize.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="w-40 h-40 -rotate-10 lg:w-50 lg:h-50 hover:scale-110 hover:rotate-20 transition duration-150 ease-in-out"> <!-- figure out how to make pink -->
             </Link>
-            <img src="/assets/mascottes/WriteBlueStar.svg" alt="" class="hidden lg:block  absolute h-80 right-5 bottom-5">
+            <img src="/assets/mascottes/WriteBlueStar.svg" alt="Mascotte écrit" class="hidden lg:block  absolute h-80 right-5 bottom-5">
         </section>
         <CharacterLoop/>
     </AppLayout>

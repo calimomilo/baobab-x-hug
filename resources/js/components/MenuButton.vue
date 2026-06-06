@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
+import { ref } from 'vue';
 import { useCurrentUrl } from '@/composables/useCurrentUrl';
 
 const props = defineProps({
@@ -9,14 +10,31 @@ const props = defineProps({
 })
 
 const { isCurrentUrl } = useCurrentUrl();
+
+const type = ref(props.type);
+
+type style = {
+    [key: string]: {
+        [key: string]: string;
+    };
+}
+
+const style: style = {
+    'normal' : {
+        'base' : 'text-brand-sage-950 hover:bg-white/60 active:bg-white/80',
+        'active' : 'text-brand-sage-950 bg-brand-sage-100 hover:bg-white/60 active:bg-white/80'
+    },
+    'highlight-pink' : {
+        'base': 'text-white font-semibold bg-brand-rose-400 hover:bg-brand-rose-500/100 active:bg-brand-rose-600/100',
+        'active' : 'text-white font-semibold bg-brand-rose-300 hover:bg-brand-rose-500/100 active:bg-brand-rose-600/100'
+    }
+}
 </script>
 
 <template>
     <Link v-if="props.display==='desktop'" :href="props.href" 
         class="flex items-center px-3 h-11 rounded font-medium"
-        :class="{'bg-brand-sage-100' : isCurrentUrl(props.href), 
-            'text-brand-sage-950 hover:bg-white/60 active:bg-white/80' : props.type==='normal',
-            'text-white font-semibold bg-brand-rose-400 hover:bg-brand-rose-500/100 active:bg-brand-rose-600/100' : props.type==='highlight-pink',}">
+        :class="style[type][isCurrentUrl(props.href)? 'active': 'base']">
         <slot />
     </Link>
     <Link v-if="props.display==='mobile'" :href="props.href"

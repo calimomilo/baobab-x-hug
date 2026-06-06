@@ -23,7 +23,7 @@ const props = defineProps({
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
-    <div class="flex min-h-screen flex-col font-cooper text-black">
+    <div class="relative flex min-h-screen flex-col font-cooper text-black">
         <header class="bg-brand-sage-300 text-brand-sage-950 flex py-4 px-6 justify-between items-center sticky top-0 z-10">
         <!-- <header class="bg-white flex py-4 px-6 justify-between items-center sticky top-0 z-10"> -->
             <Link href="/" class="flex gap-3 items-center">

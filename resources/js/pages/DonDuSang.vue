@@ -30,7 +30,7 @@ const conditions = [
         <section id="infos" class="relative min-h-[calc(100vh-76px)] flex flex-col px-8 py-12 gap-4 font-medium lg:px-40 lg:flex-row lg:justify-center">
             ???
         </section>
-        <section id="infos" class="relative min-h-[calc(100vh-76px)] flex flex-col items-center bg-brand-teal-400 text-white px-8 py-12 gap-15 font-medium lg:px-40 lg:text-lg">
+        <section id="conditions" class="relative min-h-[calc(100vh-76px)] flex flex-col items-center bg-brand-teal-400 text-white px-8 py-12 gap-15 font-medium lg:px-40 lg:text-lg">
             <h2 class="text-2xl font-bold md:text-[50px]">Est-ce que je peux donner ?</h2>
             <div class="flex flex-col gap-4">
                 <div v-for="condition, index in conditions" v-bind:key="index" class="pt-8 pb-4" :class="{'border-t-2': index>0}">

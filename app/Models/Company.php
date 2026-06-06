@@ -20,11 +20,6 @@ class Company extends Model
         return $this->belongsToMany(Season::class, 'wins')->using(Win::class)->withPivot('category');
     }
 
-    public function displayData()
-    {
-        return $this->get(['slug', 'primary_color', 'secondary_color', 'logo_url']);
-    }
-
     public function link()
     {
         return config('app.url').'/'.$this->get('slug');

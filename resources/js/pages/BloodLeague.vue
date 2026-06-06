@@ -5,11 +5,15 @@ import LabelCard from '@/components/LabelCard.vue';
 import AwardIcon from '@/components/svg/AwardIcon.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 
+const props = defineProps({
+    displayData: Object || null
+});
+
 </script>
 
 <template>
 
-    <AppLayout title="Blood League" desc="Découvrez comment fonctionne la Blood League, le label, et la cérémonie.">
+    <AppLayout title="Blood League" desc="Découvrez comment fonctionne la Blood League, le label, et la cérémonie." :display-data="props.displayData">
         <section id="blood-league" class="relative min-h-[calc(100vh-76px)] flex flex-col px-8 py-15 gap-15 lg:px-40 font-medium">
             <div class="flex flex-col justify-center gap-8 lg:text-xl">
                 <h2 class="w-9/10 text-2xl font-bold md:text-[50px] md:w-full">Qu'est-ce que la Blood League ?</h2>

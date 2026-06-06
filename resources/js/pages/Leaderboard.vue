@@ -22,7 +22,8 @@ type company = {
 }
 const props = defineProps({
     companies: Array<company>,
-    season: {type: Number, default: null}
+    season: {type: Number, default: null},
+    displayData: Object || null
 })
 
 // COMPUTE RESULTS
@@ -54,7 +55,7 @@ const filter = (filter: string) => {
 </script>
 
 <template>
-    <AppLayout title="Leaderboard" desc="Découvrez les entreprises participant à la saison en cours.">
+    <AppLayout title="Leaderboard" desc="Découvrez les entreprises participant à la saison en cours." :display-data="props.displayData">
         <section id="results" class="relative min-h-[calc(100vh-76px)] flex flex-col px-8 py-20 gap-15 font-medium lg:px-24 lg:py-36 lg:text-xl">
             <div class="flex flex-col gap-y-4 gap-x-8 justify-center items-center md:flex-row">
                 <img src="/assets/logos/BloodLeague_logo_noir.png" alt="Logo Blood League" class="w-40">

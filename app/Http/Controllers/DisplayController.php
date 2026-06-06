@@ -34,10 +34,11 @@ class DisplayController extends Controller
             }
 
             $companyDisplayData = [
+                'name' => $company->company_name,
                 'slug' => $company->slug,
                 'primary_color' => $company->primary_color,
                 'secondary_color' => $company->secondary_color,
-                'logo_url' => $company->secondary_color,
+                'logo_url' => $company->logo_url,
             ];
         }
 
@@ -54,10 +55,11 @@ class DisplayController extends Controller
             }
 
             $companyDisplayData = [
+                'name' => $company->company_name,
                 'slug' => $company->slug,
                 'primary_color' => $company->primary_color,
                 'secondary_color' => $company->secondary_color,
-                'logo_url' => $company->secondary_color,
+                'logo_url' => $company->logo_url,
             ];
         }
 
@@ -74,10 +76,11 @@ class DisplayController extends Controller
             }
 
             $companyDisplayData = [
+                'name' => $company->company_name,
                 'slug' => $company->slug,
                 'primary_color' => $company->primary_color,
                 'secondary_color' => $company->secondary_color,
-                'logo_url' => $company->secondary_color,
+                'logo_url' => $company->logo_url,
             ];
         }
 
@@ -94,10 +97,11 @@ class DisplayController extends Controller
             }
 
             $companyDisplayData = [
+                'name' => $company->company_name,
                 'slug' => $company->slug,
                 'primary_color' => $company->primary_color,
                 'secondary_color' => $company->secondary_color,
-                'logo_url' => $company->secondary_color,
+                'logo_url' => $company->logo_url,
             ];
         }
 

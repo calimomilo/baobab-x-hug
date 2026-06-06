@@ -4,6 +4,10 @@ import CharacterLoop from '@/components/CharacterLoop.vue';
 import Tile from '@/components/Tile.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 
+const props = defineProps({
+    displayData: Object || null
+});
+
 const conditions = [
     {
         title: 'bla bla bla',
@@ -19,7 +23,7 @@ const conditions = [
 
 <template>
 
-    <AppLayout title="Don du sang" desc="Découvrez l'impact et les conditions du don du sang.">
+    <AppLayout title="Don du sang" desc="Découvrez l'impact et les conditions du don du sang." :display-data="props.displayData">
         <section id="hero" class="relative min-h-[calc(100vh-76px)] bg-brand-sage-400 text-white flex flex-col px-8 py-12 gap-4 font-medium lg:px-40 lg:flex-row lg:justify-center">
             <div class="flex flex-col px-8 py-12 gap-4 self-start my-auto lg:text-lg">
                 <h2 class="w-9/10 text-2xl font-bold md:text-[50px] md:w-full">Pourquoi donner ?</h2>

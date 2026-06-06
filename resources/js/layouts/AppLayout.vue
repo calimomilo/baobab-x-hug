@@ -23,7 +23,7 @@ const props = defineProps({
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
-    <div class="flex min-h-screen flex-col font-cooper text-black">
+    <div class="relative flex min-h-screen flex-col font-cooper text-black">
         <header class="bg-brand-sage-300 text-brand-sage-950 flex py-4 px-6 justify-between items-center sticky top-0 z-10">
         <!-- <header class="bg-white flex py-4 px-6 justify-between items-center sticky top-0 z-10"> -->
             <Link href="/" class="flex gap-3 items-center">
@@ -41,12 +41,8 @@ const props = defineProps({
                             </Button>
                         </SheetTrigger>
                         <SheetContent side="left" class="w-[300px] h-screen p-6">
-                            <SheetTitle class="sr-only"
-                                >NMenu de navigation</SheetTitle
-                            >
-                            <div
-                                class="flex h-full flex-1 flex-col justify-between space-y-4 py-6"
-                            >
+                            <SheetTitle class="sr-only">NMenu de navigation</SheetTitle>
+                            <div class="flex h-full flex-1 flex-col justify-between space-y-4 py-6" >
                                 <nav class="-mx-3 space-y-1 font-cooper">
                                     <MenuButton href="/leaderboard" display="mobile">Leaderboard</MenuButton>
                                     <MenuButton href="/blood-league" display="mobile">Blood League</MenuButton>

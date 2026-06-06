@@ -2,6 +2,7 @@
 import { Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import Badge from '@/components/Badge.vue';
+import CharacterLoop from '@/components/CharacterLoop.vue';
 import CompanyCard from '@/components/CompanyCard.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 
@@ -53,7 +54,7 @@ const filter = (filter: string) => {
 </script>
 
 <template>
-    <AppLayout title="Accueil" desc="Découvrez les entreprises participant à la saison en cours.">
+    <AppLayout title="Leaderboard" desc="Découvrez les entreprises participant à la saison en cours.">
         <section id="results" class="relative min-h-[calc(100vh-76px)] flex flex-col px-8 py-20 gap-15 font-medium lg:px-24 lg:py-36 lg:text-xl">
             <div class="flex flex-col gap-y-4 gap-x-8 justify-center items-center md:flex-row">
                 <img src="/assets/logos/BloodLeague_logo_noir.png" alt="" class="w-40">
@@ -123,5 +124,6 @@ const filter = (filter: string) => {
             </Link>
             <img src="/assets/mascottes/WriteBlueStar.svg" alt="" class="hidden lg:block  absolute h-80 right-5 bottom-5">
         </section>
+        <CharacterLoop/>
     </AppLayout>
 </template>

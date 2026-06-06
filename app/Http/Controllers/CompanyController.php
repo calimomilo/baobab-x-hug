@@ -33,7 +33,8 @@ class CompanyController extends Controller
         $validated = $request->validate([
             'company_name' => 'required|string|min:2|max:255',
             'address' => 'required|string',
-            'contact_name' => 'nullable|string|max:255',
+            'contact_address' => 'nullable|string',
+            'contact_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
             'slug' => 'required|string|alpha_dash:ascii|min:4|max:42|unique:companies',
@@ -46,6 +47,7 @@ class CompanyController extends Controller
         $company = Company::create([
             'company_name' => $validated['company_name'],
             'address' => $validated['address'],
+            'contact_address' => $validated['contact_address'],
             'contact_name' => $validated['contact_name'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],

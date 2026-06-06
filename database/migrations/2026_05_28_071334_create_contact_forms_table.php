@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('contact_name');
             $table->string('email');
             $table->string('phone');
+            $table->text('message')->nullable();
             $table->timestamps();
         });
     }

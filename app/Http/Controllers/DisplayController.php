@@ -24,7 +24,7 @@ class DisplayController extends Controller
             ];
         });
 
-        $base = $companies->select(['company_name', 'logo_url', 'label']);
+        $base = $companies->where('anonymous', '=', 0)->select(['company_name', 'logo_url', 'label']);
 
         return Inertia::render('Home', ['companies' => $base]);
     }
@@ -60,7 +60,7 @@ class DisplayController extends Controller
             ];
         });
 
-        $base = $companies->sortBy('score.total')->select(['company_name', 'logo_url', 'label', 'score']);
+        $base = $companies->where('anonymous', '=', 0)->sortBy('score.total')->select(['company_name', 'logo_url', 'label', 'score']);
 
         return Inertia::render('Leaderboard', ['companies' => $base, 'season' => $season->year_of]);
     }

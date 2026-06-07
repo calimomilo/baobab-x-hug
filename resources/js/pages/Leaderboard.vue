@@ -4,10 +4,10 @@ import { ref } from 'vue';
 import Badge from '@/components/Badge.vue';
 import CharacterLoop from '@/components/CharacterLoop.vue';
 import CompanyCard from '@/components/CompanyCard.vue';
+import LabelIcon from '@/components/svg/LabelIcon.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 
 type company = {
-    id: number,
     company_name: string,
     logo_url: string,
     label: {
@@ -52,6 +52,9 @@ const filter = (filter: string) => {
     console.log(activeFilter.value, companies.value);
 }
 
+// IF BRANDED : COMPANY DATA
+const brandedCompany = props.displayData ? props.companies?.filter((c) => c.company_name === props.displayData?.name)[0] : null;
+
 </script>
 
 <template>
@@ -64,32 +67,71 @@ const filter = (filter: string) => {
             <div class="flex flex-wrap gap-4 justify-center">
                 <div class="flex gap-4 w-76 grow shrink-0 justify-end items-center">
                     <div class="flex flex-col items-start justify-between rounded-lg min-w-38 w-[calc(50%-2px)] aspect-square bg-brand-violet-200 p-4 md:max-w-80">
-                        <img src="/assets/mascottes/ScreamBlueNona.svg" alt="Mascotte crie" class="h-[calc(100%-60px)] mb-2">
+                        <img src="/assets/mascottes/ScreamBlueNona.svg" alt="Mascotte crie" class="h-[calc(100%-60px)] mb-2 lg:h-[calc(100%-80px)]">
                         <div>
-                            <p class="text-lg font-semibold lg:text-xl">{{ companiesAmount }}</p>
+                            <p class="text-xl font-semibold lg:text-3xl">{{ companiesAmount }}</p>
                             <p>Entreprises</p>
                         </div>
                     </div>
                     <div class="flex flex-col items-start justify-between rounded-lg min-w-38 w-[calc(50%-2px)] aspect-square bg-brand-rose-100 p-4 md:max-w-80">
-                        <img src="/assets/mascottes/KneelBlueFlower.svg" alt="" class="h-[calc(100%-60px)] mb-2">
+                        <img src="/assets/mascottes/KneelBlueFlower.svg" alt="" class="h-[calc(100%-60px)] mb-2 lg:h-[calc(100%-80px)]">
                         <div>
-                            <p class="text-lg font-semibold lg:text-xl">{{ donationsAmount }}</p>
+                            <p class="text-xl font-semibold lg:text-3xl">{{ donationsAmount }}</p>
                             <p>Dons</p>
                         </div>
                     </div>
                 </div>
                 <div class="flex gap-4 w-76 grow shrink-0 items-center">
                     <div class="flex flex-col items-start justify-between rounded-lg min-w-38 w-[calc(50%-2px)] aspect-square bg-brand-sage-200 p-4 md:max-w-80">
-                        <img src="/assets/mascottes/YeahPinkFlam.svg" alt="Mascotte supporte" class="h-[calc(100%-60px)] mb-2">
+                        <img src="/assets/mascottes/YeahPinkFlam.svg" alt="Mascotte supporte" class="h-[calc(100%-60px)] mb-2 lg:h-[calc(100%-80px)]">
                         <div>
-                            <p class="text-lg font-semibold lg:text-xl">{{ supportersAmount }}</p>
+                            <p class="text-xl font-semibold lg:text-3xl">{{ supportersAmount }}</p>
                             <p>Supporters</p>
                         </div>
                     </div>
                     <div class="flex flex-col items-start justify-between rounded-lg min-w-38 w-[calc(50%-2px)] aspect-square bg-brand-teal-200 p-4 md:max-w-80">
-                        <img src="/assets/mascottes/DrinkPinkFlower.svg" alt="Mascotte boît" class="h-[calc(100%-60px)] mb-2 scale-x-[-1]">
+                        <img src="/assets/mascottes/DrinkPinkFlower.svg" alt="Mascotte boît" class="h-[calc(100%-60px)] mb-2 scale-x-[-1] lg:h-[calc(100%-80px)]">
                         <div>
-                            <p class="text-lg font-semibold lg:text-xl">{{ efficiencyMean }}%</p>
+                            <p class="text-xl font-semibold lg:text-3xl">{{ efficiencyMean }}%</p>
+                            <p>Efficacité</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="props.displayData" class="flex flex-col mt-10 -mb-4 gap-y-4 gap-x-8 justify-start items-center md:flex-row">
+                <img :src="props.displayData.logo_url" :alt="`Logo de l'entreprise ${props.displayData.name}`" class="w-40">
+                <h2 class="text-xl font-bold md:text-4xl">Chez {{ brandedCompany?.company_name }}</h2>
+            </div>
+            <div v-if="props.displayData" class="flex flex-wrap gap-4 justify-center">
+                <div class="flex gap-4 w-76 grow shrink-0 justify-end items-center">
+                    <div class="relative flex flex-col items-start justify-end rounded-lg min-w-38 w-[calc(50%-2px)] aspect-square p-4 md:max-w-80" :style="`background-color: ${props.displayData.secondary_color}DD;`">
+                        <LabelIcon :label="brandedCompany?.label.slug" class="absolute rotate-15 -top-5 -right-3 h-[calc(80%+20px)]"></LabelIcon>
+                        <div>
+                            <p class="text-xl font-semibold lg:text-3xl capitalize">{{ brandedCompany?.label.slug }}</p>
+                            <p>Division</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-start justify-between rounded-lg min-w-38 w-[calc(50%-2px)] aspect-square p-4 md:max-w-80" :style="`background-color: ${props.displayData.secondary_color}DD;`">
+                        <img src="/assets/mascottes/KneelBlueFlower.svg" alt="" class="h-[calc(100%-60px)] mb-2 lg:h-[calc(100%-80px)]">
+                        <div>
+                            <p class="text-xl font-semibold lg:text-3xl">{{ brandedCompany?.score.donations }}</p>
+                            <p>Dons</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-4 w-76 grow shrink-0 items-center">
+                    <div class="flex flex-col items-start justify-between rounded-lg min-w-38 w-[calc(50%-2px)] aspect-square p-4 md:max-w-80" :style="`background-color: ${props.displayData.secondary_color}DD;`">
+                        <img src="/assets/mascottes/YeahPinkFlam.svg" alt="Mascotte supporte" class="h-[calc(100%-60px)] mb-2 lg:h-[calc(100%-80px)]">
+                        <div>
+                            <p class="text-xl font-semibold lg:text-3xl">{{ brandedCompany?.score.supporters }}</p>
+                            <p>Supporters</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-start justify-between rounded-lg min-w-38 w-[calc(50%-2px)] aspect-square p-4 md:max-w-80" :style="`background-color: ${props.displayData.secondary_color}DD;`">
+                        <img src="/assets/mascottes/DrinkPinkFlower.svg" alt="Mascotte boît" class="h-[calc(100%-60px)] mb-2 scale-x-[-1] lg:h-[calc(100%-80px)]">
+                        <div>
+                            <p class="text-xl font-semibold lg:text-3xl">{{ Math.round(brandedCompany?.score.efficiency ?? 0) }}%</p>
                             <p>Efficacité</p>
                         </div>
                     </div>

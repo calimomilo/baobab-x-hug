@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
+import { onMounted } from 'vue';
 import LogoLoop from '@/components/bits/LogoLoop.vue';
 import type { LogoItemImage } from '@/components/bits/LogoLoop.vue';
 import Card from '@/components/Card.vue';
@@ -25,7 +26,8 @@ type company = {
 
 const props = defineProps({
     companies: Array<company>,
-    displayData: Object || null
+    displayData: Object || null,
+    collect: Object || null
 });
 
 const companiesList = <Array<LogoItemImage>>[];
@@ -37,21 +39,59 @@ props.companies?.forEach((company) => {
         href: '',
     });
 });
+console.log(props.collect);
 
-// const isLg = window.innerWidth >= 1024;
+onMounted(() => {
+    setInterval(() => {
+        router.reload({only: ['collect.date_of']});
+    },499)
+})
 </script>
 
 <template>
     <!-- FIRST SCREEN : HERO -->
 
     <AppLayout title="Accueil" desc="Bienvenue sur le site de la Blood League par les HUG" :displayData="displayData">
-        <div v-if="props.displayData">
-            {{ props.displayData.slug }}
-            {{ props.displayData.primary_color }}
-            <BrandedMascot type="flag" :primary="props.displayData.primary_color" :secondary="props.displayData.secondary_color"></BrandedMascot>
-            <BrandedMascot type="holding_hands" :primary="props.displayData.primary_color" :secondary="props.displayData.secondary_color"></BrandedMascot>
-        </div>
-        <section id="hero" class="relative min-h-[calc(100vh-76px)] flex flex-col justify-center items-center gap-20 md:gap-6">
+        <section v-if="props.displayData" id="hero" class="relative min-h-[calc(100vh-76px)] flex flex-col px-8 py-15 gap-x-8 gap-y-8 lg:px-40 font-medium lg:text-lg">
+            <div class="flex flex-col gap-8 md:flex-row-reverse md:items-start">
+                <div class="flex flex-col gap-6 md:mt-6">
+                    <h1 class="text-2xl font-bold md:text-4xl">L'équipe <span :style="`color: ${props.displayData.primary_color};`">{{ props.displayData.name }}</span> entre sur le terrain !</h1>
+                    <p>{{ props.displayData?.name }} s'engage dans la Blood League aux côtés des entreprises genevoises qui font la différence. Vérifiez votre éligibilité en 2 minutes et faites marquer des points à votre équipe. Chaque don compte dans le classement Blood League.</p>
+                </div>
+                <BrandedMascot type="flag" :primary="props.displayData.primary_color" :secondary="props.displayData.secondary_color" class="mx-auto md:scale-[2] md:mr-14 md:ml-16 md:mt-20 lg:relative lg:mr-0 lg:right-16"></BrandedMascot>
+            </div>
+            <div v-if="props.collect">
+                <h3 class="text-2xl font-bold md:text-3xl md:mt-6 md:ml-30 lg:ml-16">Prochaine collecte :</h3>
+                <div class="flex flex-col gap-6 my-6 md:my-10">
+                    <div class="flex gap-10">
+                        <div class="flex flex-col justify-center gap-2 bg-brand-teal-300 text-brand-teal-900 rounded-lg px-6 py-8 py-auto w-full min-w-38 text-center lg:gap-4 lg:py-12">
+                            <p class="text-xl font-semibold lg:text-3xl">{{ props.collect.date_of }}</p>
+                            <p class="lg:text-xl">{{ props.collect.countdown }}</p>
+                        </div>
+                        <Link href="/checker" class="hidden grow md:inline-block lg:shrink-0">
+                            <img src="/assets/round_button_verify.svg" alt="Bouton noir rond avec le texte Vérifier mon éligibilité" class="relative h-full w-full scale-130 rotate-3 transition duration-150 ease-in-out hover:scale-140 hover:rotate-30 md:right-1 md:bottom-2 lg:bottom-4 lg:left-2">
+                        </Link>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="flex flex-col justify-center bg-brand-rose-200 text-brand-rose-900 rounded-lg px-6 py-8 py-auto w-full min-w-38 text-center lg:py-12">
+                            <p class="text-xl font-semibold lg:text-3xl">{{ props.collect.start_time }}–{{ props.collect.end_time }}</p>
+                        </div>
+                        <div class="flex flex-col justify-center bg-brand-sage-300 text-brand-sage-900 rounded-lg px-6 py-8 py-auto w-full min-w-38 text-center lg:py-12">
+                            <p class="text-xl font-semibold lg:text-3xl">{{ props.collect.location }}</p>
+                        </div>
+                    </div>
+                    <Link href="/checker" class="md:hidden self-center mt-10">
+                        <img src="/assets/round_button_verify.svg" alt="Bouton noir rond avec le texte Vérifier mon éligibilité" class="h-40 w-40 rotate-3 transition duration-150 ease-in-out hover:scale-110"/>
+                        <!-- figure out how to make pink -->
+                    </Link>
+                </div>
+            </div>
+            <div v-else>
+                <h3 class="text-xl font-semibold md:text-2xl">Aucune collecte prévue !</h3>
+                <p class="mt-2"><Link href="/contact" class="underline text-brand-indigo-600 hover:text-brand-indigo-400 mt-2">Contactez-nous</Link> pour organiser une collecte.</p>
+            </div>
+        </section>
+        <section v-else id="hero" class="relative min-h-[calc(100vh-76px)] flex flex-col justify-center items-center gap-20 md:gap-6">
             <h1 class="flex flex-col text-center text-2xl font-bold gap-2 items-center md:text-4xl md:gap-3 lg:text-[64px] lg:gap-6">
                 <span class="-rotate-6 -translate-x-[calc(10vw)] md:-translate-x-[calc(20vw-100px)] lg:-translate-x-[calc(20vw-150px)">Mobilisez votre équipe.</span>
                 <span class="rotate-4 translate-x-[calc(10vw+15px)] lg:translate-x-[calc(25vw-80px)] lg:translate-y-2">Sauvez des vies.</span>
@@ -161,13 +201,30 @@ props.companies?.forEach((company) => {
 
         <!-- FOURTH SCREEN : CONTACT -->
 
-        <section id="contact" class="relative flex min-h-[calc(100vh-76px)] flex-col items-center justify-start bg-brand-rose-400 pt-16 text-white lg:px-40" >
-            <h2 class="mb-4 px-4 text-[38px]/[130%] font-semibold lg:hidden lg:w-[40vw]" >Organiser une collecte</h2>
+        <section v-if="props.collect" id="contact" class="relative flex min-h-[calc(100vh-76px)] flex-col items-center justify-start bg-brand-rose-400 pt-16 text-white lg:px-40" >
+            <h2 class="mb-4 px-4 text-[38px]/[130%] font-semibold lg:hidden lg:w-[40vw]">Vérifier mon éligibilité</h2>
             <img src="/assets/cts-appel-don-du-sang.jpg" alt="Prise de sang pour un don" class="h-[50vh] w-9/10 rounded-lg object-cover lg:h-[70vh]" />
-            <Link href="/contact" class="absolute bottom-[10%] lg:right-[8%] lg:bottom-[40%]" >
-                <img src="/assets/round_button_lance.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="h-40 w-40 rotate-3 transition duration-150 ease-in-out hover:scale-110 hover:rotate-30 lg:h-50 lg:w-50" />
+            <Link href="/checker" class="absolute bottom-[10%] lg:right-[8%] lg:bottom-[40%]" >
+                <img src="/assets/round_button_lance.svg" alt="Bouton noir rond avec le texte Je me lance" class="h-40 w-40 rotate-3 transition duration-150 ease-in-out hover:scale-110 hover:rotate-30 lg:h-50 lg:w-50" />
                 <!-- figure out how to make pink -->
             </Link>
+            
+            <div class="absolute bottom-[8%] hidden w-[60vw] rounded-lg bg-brand-rose-400 px-4 py-2 text-center lg:block" >
+                <h2 class="mb-4 px-4 text-[38px]/[130%] font-semibold">Vérifier mon éligibilité</h2>
+                <p class="text-center font-medium tracking-[8%] uppercase">
+                    Prêt.e à représenter {{ props.displayData?.name }} ? Avant de réserver, assurez-vous de pouvoir donner. Vérifiez votre éligibilité en 2 minutes grâce à notre checker et prenez rendez-vous.
+                </p>
+            </div>
+        </section>
+
+        <section v-else id="contact" class="relative flex min-h-[calc(100vh-76px)] flex-col items-center justify-start bg-brand-rose-400 pt-16 text-white lg:px-40" >
+            <h2 class="mb-4 px-4 text-[38px]/[130%] font-semibold lg:hidden lg:w-[40vw]">Organiser une collecte</h2>
+            <img src="/assets/cts-appel-don-du-sang.jpg" alt="Prise de sang pour un don" class="h-[50vh] w-9/10 rounded-lg object-cover lg:h-[70vh]" />
+            <Link href="/contact" class="absolute bottom-[10%] lg:right-[8%] lg:bottom-[40%]" >
+                <img src="/assets/round_button_lance.svg" alt="Bouton noir rond avec le texte Je me lance" class="h-40 w-40 rotate-3 transition duration-150 ease-in-out hover:scale-110 hover:rotate-30 lg:h-50 lg:w-50" />
+                <!-- figure out how to make pink -->
+            </Link>
+            
             <div class="absolute bottom-[8%] hidden w-[60vw] rounded-lg bg-brand-rose-400 px-4 py-2 text-center lg:block" >
                 <h2 class="mb-4 px-4 text-[38px]/[130%] font-semibold">Organiser une collecte</h2>
                 <p class="text-center font-medium tracking-[8%] uppercase">

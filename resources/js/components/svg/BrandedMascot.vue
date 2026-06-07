@@ -9,7 +9,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <div v-if="props.type === 'holding_hands'" :class="props.class">
+    <div v-if="props.type === 'holding_hands'" class="w-fit" :class="props.class">
         <svg class="m-auto" width="256" height="148" viewBox="0 0 256 148" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M227.624 24.4822C228.159 26.905 229.465 29.1525 231.311 30.8139C232.622 26.4943 233.268 21.8378 232.705 16.8352" stroke="#F60065" stroke-width="3.23046" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M231.312 30.8185C233.513 27.2327 235.11 23.1162 235.557 18.312" stroke="#F60065" stroke-width="3.23046" stroke-linecap="round" stroke-linejoin="round"/>
@@ -47,7 +47,7 @@ const props = defineProps({
         </svg>
     </div>
 
-    <div v-if="props.type === 'flag'" :class="props.class">
+    <div v-if="props.type === 'flag'" class="w-fit" :class="props.class">
         <svg class="mx-auto my-auto" width="123" height="167" viewBox="0 0 123 167" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M97.9694 64.2634C101.412 72.8215 101.681 82.326 100.923 91.5216C100.59 95.5815 100.037 99.721 98.2384 103.377C96.4351 107.034 93.1773 110.187 89.1623 110.899C85.8596 111.482 82.4075 110.351 79.7076 108.354C77.0127 106.361 74.9952 103.577 73.3762 100.638C70.4721 95.3722 68.7286 89.4743 68.2803 83.4767" :stroke="props.primary" stroke-width="3.48698" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M97.9638 64.2685C96.1954 63.1327 94.3324 62.1115 92.3647 61.3793" :stroke="props.primary" stroke-width="3.48698" stroke-linecap="round" stroke-linejoin="round"/>

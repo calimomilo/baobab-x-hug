@@ -31,7 +31,7 @@ const conditions = [
                 <h4 class="uppercase tracking-[8%] mb-4">Le don du sang : un geste simple, un impact réel.</h4>
                 <p>Le canton de Genève n'est pas autosuffisant en sang. Chaque collecte organisée en entreprise contribue directement à combler ce déficit et chaque don réalisé est précieux. En plus de ça, vous pouvez faire progresser votre équipe dans le classement de la Blood League.</p>
             </div>
-            <BrandedMascot v-if="props.displayData" type="flag" :primary="props.displayData.primary_color" :secondary="props.displayData.secondary_color" class="scale-[1.8] mt-12 mb-18 lg:my-auto lg:ml-8"></BrandedMascot>
+            <BrandedMascot v-if="props.displayData" type="flag" :primary="props.displayData.primary_color" :secondary="props.displayData.secondary_color" class="mx-auto scale-[1.8] mt-12 mb-18 lg:my-auto lg:relative lg:left-8"></BrandedMascot>
             <img v-else src="/assets/mascottes/DrinkPinkFlower.svg" alt="Mascotte boit" class="scale-x-[-1] my-auto max-h-100 lg:h-100">
         </section>
         <section id="infos" class="relative min-h-[calc(100vh-76px)] flex flex-col px-8 py-12 gap-10 font-medium items-center md:items-stretch lg:px-40 lg:text-lg lg:gap-20">

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Season;
 use App\Services\BloodLeagueScorer;
+use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Inertia\Inertia;
 
 class DisplayController extends Controller
@@ -27,7 +29,7 @@ class DisplayController extends Controller
         $base = $companies->where('anonymous', '=', 0)->select(['company_name', 'logo_url', 'label']);
 
         if ($slug) {
-            $company = Company::where('slug', $slug)->first();
+            $company = Company::where('slug', $slug)->with('collects')->first();
 
             if (! $company) {
                 return to_route('home');
@@ -40,9 +42,15 @@ class DisplayController extends Controller
                 'secondary_color' => $company->secondary_color,
                 'logo_url' => $company->logo_url,
             ];
+
+            $collect = $company->collects->where('date_of', '>=', today())->sortBy('date_of')->first();
+            $collect->countdown = new Carbon($collect->date_of)->locale('fr')->diffForHumans(null, CarbonInterface::DIFF_ABSOLUTE, false, 6);
+            $collect->date_of = new Carbon($collect->date_of)->locale('fr')->format('j.m.o');
+            $collect->start_time = new Carbon($collect->start_time)->format('G\hi');
+            $collect->end_time = new Carbon($collect->end_time)->format('G\hi');
         }
 
-        return Inertia::render('Home', ['companies' => $base, 'displayData' => $companyDisplayData ?? null]);
+        return Inertia::render('Home', ['companies' => $base, 'displayData' => $companyDisplayData ?? null, 'collect' => $collect ?? null]);
     }
 
     public function displayDonDuSang(?string $slug = null)
@@ -89,22 +97,6 @@ class DisplayController extends Controller
 
     public function displayLeaderboard(?string $slug = null)
     {
-        if ($slug) {
-            $company = Company::where('slug', $slug)->first();
-
-            if (! $company) {
-                return to_route('home');
-            }
-
-            $companyDisplayData = [
-                'name' => $company->company_name,
-                'slug' => $company->slug,
-                'primary_color' => $company->primary_color,
-                'secondary_color' => $company->secondary_color,
-                'logo_url' => $company->logo_url,
-            ];
-        }
-
         $season = Season::where('status', 'open')->with('collects')->first();
         $collectIds = $season->collects->pluck('company_id');
         $companies = Company::whereIn('id', $collectIds)->get();
@@ -124,7 +116,23 @@ class DisplayController extends Controller
             ];
         });
 
-        $base = $companies->where('anonymous', '=', 0)->sortBy('score.total')->select(['company_name', 'logo_url', 'label', 'score']);
+        $base = $companies->where('anonymous', '=', 0)->sortByDesc('score.total')->select(['company_name', 'logo_url', 'label', 'score']);
+
+        if ($slug) {
+            $company = Company::where('slug', $slug)->first();
+
+            if (! $company) {
+                return to_route('home');
+            }
+
+            $companyDisplayData = [
+                'name' => $company->company_name,
+                'slug' => $company->slug,
+                'primary_color' => $company->primary_color,
+                'secondary_color' => $company->secondary_color,
+                'logo_url' => $company->logo_url,
+            ];
+        }
 
         return Inertia::render('Leaderboard', ['companies' => $base, 'season' => $season->year_of, 'displayData' => $companyDisplayData ?? null]);
     }

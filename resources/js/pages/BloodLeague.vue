@@ -20,7 +20,7 @@ const props = defineProps({
                 <h2 class="w-9/10 text-2xl font-bold md:text-[50px] md:w-full">Qu'est-ce que la Blood League ?</h2>
                 <div class="flex flex-col justify-center gap-8 md:flex-row md:justify-start">
                     <p>La Blood League est une ligue de don du sang en entreprise. Les entreprises organisent des collectes pour leurs employé.e.s et accumulent des points tout au long de l'année selon leur efficacité et leur mobilisation. Plus une entreprise prépare bien ses employé.e.s en amont, plus son score est élevé.</p>
-                    <BrandedMascot v-if="props.displayData" type="holding_hands" :primary="props.displayData.primary_color" :secondary="props.displayData.secondary_color" class="scale-y-[1.2] scale-x-[1.2] -mb-4"></BrandedMascot>
+                    <BrandedMascot v-if="props.displayData" type="holding_hands" :primary="props.displayData.primary_color" :secondary="props.displayData.secondary_color" class="mx-auto scale-y-[1.2] scale-x-[1.2] -mb-4 md:mr-8 md:my-auto lg:relative lg:left-8"></BrandedMascot>
                     <img v-else src="/assets/mascottes/LightGreenTri.svg" alt="Mascotte à une idée" class="h-60 scale-x-[-1] -mb-6">
                 </div>
             </div>

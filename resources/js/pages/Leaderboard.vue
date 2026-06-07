@@ -101,7 +101,7 @@ const brandedCompany = props.displayData ? props.companies?.filter((c) => c.comp
 
             <div v-if="props.displayData" class="flex flex-col mt-10 -mb-4 gap-y-4 gap-x-8 justify-start items-center md:flex-row">
                 <img :src="props.displayData.logo_url" :alt="`Logo de l'entreprise ${props.displayData.name}`" class="w-40">
-                <h2 class="text-xl font-bold md:text-4xl">Chez {{ brandedCompany?.company_name }}</h2>
+                <h2 class="text-xl font-bold md:text-4xl">Équipe {{ brandedCompany?.company_name }}</h2>
             </div>
             <div v-if="props.displayData" class="flex flex-wrap gap-4 justify-center">
                 <div class="flex gap-4 w-76 grow shrink-0 justify-end items-center">

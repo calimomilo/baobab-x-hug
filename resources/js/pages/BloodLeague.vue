@@ -3,6 +3,7 @@ import { Link } from '@inertiajs/vue3';
 import CharacterLoop from '@/components/CharacterLoop.vue';
 import LabelCard from '@/components/LabelCard.vue';
 import AwardIcon from '@/components/svg/AwardIcon.vue';
+import BrandedMascot from '@/components/svg/BrandedMascot.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 
 const props = defineProps({
@@ -19,7 +20,8 @@ const props = defineProps({
                 <h2 class="w-9/10 text-2xl font-bold md:text-[50px] md:w-full">Qu'est-ce que la Blood League ?</h2>
                 <div class="flex flex-col justify-center gap-8 md:flex-row md:justify-start">
                     <p>La Blood League est une ligue de don du sang en entreprise. Les entreprises organisent des collectes pour leurs employé.e.s et accumulent des points tout au long de l'année selon leur efficacité et leur mobilisation. Plus une entreprise prépare bien ses employé.e.s en amont, plus son score est élevé.</p>
-                    <img src="/assets/mascottes/LightGreenTri.svg" alt="Mascotte à une idée" class="h-60 scale-x-[-1] -mb-6">
+                    <BrandedMascot v-if="props.displayData" type="holding_hands" :primary="props.displayData.primary_color" :secondary="props.displayData.secondary_color" class="scale-y-[1.2] scale-x-[1.2] -mb-4"></BrandedMascot>
+                    <img v-else src="/assets/mascottes/LightGreenTri.svg" alt="Mascotte à une idée" class="h-60 scale-x-[-1] -mb-6">
                 </div>
             </div>
             <div id="label" class="flex flex-col justify-center gap-8 font-medium md:text-xl">
@@ -69,7 +71,15 @@ const props = defineProps({
                 </div>
             </div>
         </section>
-        <section id="contact" class="relative flex flex-col px-8 py-10 gap-12 bg-brand-rose-400 font-medium items-center text-white lg:px-40 lg:text-lg">
+        <section v-if="props.displayData" id="checker" class="relative flex flex-col px-8 py-10 gap-12 bg-brand-rose-400 font-medium items-center text-white lg:px-40 lg:text-lg">
+            <h2 class="text-[38px]/[130%] font-semibold px-4 ">Envie d'aider ?</h2>
+            <p class="text-center font-medium uppercase tracking-[8%] mx-12">Avant de réserver, assurez-vous de pouvoir donner. Vérifiez votre éligibilité en 2 minutes grâce à notre checker et prenez rendez-vous.</p>
+            <Link href="/checker" class="lg:relative lg:right-90 lg:bottom-5">
+                <img src="/assets/round_button_verify.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="w-40 h-40 -rotate-10 lg:w-50 lg:h-50 hover:scale-110 hover:rotate-20 transition duration-150 ease-in-out"> <!-- figure out how to make pink -->
+            </Link>
+            <img src="/assets/mascottes/WriteBlueStar.svg" alt="Mascotte écrit" class="hidden lg:block  absolute h-80 right-5 bottom-5">
+        </section>
+        <section v-else id="contact" class="relative flex flex-col px-8 py-10 gap-12 bg-brand-rose-400 font-medium items-center text-white lg:px-40 lg:text-lg">
             <h2 class="text-[38px]/[130%] font-semibold px-4 ">Votre entreprise n'est pas encore labellisée ?</h2>
             <p class="text-center font-medium uppercase tracking-[8%] mx-12">Rejoignez dès maintenant la Blood League et obtenez votre label en organisant vos premières collectes de sang. Ensemble, faisons la différence.</p>
             <Link href="/contact" class="lg:relative lg:right-90 lg:bottom-5">

@@ -4,6 +4,7 @@ import LogoLoop from '@/components/bits/LogoLoop.vue';
 import type { LogoItemImage } from '@/components/bits/LogoLoop.vue';
 import Card from '@/components/Card.vue';
 import CharacterLoop from '@/components/CharacterLoop.vue';
+import BrandedMascot from '@/components/svg/BrandedMascot.vue';
 import Button from '@/components/ui/button/Button.vue';
 import {
     Carousel,
@@ -44,6 +45,12 @@ props.companies?.forEach((company) => {
     <!-- FIRST SCREEN : HERO -->
 
     <AppLayout title="Accueil" desc="Bienvenue sur le site de la Blood League par les HUG" :displayData="displayData">
+        <div v-if="props.displayData">
+            {{ props.displayData.slug }}
+            {{ props.displayData.primary_color }}
+            <BrandedMascot type="flag" :primary="props.displayData.primary_color" :secondary="props.displayData.secondary_color"></BrandedMascot>
+            <BrandedMascot type="holding_hands" :primary="props.displayData.primary_color" :secondary="props.displayData.secondary_color"></BrandedMascot>
+        </div>
         <section id="hero" class="relative min-h-[calc(100vh-76px)] flex flex-col justify-center items-center gap-20 md:gap-6">
             <h1 class="flex flex-col text-center text-2xl font-bold gap-2 items-center md:text-4xl md:gap-3 lg:text-[64px] lg:gap-6">
                 <span class="-rotate-6 -translate-x-[calc(10vw)] md:-translate-x-[calc(20vw-100px)] lg:-translate-x-[calc(20vw-150px)">Mobilisez votre équipe.</span>

@@ -22,7 +22,7 @@ type style = {
 const style: style = {
     'normal' : {
         'base' : 'text-brand-sage-950 hover:bg-white/60 active:bg-white/80',
-        'active' : 'text-brand-sage-950 bg-brand-sage-100 hover:bg-white/60 active:bg-white/80'
+        'active' : 'text-brand-sage-950 bg-white/85 hover:bg-white/60 active:bg-white/80'
     },
     'highlight-pink' : {
         'base': 'text-white font-semibold bg-brand-rose-400 hover:bg-brand-rose-500/100 active:bg-brand-rose-600/100',

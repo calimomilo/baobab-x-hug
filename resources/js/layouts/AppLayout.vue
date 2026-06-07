@@ -25,7 +25,7 @@ const props = defineProps({
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
     <div class="relative flex min-h-screen flex-col font-cooper text-black">
-        <header class="bg-brand-sage-300 text-brand-sage-950 flex py-4 px-4 justify-between items-center sticky top-0 z-10 lg:px-6">
+        <header class="flex py-4 px-4 justify-between items-center sticky top-0 z-10 lg:px-6" :class="{'bg-brand-sage-300 text-brand-sage-950' : !props.displayData}" :style="`background-color: ${props.displayData? props.displayData.secondary_color : ''}`">
             <Link v-if="props.displayData" :href="`/${props.displayData.slug}`" class="flex gap-3 items-center">
                 <img :src="props.displayData.logo_url" :alt="`Logo de l'entreprise ${props.displayData.name}`" class="max-h-11 max-w-36 lg:max-h-12">
                 <span>✕</span>
@@ -71,7 +71,7 @@ const props = defineProps({
             </div>
         </header>
         <slot />
-        <footer class="flex flex-col gap-y-10 gap-x-6 justify-between justify-items-start bg-brand-sage-300 text-brand-sage-950 py-20 px-10 text-sm font-medium md:text-md md:flex-row">
+        <footer class="flex flex-col gap-y-10 gap-x-6 justify-between justify-items-start py-20 px-10 text-sm font-medium md:text-md md:flex-row" :class="{'bg-brand-sage-300 text-brand-sage-950' : !props.displayData}" :style="`background-color: ${props.displayData? props.displayData.secondary_color : ''}`">
             <div class="flex flex-col gap-6 grow items-start">
                 <img src="/assets/logos/logo_hug_h_gris.png" alt="Logo HUG" class="h-15">
                 <p>Hôpitaux Universitaires Genève<br>Rue Gabrielle-Perret-Gentil 4<br>1205 Genève</p>
@@ -85,13 +85,18 @@ const props = defineProps({
                 <a href="https://www.hug.ch/blogs">Blogs</a>
             </div>
             <div class="flex flex-col gap-1 grow items-start md:gap-2">
-                <h4 class="font-semibold tracking-[8%] uppercase mb-2 md:mb-4">Contenu</h4>
+                <h4 class="font-semibold tracking-[8%] uppercase mb-2 md:mb-4">Informations</h4>
+                <Link :href="props.displayData? `/${props.displayData.slug}/don-du-sang` : '/don-du-sang'">Pourquoi donner ?</Link>
+                <Link :href="props.displayData? `/${props.displayData.slug}/don-du-sang#conditions` : '/don-du-sang#conditions'">Conditions de don</Link>
+                <Link v-if="props.displayData" href="/">Site de la Blood League</Link>
+                <a href="https://www.hug.ch/don-du-sang">Site du CTS</a>
+            </div>
+            <div class="flex flex-col gap-1 grow items-start md:gap-2">
+                <h4 class="font-semibold tracking-[8%] uppercase mb-2 md:mb-4">Blood League</h4>
                 <Link :href="props.displayData? `/${props.displayData.slug}/leaderboard` : '/leaderboard'">Leaderboard</Link>
                 <Link :href="props.displayData? `/${props.displayData.slug}/blood-league` : '/blood-league'">Blood League</Link>
                 <Link :href="props.displayData? `/${props.displayData.slug}/blood-league` : '/blood-league'">Blood League Label</Link>
                 <Link :href="props.displayData? `/${props.displayData.slug}/blood-league#awards` : '/blood-league#awards'">Blood League Awards</Link>
-                <Link :href="props.displayData? `/${props.displayData.slug}/don-du-sang` : '/don-du-sang'">Pourquoi donner ?</Link>
-                <Link :href="props.displayData? `/${props.displayData.slug}/don-du-sang#conditions` : '/don-du-sang#conditions'">Conditions de don</Link>
             </div>
             <div class="flex flex-col gap-1 grow items-start md:gap-2">
                 <h4 class="font-semibold tracking-[8%] uppercase mb-2 md:mb-4">S'engager</h4>

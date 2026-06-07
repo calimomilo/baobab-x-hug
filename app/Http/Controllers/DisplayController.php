@@ -139,4 +139,35 @@ class DisplayController extends Controller
 
         return Inertia::render('Leaderboard', ['companies' => $base, 'season' => $season->year_of, 'displayData' => $companyDisplayData ?? null]);
     }
+
+    public function displayChecker(string $slug, ?string $step = null)
+    {
+        if ($slug) {
+            $company = Company::where('slug', $slug)->with('collects')->first();
+
+            if (! $company) {
+                return to_route('home');
+            }
+
+            $companyDisplayData = [
+                'name' => $company->company_name,
+                'slug' => $company->slug,
+                'primary_color' => $company->primary_color,
+                'secondary_color' => $company->secondary_color,
+                'logo_url' => $company->logo_url,
+            ];
+
+            $collect = $company->collects->where('date_of', '>=', today())->sortBy('date_of')->first();
+
+            if (! $collect) {
+                return to_route('home.slug', $company->slug);
+            }
+
+            if ($step && (! is_numeric($step) || $step < 1)) {
+                return to_route('checker', ['slug' => $company->slug, 'step' => null]);
+            }
+
+            return Inertia::render('Checker', ['displayData' => $companyDisplayData, 'appointment_link' => $collect->appointment_link, 'step' => $step]);
+        }
+    }
 }

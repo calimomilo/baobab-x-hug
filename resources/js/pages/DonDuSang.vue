@@ -5,13 +5,69 @@ import AppLayout from '@/layouts/AppLayout.vue';
 
 const conditions = [
     {
-        title: 'bla bla bla',
-        desc: 'sdlkkkkkkkkkslv j ofiew jewojdc woeijd wcij  oeifjcwej weoijcewoijxc eijf   oiewfjcoewijc ewijc.'
+        title: 'Avoir entre 18 et 75 ans',
+        desc: 'Le don est ouvert dès 18 ans. La limite est de 60 ans pour un premier don, et jusqu\'à 75 ans pour les donneurs réguliers en bonne santé.'
     },
     {
-        title: 'bla bla bla',
-        desc: 'sdlkkkkkkkkkslv j ofiew jewojdc woeijd wcij  oeifjcwej weoijcewoijxc eijf   oiewfjcoewijc ewijc.'
-    }
+        title: 'Peser plus de 50 kg',
+        desc: 'Ce seuil garantit que le volume prélevé reste sans danger pour vous et permet d\'éviter malaises et vertiges.'
+    },
+    {
+        title: 'Être en bonne santé le jour du don',
+        desc: 'Pas de rhume, fièvre, diarrhée ou symptôme de refroidissement. Votre organisme doit être disponible pour le don.'
+    },
+    {
+        title: 'Ne pas avoir de plaie ouverte ou d\'opération récente',
+        desc: 'Votre corps a besoin de toutes ses ressources pour cicatriser, et une plaie ouverte présente un risque infectieux.'
+    },
+    {
+        title: 'Ne pas prendre certains médicaments',
+        desc: 'Certains traitements passent dans le sang prélevé ou indiquent une condition médicale incompatible avec le don.'
+    },
+    {
+        title: 'Ne pas avoir d\'antécédents de VIH, hépatite B, hépatite C ou syphilis',
+        desc: 'Ces infections sont transmissibles par le sang et représentent un risque vital pour le receveur.'
+    },
+    {
+        title: 'Ne pas avoir d\'antécédents de cancer',
+        desc: 'Par mesure de précaution, les antécédents de cancer rendent le don définitivement impossible.'
+    },
+    {
+        title: 'Ne pas être traité(e) pour une maladie chronique sévère',
+        desc: 'Diabète insulinodépendant, maladies inflammatoires de l\'intestin ou auto-immunes nécessitent que votre organisme conserve toutes ses ressources.'
+    },
+    {
+        title: 'Ne pas avoir reçu de transfusion ou greffe',
+        desc: 'Face aux risques résiduels de transmission de pathogènes, ces antécédents rendent le don définitivement impossible.'
+    },
+    {
+        title: 'Ne pas avoir consommé de drogues par voie intraveineuse',
+        desc: 'L\'usage de seringues partagées présente un risque majeur de transmission virale, même des années après l\'arrêt.'
+    },
+    {
+        title: 'Pas de tatouage ou piercing dans les 2 derniers mois',
+        desc: 'Le délai de 2 mois permet de s\'assurer qu\'aucune infection contractée pendant le geste ne se transmette via le don.'
+    },
+    {
+        title: 'Vie sexuelle sans exposition au risque ces derniers mois',
+        desc: 'Pas de partenaires multiples sur 12 mois ni de nouveau(elle) partenaire sur 4 mois, le temps de détecter une éventuelle infection.'
+    },
+    {
+        title: 'Ne pas être suivi(e) pour une anémie ou carence en fer',
+        desc: 'Un don aggraverait votre carence en fer et pourrait provoquer fatigue intense, vertiges ou autres complications.'
+    },
+    {
+        title: 'Pas de soins dentaires dans les 14 derniers jours',
+        desc: 'Les soins dentaires peuvent provoquer le passage temporaire de bactéries dans le sang, le temps que les gencives cicatrisent.'
+    },
+    {
+        title: 'Pas de gastroscopie ou coloscopie dans les 4 derniers mois',
+        desc: 'Ces examens invasifs nécessitent un délai pour s\'assurer qu\'aucune infection ou complication n\'est survenue.'
+    },
+    {
+        title: 'Avoir vérifié vos voyages sur le Travelcheck',
+        desc: 'Certains pays imposent un délai d\'attente après le retour. Le <a href="https://www.hug.ch/travelcheck" target="_blank">Travelcheck des HUG</a> vérifie votre éligibilité en quelques clics.'
+    },
 ]
 
 </script>

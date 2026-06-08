@@ -48,69 +48,23 @@ props.companies?.forEach((company) => {
                 <span class="rotate-4 translate-x-[calc(10vw+15px)] lg:translate-x-[calc(25vw-80px)] lg:translate-y-2">Sauvez des vies.</span>
                 <span>Rejoignez la Blood League.</span>
             </h1>
-            <p
-                class="hidden max-w-[40%] text-center font-medium tracking-[8%] uppercase md:block"
-            >
-                Blood League transforme les collectes de sang en entreprise en
-                une compétition positive.
+            <p class="hidden max-w-[40%] text-center font-medium tracking-[8%] uppercase md:block">
+                Blood League transforme les collectes de sang en entreprise en une compétition positive.
             </p>
-            <Link
-                href="/contact"
-                class="md:absolute md:right-[calc(20vw-80px)] md:bottom-[20%] lg:bottom-[15%]"
-            >
-                <img
-                    src="/assets/round_button_organize.svg"
-                    alt="Bouton noir rond avec le texte Organiser une collecte"
-                    class="h-40 w-40 rotate-3 transition duration-150 ease-in-out hover:scale-110 hover:rotate-30 lg:h-50 lg:w-50"
-                />
+            <Link href="/contact" class="md:absolute md:right-[calc(20vw-80px)] md:bottom-[20%] lg:bottom-[15%]">
+                <img src="/assets/round_button_organize.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="h-40 w-40 rotate-3 transition duration-150 ease-in-out hover:scale-110 hover:rotate-30 lg:h-50 lg:w-50"/>
                 <!-- figure out how to make pink -->
             </Link>
             <div>
-                <img
-                    src="/assets/mascottes/KneelBlueFlower.svg"
-                    alt="Mascotte célèbre"
-                    class="absolute top-[14vh] left-[6vw] h-[calc(8vw+30px)] md:top-[20vh] md:left-[6vw] lg:top-[15vh] lg:left-[6vw]"
-                />
-                <img
-                    src="/assets/mascottes/PlantPinkTri.svg"
-                    alt="Mascotte jardine"
-                    class="absolute top-[8vh] left-[44vw] h-[calc(8vw+30px)] md:top-[12vh] md:left-[44vw] lg:top-[6vh] lg:left-[44vw]"
-                />
-                <img
-                    src="/assets/mascottes/EgiptGreenTri.svg"
-                    alt="Mascotte dance"
-                    class="absolute top-[18vh] left-[80vw] h-[calc(8vw+30px)] md:top-[24vh] md:left-[78vw] lg:top-[12vh] lg:left-[80vw]"
-                />
-                <img
-                    src="/assets/mascottes/PeacePinkTri.svg"
-                    alt="Mascotte signe V"
-                    class="absolute top-[38vh] left-[10vw] h-[calc(8vw+30px)] md:top-[50vh] md:left-[14vw] lg:top-[44vh] lg:left-[10vw]"
-                />
-                <img
-                    src="/assets/mascottes/ClockBlueHexa.svg"
-                    alt="Mascotte en retard"
-                    class="absolute top-[42vh] left-[76vw] h-[calc(8vw+30px)] md:top-[44vh] md:left-[88vw] lg:top-[32vh] lg:left-[90vw]"
-                />
-                <img
-                    src="/assets/mascottes/HiGreenStar.svg"
-                    alt="Macotte salue"
-                    class="absolute top-[34vh] left-[38vw] h-[calc(8vw+30px)] md:top-[33vh] md:left-[32vw] lg:top-[33vh] lg:left-[36vw]"
-                />
-                <img
-                    src="/assets/mascottes/LoveBlueCerf.svg"
-                    alt="Mascotte aime"
-                    class="absolute top-[72vh] left-[48vw] h-[calc(8vw+30px)] md:top-[62vh] md:left-[35vw] lg:top-[64vh] lg:left-[35vw]"
-                />
-                <img
-                    src="/assets/mascottes/NinjaPinkNona.svg"
-                    alt="Mascotte ninja"
-                    class="absolute top-[62vh] left-[80vw] h-[calc(8vw+30px)] md:top-[72vh] md:left-[60vw] lg:top-[72vh] lg:left-[62vw]"
-                />
-                <img
-                    src="/assets/mascottes/RunGreenFlower.svg"
-                    alt="Mascotte court"
-                    class="absolute top-[64vh] left-[13vw] h-[calc(8vw+30px)] md:top-[68vh] md:left-[8vw] lg:top-[68vh] lg:left-[15vw]"
-                />
+                <img src="/assets/mascottes/KneelBlueFlower.svg" alt="Mascotte célèbre" class="absolute top-[14vh] left-[6vw] h-[calc(8vw+30px)] md:top-[20vh] md:left-[6vw] lg:top-[15vh] lg:left-[6vw]"/>
+                <img src="/assets/mascottes/PlantPinkTri.svg" alt="Mascotte jardine" class="absolute top-[8vh] left-[44vw] h-[calc(8vw+30px)] md:top-[12vh] md:left-[44vw] lg:top-[6vh] lg:left-[44vw]"/>
+                <img src="/assets/mascottes/EgiptGreenTri.svg" alt="Mascotte dance" class="absolute top-[18vh] left-[80vw] h-[calc(8vw+30px)] md:top-[24vh] md:left-[78vw] lg:top-[12vh] lg:left-[80vw]"/>
+                <img src="/assets/mascottes/PeacePinkTri.svg" alt="Mascotte signe V" class="absolute top-[38vh] left-[10vw] h-[calc(8vw+30px)] md:top-[50vh] md:left-[14vw] lg:top-[44vh] lg:left-[10vw]"/>
+                <img src="/assets/mascottes/ClockBlueHexa.svg" alt="Mascotte en retard" class="absolute top-[42vh] left-[76vw] h-[calc(8vw+30px)] md:top-[44vh] md:left-[88vw] lg:top-[32vh] lg:left-[90vw]"/>
+                <img src="/assets/mascottes/HiGreenStar.svg" alt="Macotte salue" class="absolute top-[34vh] left-[38vw] h-[calc(8vw+30px)] md:top-[33vh] md:left-[32vw] lg:top-[33vh] lg:left-[36vw]"/>
+                <img src="/assets/mascottes/LoveBlueCerf.svg" alt="Mascotte aime" class="absolute top-[72vh] left-[48vw] h-[calc(8vw+30px)] md:top-[62vh] md:left-[35vw] lg:top-[64vh] lg:left-[35vw]"/>
+                <img src="/assets/mascottes/NinjaPinkNona.svg" alt="Mascotte ninja" class="absolute top-[62vh] left-[80vw] h-[calc(8vw+30px)] md:top-[72vh] md:left-[60vw] lg:top-[72vh] lg:left-[62vw]"/>
+                <img src="/assets/mascottes/RunGreenFlower.svg" alt="Mascotte court" class="absolute top-[64vh] left-[13vw] h-[calc(8vw+30px)] md:top-[68vh] md:left-[8vw] lg:top-[68vh] lg:left-[15vw]"/>
             </div>
         </section>
 
@@ -165,24 +119,12 @@ props.companies?.forEach((company) => {
 
         <!-- THIRD SCREEN : ENTREPRISES LABELLISEES -->
 
-        <section
-            id="companies"
-            class="flex flex-col items-center bg-brand-teal-500 pt-16 pb-8 text-white"
-        >
-            <h2
-                class="lg:textcenter mb-4 px-4 text-[38px]/[130%] font-semibold"
-            >
-                Les entreprises labellisées
-            </h2>
+        <section id="companies" class="flex flex-col items-center bg-brand-teal-500 pt-16 pb-8 text-white">
+            <h2 class="lg:textcenter mb-4 px-4 text-[38px]/[130%] font-semibold">Les entreprises labellisées</h2>
             <Link href="/leaderboard">
-                <Button
-                    class="bg-white font-semibold text-brand-teal-500 hover:bg-brand-neutral-100 active:bg-brand-neutral-200"
-                    >Voir le leaderboard</Button
-                >
+                <Button class="bg-white font-semibold text-brand-teal-500 hover:bg-brand-neutral-100 active:bg-brand-neutral-200">Voir le leaderboard</Button>
             </Link>
-            <div
-                class="flex min-h-60 w-full flex-col justify-center overflow-hidden"
-            >
+            <div class="flex min-h-60 w-full flex-col justify-center overflow-hidden">
                 <LogoLoop
                     :logos="companiesList"
                     :speed="60"
@@ -227,39 +169,17 @@ props.companies?.forEach((company) => {
 
         <!-- FIFTH SCREEN : INFOS DON -->
 
-        <section
-            id="don"
-            class="relative flex flex-col items-center gap-8 bg-brand-sage-400 py-16 lg:px-60"
-        >
-            <img
-                src="/assets/mascottes/YeahPinkFlam.svg"
-                alt="Mascotte supporte"
-                class="right-[25vw] md:relative md:-mt-4 md:-mb-15 lg:absolute lg:top-[15%] lg:-left-20 lg:h-[80%]"
-            />
-            <img
-                src="/assets/mascottes/ScreamBlueNona.svg"
-                alt="Mascotte crie"
-                class="hidden scale-x-[-1] lg:absolute lg:top-[15%] lg:-right-15 lg:block lg:h-[80%]"
-            />
-            <h2 class="px-4 text-[38px]/[130%] font-semibold">
-                Pourquoi donner ?
-            </h2>
+        <section id="don" class="relative flex flex-col items-center gap-8 bg-brand-sage-400 py-16 overflow-hidden lg:px-60">
+            <img src="/assets/mascottes/YeahPinkFlam.svg" alt="Mascotte supporte" class="right-[25vw] md:relative md:-mt-4 md:-mb-15 lg:absolute lg:top-[15%] lg:-left-20 lg:h-[80%]"/>
+            <img src="/assets/mascottes/ScreamBlueNona.svg" alt="Mascotte crie" class="hidden scale-x-[-1] lg:absolute lg:top-[15%] lg:-right-15 lg:block lg:h-[80%]"/>
+            <h2 class="px-4 text-[38px]/[130%] font-semibold">Pourquoi donner ?</h2>
             <p class="mx-12 text-center font-medium tracking-[8%] uppercase">
-                Vous vous demandez quel est l'impact réel du don du sang, ou
-                quelles sont les conditions pour pouvoir donner ? Découvrez plus
-                d'informations sur le don du sang.
+                Vous vous demandez quel est l'impact réel du don du sang, ou quelles sont les conditions pour pouvoir donner ? Découvrez plus d'informations sur le don du sang.
             </p>
             <Link href="/don-du-sang">
-                <Button
-                    class="bg-white font-semibold text-brand-sage-500 hover:bg-brand-neutral-100 active:bg-brand-neutral-200"
-                    >En savoir plus</Button
-                >
+                <Button class="bg-white font-semibold text-brand-sage-500 hover:bg-brand-neutral-100 active:bg-brand-neutral-200">En savoir plus</Button>
             </Link>
-            <img
-                src="/assets/mascottes/ScreamBlueNona.svg"
-                alt="Mascotte crie"
-                class="left-[25vw] mt-4 scale-x-[-1] md:relative md:-mt-15 md:-mb-6 lg:hidden"
-            />
+            <img src="/assets/mascottes/ScreamBlueNona.svg" alt="Mascotte crie" class="left-[25vw] mt-4 scale-x-[-1] md:relative md:-mt-15 md:-mb-6 lg:hidden"/>
         </section>
         <CharacterLoop />
     </AppLayout>

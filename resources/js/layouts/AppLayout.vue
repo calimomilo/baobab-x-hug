@@ -66,6 +66,32 @@ const props = defineProps({
             </div>
         </header>
         <slot />
-        <div>Footer</div>
+        <footer class="flex flex-col gap-y-10 gap-x-6 justify-between justify-items-start bg-brand-sage-300 text-brand-sage-950 py-20 px-10 text-sm font-medium md:text-md md:flex-row">
+            <div class="flex flex-col gap-6 grow items-start">
+                <img src="/assets/logos/logo_hug_h_gris.png" alt="Logo HUG" class="h-15">
+                <p>Hôpitaux Universitaires Genève<br>Rue Gabrielle-Perret-Gentil 4<br>1205 Genève</p>
+                <p>Centre de transfusion sanguine (CTS)<br>Rue Gabrielle-Perret-Gentil 6<br>1205 Genève</p>
+            </div>
+            <div class="flex flex-col gap-1 grow items-start md:gap-2">
+                <h4 class="font-semibold tracking-[8%] uppercase mb-2 md:mb-4">Médias</h4>
+                <a href="https://www.hug.ch/newsletters">Newsletters</a>
+                <a href="https://www.hug.ch/medias">Espace presse</a>
+                <a href="https://panorama.hug.ch/">Rapport d'activité</a>
+                <a href="https://www.hug.ch/blogs">Blogs</a>
+            </div>
+            <div class="flex flex-col gap-1 grow items-start md:gap-2">
+                <h4 class="font-semibold tracking-[8%] uppercase mb-2 md:mb-4">Contenu</h4>
+                <Link href="/leaderboard">Leaderboard</Link>
+                <Link href="/blood-league">Blood League</Link>
+                <Link href="/blood-league">Blood League Label</Link>
+                <Link href="/blood-league#awards">Blood League Awards</Link>
+                <Link href="/don-du-sang">Pourquoi donner ?</Link>
+                <Link href="/don-du-sang#conditions">Conditions de don</Link>
+            </div>
+            <div class="flex flex-col gap-1 grow items-start md:gap-2">
+                <h4 class="font-semibold tracking-[8%] uppercase mb-2 md:mb-4">S'engager</h4>
+                <Link href="/contact">Organiser une collecte</Link>
+            </div>
+        </footer>
     </div>
 </template>

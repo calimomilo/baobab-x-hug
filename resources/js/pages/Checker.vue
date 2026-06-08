@@ -11,15 +11,106 @@ const props = defineProps({
 
 const questions = [
     {
-        title: 'Faites-vous plus que 50kg ?',
-        explanation: 'Ce seuil de 50 kg garantit que le volume prélevé ne dépasse pas la limite de sécurité pour votre corps, évitant ainsi les malaises et les vertiges.',
+        title: 'Avez-vous déjà donné votre sang ?',
+        explanation: 'Cette réponse détermine la limite d\'âge applicable : 18-60 ans pour un premier don, 18-75 ans pour les donneurs réguliers.',
+        yes: null
+    },
+    {
+        title: 'Avez-vous entre 18 et 75 ans ?',
+        explanation: 'La limite d\'âge supérieure est étendue à 75 ans pour les donneurs réguliers en bonne santé, car leur historique médical est déjà connu du CTS.',
+        yes: true
+    },
+    {
+        title: 'Avez-vous entre 18 et 60 ans ?',
+        explanation: 'Pour un premier don, la limite d\'âge est fixée à 60 ans afin d\'évaluer votre tolérance au prélèvement dans les meilleures conditions.',
+        yes: true
+    },
+    {
+        title: 'Faites-vous plus de 50 kg ?',
+        explanation: 'Ce seuil de 50 kg garantit que le volume prélevé reste sans danger pour vous et permet d\'éviter les malaises et les vertiges.',
+        yes: true
+    },
+    {
+        title: 'Êtes-vous actuellement en bonne santé ? (pas de symptôme de refroidissement, pas de fièvre, ni rhume, ni diarrhée)',
+        explanation: 'Une infection en cours pourrait être transmise au receveur et le don pourrait affaiblir votre organisme pendant la guérison.',
+        yes: true
+    },
+    {
+        title: 'Avez-vous actuellement une plaie ou avez-vous été opéré récemment ?',
+        explanation: 'Votre organisme a besoin de toutes ses ressources pour cicatriser, et une plaie ouverte présente un risque infectieux.',
         yes: false
-    }
-];
+    },
+    {
+        title: 'Prenez-vous des médicaments, même tous les jours ?',
+        explanation: 'Certains traitements peuvent passer dans le sang prélevé ou indiquer une condition médicale incompatible avec le don.',
+        yes: false
+    },
+    {
+        title: 'Avez-vous été testé(e) positif pour le VIH (sida), ou VHB (hépatite B) ou VHC (hépatite C) ou la syphilis ?',
+        explanation: 'Ces infections sont transmissibles par le sang et représentent un risque vital pour le receveur, même avec un traitement.',
+        yes: false
+    },
+    {
+        title: 'Avez-vous eu un cancer au cours de votre vie ?',
+        explanation: 'Par mesure de précaution, les antécédents de cancer rendent le don définitivement impossible afin de protéger les receveurs.',
+        yes: false
+    },
+    {
+        title: 'Êtes-vous traité(e) pour une maladie chronique telle que : diabète (traité par insuline), maladie inflammatoire de l\'intestin, maladie auto-immune... ?',
+        explanation: 'Ces maladies nécessitent que votre organisme conserve toutes ses ressources, et certains traitements sont incompatibles avec le don.',
+        yes: false
+    },
+    {
+        title: 'Avez-vous déjà eu une transfusion de sang (globules rouges, plaquettes ou plasma) ou une greffe d\'organe ?',
+        explanation: 'Par principe de précaution face aux risques résiduels de transmission de pathogènes, ces antécédents rendent le don définitivement impossible.',
+        yes: false
+    },
+    {
+        title: 'Avez-vous déjà pris des drogues et/ou substances dopantes par voie intraveineuse ?',
+        explanation: 'L\'usage de seringues partagées présente un risque majeur de transmission d\'infections virales, même des années après l\'arrêt.',
+        yes: false
+    },
+    {
+        title: 'Avez-vous eu une séance de tatouage ou un piercing dans les 2 derniers mois (y compris perçage d\'oreilles, maquillage permanent et semi-permanent) ?',
+        explanation: 'Le délai de 2 mois permet de s\'assurer qu\'aucune infection contractée pendant le geste ne se transmette via le don.',
+        yes: false
+    },
+    {
+        title: 'Avez-vous eu des relations sexuelles avec des partenaires multiples au cours des 12 derniers mois ou avec un(e) nouveau(elle) partenaire ces quatre derniers mois ?',
+        explanation: 'Ce délai correspond à la fenêtre nécessaire pour détecter une éventuelle infection sexuellement transmissible non encore diagnostiquée.',
+        yes: false
+    },
+    {
+        title: 'Êtes-vous suivi(e) par votre médecin pour une anémie (baisse du taux d\'hémoglobine) ou un manque de fer ?',
+        explanation: 'Un don aggraverait votre carence en fer et pourrait provoquer fatigue intense, vertiges ou autres complications.',
+        yes: false
+    },
+    {
+        title: 'Au cours des 14 derniers jours, avez-vous eu un traitement dentaire ou d\'hygiène dentaire ?',
+        explanation: 'Les soins dentaires peuvent provoquer le passage temporaire de bactéries dans le sang, le temps que les gencives cicatrisent.',
+        yes: false
+    },
+    {
+        title: 'Avez-vous eu une gastroscopie ou coloscopie au cours des 4 derniers mois ?',
+        explanation: 'Ces examens invasifs nécessitent un délai pour s\'assurer qu\'aucune infection ou complication n\'est survenue suite à l\'intervention.',
+        yes: false
+    },
+    {
+    title: 'Avez-vous vérifié sur le <a href="https://www.hug.ch/travelcheck" target="_blank">Travelcheck</a> que vos voyages récents ou futurs vous autorisent à donner votre sang ?',
+    explanation: 'Certains pays présentent des risques infectieux (paludisme, virus tropicaux) qui imposent un délai d\'attente après le retour. Le Travelcheck des HUG vérifie en quelques clics votre éligibilité selon vos destinations.',
+    yes: true
+    },
+]
 
-const answers = ref([null, true]);
+type answer = boolean | null;
+
+const answers = ref([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null] Array<answer> );
 
 const showPopup = ref(false);
+
+const showP = () => showPopup.value = true;
+const hideP = () => showPopup.value = false;
+const toggleP = () => showPopup.value = !showPopup.value;
 </script>
 
 <template>
@@ -28,6 +119,8 @@ const showPopup = ref(false);
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
+
+    <!-- INTRO -->
     <section v-if="props.step === null" id="intro" class="relative h-[100vh] bg-brand-sage-100 flex flex-col justify-center px-8 py-10 gap-x-8 gap-y-8 lg:px-40 font-medium lg:text-lg">
         <div class="absolute left-8 top-10 flex gap-2 items-center">
             <img src="/assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-8 self-start lg:h-12">
@@ -38,6 +131,46 @@ const showPopup = ref(false);
         <h1 class=" text-center text-2xl font-bold">Puis-je donner mon sang ?</h1>
         <p class="text-sm text-center">Ce test rapide vous permet de vérifier que vous soyez actuellement en mesure de donner votrer sang.</p>
         <Link :href="`/${props.displayData?.slug}/checker/1`" class="text-white font-semibold bg-brand-rose-400 hover:bg-brand-rose-500/100 active:bg-brand-rose-600/100 h-11 rounded px-3 self-center flex items-center">Commencer le test</Link>
+    </section>
+
+    <!-- FIRST TWO Qs -->
+    <section v-else-if="props.step === 1" :id="`question-${props.step}`" class="relative h-[100vh] bg-brand-rose-200 px-8 py-10 lg:px-40 font-medium lg:text-lg">
+        <!-- LOGOS -->
+        <div class="flex gap-2 items-center">
+            <img src="/assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-8 self-start lg:h-12">
+            <span>✕</span>
+            <img src="/assets/logos/HUG_blanc.png" alt="Logo HUG" class="h-8 self-start">
+        </div>
+        
+        <!-- STEP -->
+        <p class="text-end my-6 text-brand-rose-500 md:hidden">{{ props.step }} / 16</p>
+
+        <div class="h-[60vh] flex flex-col justify-center gap-x-8 gap-y-15">
+            <h2 class="text-center text-2xl font-bold">Avez-vous déjà donné votre sang ?</h2>
+
+            <!-- POPUP -->
+            <!-- <div class="flex flex-col gap-8 items-center md:flex-row md:items-start"> -->
+                <div class="w-12 h-12 rounded-full p-2 bg-brand-rose-400 text-white text-center text-2xl font-bold z-10"
+                    @mouseenter="showP" 
+                    @mouseleave="hideP" 
+                    @click="toggleP">?
+                </div>
+                <div v-if="showPopup" class="flex flex-col items-start px-6 py-4 rounded-lg bg-white max-w-150 gap-3 font-medium">
+                    <h3 class="text-lg font-semibold md:text-xl">Pourquoi cette question ?</h3>
+                    <p class="leading-[130%]">Cette réponse détermine la limite d\'âge applicable : 18-60 ans pour un premier don, 18-75 ans pour les donneurs réguliers.'</p>
+                </div>
+            <!-- </div> -->
+
+            <!-- OPTIONS -->
+            <div class="flex flex-col gap-6">
+                <div class="grow" @click="answers[props.step-1] = questions[props.step-1].yes">
+                    <Badge :color="answers[props.step-1] === null ? 'checker-unselected' : answers[props.step-1] === questions[props.step-1].yes ? 'checker-selected' : 'checker-unselected'" class="justify-center">Oui</Badge>
+                </div>
+                <div class="grow" @click="answers[props.step-1] = !questions[props.step-1].yes">
+                    <Badge :color="answers[props.step-1] === null ? 'checker-unselected' : answers[props.step-1] === questions[props.step-1].yes ? 'checker-unselected' : 'checker-selected'" class="justify-center">Non</Badge>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section v-else :id="`question-${props.step}`" class="relative h-[100vh] bg-brand-rose-200 px-8 py-10 lg:px-40 font-medium lg:text-lg">
@@ -57,9 +190,9 @@ const showPopup = ref(false);
             <!-- POPUP -->
             <div class="flex flex-col gap-8 items-center md:flex-row md:items-start">
                 <div class="w-12 h-12 rounded-full p-2 bg-brand-rose-400 text-white text-center text-2xl font-bold z-10"
-                    @mouseenter="showPopup = true" 
-                    @mouseleave="showPopup = false" 
-                    @click="showPopup = !showPopup">?
+                    @mouseenter="showP" 
+                    @mouseleave="hideP" 
+                    @click="toggleP">?
                 </div>
                 <div v-if="showPopup" class="flex flex-col items-start px-6 py-4 rounded-lg bg-white max-w-150 gap-3 font-medium">
                     <h3 class="text-lg font-semibold md:text-xl">Pourquoi cette question ?</h3>

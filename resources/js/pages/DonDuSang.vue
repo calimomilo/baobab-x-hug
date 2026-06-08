@@ -5,28 +5,68 @@ import AppLayout from '@/layouts/AppLayout.vue';
 const conditions = [
     {
         title: 'Avoir entre 18 et 75 ans',
-        desc: 'Le don est ouvert dès 18 ans, sans limite supérieure stricte pour les donneurs réguliers en bonne santé.'
+        desc: 'Le don est ouvert dès 18 ans. La limite est de 60 ans pour un premier don, et jusqu\'à 75 ans pour les donneurs réguliers en bonne santé.'
     },
     {
-        title: 'Peser au moins 50 kg',
-        desc: 'Ce seuil garantit ta sécurité pendant et après le prélèvement.'
+        title: 'Peser plus de 50 kg',
+        desc: 'Ce seuil garantit que le volume prélevé reste sans danger pour vous et permet d\'éviter malaises et vertiges.'
     },
     {
-        title: 'Être en bonne santé le jour J',
-        desc: 'Pas de rhume, fièvre, infection en cours ni fatigue inhabituelle. Un vaccin récent, un traitement médicamenteux ou une intervention dentaire peuvent reporter ton don.'
+        title: 'Être en bonne santé le jour du don',
+        desc: 'Pas de rhume, fièvre, diarrhée ou symptôme de refroidissement. Votre organisme doit être disponible pour le don.'
     },
     {
-        title: 'Respecter le délai entre deux dons',
-        desc: '8 semaines minimum entre deux dons. Jusquà 4 dons par an pour les hommes, 3 pour les femmes.'
+        title: 'Ne pas avoir de plaie ouverte ou d\'opération récente',
+        desc: 'Votre corps a besoin de toutes ses ressources pour cicatriser, et une plaie ouverte présente un risque infectieux.'
     },
     {
-        title: 'Quelques situations spécifiques à vérifier',
-        desc: 'Voyage hors dEurope récent, tatouage de moins de 4 mois, grossesse, ou certains antécédents médicaux peuvent temporairement ou définitivement empêcher le don.'
+        title: 'Ne pas prendre certains médicaments',
+        desc: 'Certains traitements passent dans le sang prélevé ou indiquent une condition médicale incompatible avec le don.'
     },
     {
-        title: 'Pas sûr de pouvoir donner ?',
-        desc: 'Faites le test via notre checker online.'
-    }
+        title: 'Ne pas avoir d\'antécédents de VIH, hépatite B, hépatite C ou syphilis',
+        desc: 'Ces infections sont transmissibles par le sang et représentent un risque vital pour le receveur.'
+    },
+    {
+        title: 'Ne pas avoir d\'antécédents de cancer',
+        desc: 'Par mesure de précaution, les antécédents de cancer rendent le don définitivement impossible.'
+    },
+    {
+        title: 'Ne pas être traité(e) pour une maladie chronique sévère',
+        desc: 'Diabète insulinodépendant, maladies inflammatoires de l\'intestin ou auto-immunes nécessitent que votre organisme conserve toutes ses ressources.'
+    },
+    {
+        title: 'Ne pas avoir reçu de transfusion ou greffe',
+        desc: 'Face aux risques résiduels de transmission de pathogènes, ces antécédents rendent le don définitivement impossible.'
+    },
+    {
+        title: 'Ne pas avoir consommé de drogues par voie intraveineuse',
+        desc: 'L\'usage de seringues partagées présente un risque majeur de transmission virale, même des années après l\'arrêt.'
+    },
+    {
+        title: 'Pas de tatouage ou piercing dans les 2 derniers mois',
+        desc: 'Le délai de 2 mois permet de s\'assurer qu\'aucune infection contractée pendant le geste ne se transmette via le don.'
+    },
+    {
+        title: 'Vie sexuelle sans exposition au risque ces derniers mois',
+        desc: 'Pas de partenaires multiples sur 12 mois ni de nouveau(elle) partenaire sur 4 mois, le temps de détecter une éventuelle infection.'
+    },
+    {
+        title: 'Ne pas être suivi(e) pour une anémie ou carence en fer',
+        desc: 'Un don aggraverait votre carence en fer et pourrait provoquer fatigue intense, vertiges ou autres complications.'
+    },
+    {
+        title: 'Pas de soins dentaires dans les 14 derniers jours',
+        desc: 'Les soins dentaires peuvent provoquer le passage temporaire de bactéries dans le sang, le temps que les gencives cicatrisent.'
+    },
+    {
+        title: 'Pas de gastroscopie ou coloscopie dans les 4 derniers mois',
+        desc: 'Ces examens invasifs nécessitent un délai pour s\'assurer qu\'aucune infection ou complication n\'est survenue.'
+    },
+    {
+        title: 'Avoir vérifié vos voyages sur le Travelcheck',
+        desc: 'Certains pays imposent un délai d\'attente après le retour. Le <a href="https://www.hug.ch/travelcheck" target="_blank">Travelcheck des HUG</a> vérifie votre éligibilité en quelques clics.'
+    },
 ]
 
 </script>

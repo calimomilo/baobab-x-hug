@@ -46,7 +46,7 @@ class DisplayController extends Controller
             $collect = $company->collects->where('date_of', '>=', today())->sortBy('date_of')->first();
 
             if ($collect) {
-                $collect->countdown = new Carbon($collect->date_of)->locale('fr')->diffForHumans(null, CarbonInterface::DIFF_ABSOLUTE, false, 6);
+                $collect->countdown = new Carbon($collect->date_of)->locale('fr')->diffForHumans(null, CarbonInterface::DIFF_ABSOLUTE, false, 4);
                 $collect->date_of = new Carbon($collect->date_of)->locale('fr')->format('j.m.o');
                 $collect->start_time = new Carbon($collect->start_time)->format('G\hi');
                 $collect->end_time = new Carbon($collect->end_time)->format('G\hi');

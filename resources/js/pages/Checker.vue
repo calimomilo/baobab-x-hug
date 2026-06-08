@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import Badge from '@/components/Badge.vue';
+import { setItem, getItem } from '@/lib/sessionStorage.js';
 
 const props = defineProps({
     appointment_link: {type: String},
@@ -9,11 +10,17 @@ const props = defineProps({
     step: {type: Number, default: null}
 })
 
+const uuid = localStorage.getItem('user_uuid');
+
+if (!uuid) {
+    localStorage.setItem('user_uuid', self.crypto.randomUUID());
+}
+
 const questions = [
     {
         title: 'Avez-vous déjà donné votre sang ?',
         explanation: 'Cette réponse détermine la limite d\'âge applicable : 18-60 ans pour un premier don, 18-75 ans pour les donneurs réguliers.',
-        yes: null
+        yes: true
     },
     {
         title: 'Avez-vous entre 18 et 75 ans ?',
@@ -104,7 +111,35 @@ const questions = [
 
 type answer = boolean | null;
 
-const answers = ref([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null] Array<answer> );
+const answers : Array<answer> = [];
+
+for (let i = 1; i <= 16; i++) {
+    answers.push(getItem(`answer-${i}`));    
+}
+
+const checkYes = () => {
+    if (props.step == 1 || props.step == 2) {
+        setItem(`answer-${props.step}`, true);
+    } else {
+        setItem(`answer-${props.step}`, questions[props.step].yes);
+    }
+
+    router.visit(`/${props.displayData?.slug}/checker/${+props.step + 1}`);
+    console.log(getItem(`answer-${props.step}`));
+}
+
+const checkNo = () => {
+    if (props.step == 1 || props.step == 2) {
+        setItem(`answer-${props.step}`, false);
+    } else {
+        setItem(`answer-${props.step}`, !questions[props.step].yes);
+    }
+
+    router.visit(`/${props.displayData?.slug}/checker/${+props.step + 1}`);
+    console.log(getItem(`answer-${props.step}`));
+}
+
+// POP-UP
 
 const showPopup = ref(false);
 
@@ -133,8 +168,7 @@ const toggleP = () => showPopup.value = !showPopup.value;
         <Link :href="`/${props.displayData?.slug}/checker/1`" class="text-white font-semibold bg-brand-rose-400 hover:bg-brand-rose-500/100 active:bg-brand-rose-600/100 h-11 rounded px-3 self-center flex items-center">Commencer le test</Link>
     </section>
 
-    <!-- FIRST TWO Qs -->
-    <section v-else-if="props.step === 1" :id="`question-${props.step}`" class="relative h-[100vh] bg-brand-rose-200 px-8 py-10 lg:px-40 font-medium lg:text-lg">
+    <section v-else :id="`question-${props.step}`" class="relative h-[100vh] bg-brand-rose-200 flex flex-col px-8 py-10 lg:px-40 font-medium lg:text-lg">
         <!-- LOGOS -->
         <div class="flex gap-2 items-center">
             <img src="/assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-8 self-start lg:h-12">
@@ -145,47 +179,13 @@ const toggleP = () => showPopup.value = !showPopup.value;
         <!-- STEP -->
         <p class="text-end my-6 text-brand-rose-500 md:hidden">{{ props.step }} / 16</p>
 
-        <div class="h-[60vh] flex flex-col justify-center gap-x-8 gap-y-15">
-            <h2 class="text-center text-2xl font-bold">Avez-vous déjà donné votre sang ?</h2>
-
-            <!-- POPUP -->
-            <!-- <div class="flex flex-col gap-8 items-center md:flex-row md:items-start"> -->
-                <div class="w-12 h-12 rounded-full p-2 bg-brand-rose-400 text-white text-center text-2xl font-bold z-10"
-                    @mouseenter="showP" 
-                    @mouseleave="hideP" 
-                    @click="toggleP">?
-                </div>
-                <div v-if="showPopup" class="flex flex-col items-start px-6 py-4 rounded-lg bg-white max-w-150 gap-3 font-medium">
-                    <h3 class="text-lg font-semibold md:text-xl">Pourquoi cette question ?</h3>
-                    <p class="leading-[130%]">Cette réponse détermine la limite d\'âge applicable : 18-60 ans pour un premier don, 18-75 ans pour les donneurs réguliers.'</p>
-                </div>
-            <!-- </div> -->
-
-            <!-- OPTIONS -->
-            <div class="flex flex-col gap-6">
-                <div class="grow" @click="answers[props.step-1] = questions[props.step-1].yes">
-                    <Badge :color="answers[props.step-1] === null ? 'checker-unselected' : answers[props.step-1] === questions[props.step-1].yes ? 'checker-selected' : 'checker-unselected'" class="justify-center">Oui</Badge>
-                </div>
-                <div class="grow" @click="answers[props.step-1] = !questions[props.step-1].yes">
-                    <Badge :color="answers[props.step-1] === null ? 'checker-unselected' : answers[props.step-1] === questions[props.step-1].yes ? 'checker-unselected' : 'checker-selected'" class="justify-center">Non</Badge>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section v-else :id="`question-${props.step}`" class="relative h-[100vh] bg-brand-rose-200 px-8 py-10 lg:px-40 font-medium lg:text-lg">
-        <!-- LOGOS -->
-        <div class="flex gap-2 items-center">
-            <img src="/assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-8 self-start lg:h-12">
-            <span>✕</span>
-            <img src="/assets/logos/HUG_blanc.png" alt="Logo HUG" class="h-8 self-start">
-        </div>
-        
-        <!-- STEP -->
-        <p class="text-end my-6 text-brand-rose-500 md:hidden">{{ props.step }} / 16</p>
-
-        <div class="h-[60vh] flex flex-col justify-center gap-x-8 gap-y-15">
-            <h2 class="text-center text-2xl font-bold">{{ questions[props.step-1].title }}</h2>
+        <div class="grow flex flex-col justify-center gap-x-8 gap-y-10">
+            <h2 class="text-center text-2xl font-bold">{{ 
+                props.step == 1? questions[0].title 
+                : props.step == 2 && answers[0]? questions[1].title
+                : props.step == 2 && !answers[0]? questions[2].title
+                :questions[props.step].title
+                }}</h2>
 
             <!-- POPUP -->
             <div class="flex flex-col gap-8 items-center md:flex-row md:items-start">
@@ -196,17 +196,22 @@ const toggleP = () => showPopup.value = !showPopup.value;
                 </div>
                 <div v-if="showPopup" class="flex flex-col items-start px-6 py-4 rounded-lg bg-white max-w-150 gap-3 font-medium">
                     <h3 class="text-lg font-semibold md:text-xl">Pourquoi cette question ?</h3>
-                    <p class="leading-[130%]">{{ questions[props.step-1].explanation }}</p>
+                    <p class="leading-[130%]">{{ 
+                        props.step == 1? questions[0].explanation 
+                        : props.step == 2 && answers[0]? questions[1].explanation
+                        : props.step == 2 && !answers[0]? questions[2].explanation
+                        :questions[props.step].explanation
+                    }}</p>
                 </div>
             </div>
 
             <!-- OPTIONS -->
             <div class="flex flex-col gap-6">
-                <div class="grow" @click="answers[props.step-1] = questions[props.step-1].yes">
-                    <Badge :color="answers[props.step-1] === null ? 'checker-unselected' : answers[props.step-1] === questions[props.step-1].yes ? 'checker-selected' : 'checker-unselected'" class="justify-center">Oui</Badge>
+                <div class="grow" @click="checkYes()">
+                    <Badge :color="answers[props.step-1] === null ? 'checker-unselected' : answers[props.step-1] === questions[props.step].yes ? 'checker-selected' : 'checker-unselected'" class="justify-center">Oui</Badge>
                 </div>
-                <div class="grow" @click="answers[props.step-1] = !questions[props.step-1].yes">
-                    <Badge :color="answers[props.step-1] === null ? 'checker-unselected' : answers[props.step-1] === questions[props.step-1].yes ? 'checker-unselected' : 'checker-selected'" class="justify-center">Non</Badge>
+                <div class="grow" @click="checkNo()">
+                    <Badge :color="answers[props.step-1] === null ? 'checker-unselected' : answers[props.step-1] === questions[props.step].yes ? 'checker-unselected' : 'checker-selected'" class="justify-center">Non</Badge>
                 </div>
             </div>
         </div>

@@ -47,7 +47,7 @@ onMounted(() => {
     if (props.collect) {
         interval = setInterval(() => {
             router.reload({only: ['collect.date_of']});
-        },499)
+        },10000)
     }
 })
 

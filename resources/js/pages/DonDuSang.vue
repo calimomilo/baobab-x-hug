@@ -70,10 +70,6 @@ const conditions = [
         title: 'Pas de gastroscopie ou coloscopie dans les 4 derniers mois',
         desc: 'Ces examens invasifs nécessitent un délai pour s\'assurer qu\'aucune infection ou complication n\'est survenue.'
     },
-    {
-        title: 'Avoir vérifié vos voyages sur le Travelcheck',
-        desc: 'Certains pays imposent un délai d\'attente après le retour. Le <a href="https://www.hug.ch/travelcheck" target="_blank">Travelcheck des HUG</a> vérifie votre éligibilité en quelques clics.'
-    },
 ]
 
 </script>
@@ -119,6 +115,10 @@ const conditions = [
                 <div v-for="condition, index in conditions" v-bind:key="index" class="pt-8 pb-4" :class="{'border-t-2': index>0}">
                     <h4 class="text-lg font-semibold pb-2 lg:text-2xl">{{ condition.title }}</h4>
                     <p>{{ condition.desc }}</p>
+                </div>
+                <div class="pt-8 pb-4 border-t-2">
+                    <h4 class="text-lg font-semibold pb-2 lg:text-2xl">Avoir vérifié vos voyages sur le Travelcheck.</h4>
+                    <p>Certains pays imposent un délai d\'attente après le retour. Le <a href="https://www.hug.ch/travelcheck" class="underline text-brand-indigo-500 hover:text-brand-indigo-400 mt-2" target="_blank">Travelcheck des HUG</a> vérifie votre éligibilité en quelques clics.</p>
                 </div>
             </div>
         </section>

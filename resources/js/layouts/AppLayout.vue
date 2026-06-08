@@ -58,7 +58,7 @@ const props = defineProps({
                                 <SheetFooter class="flex justify-start p-0">
                                     <img v-if="props.displayData" :src="props.displayData.logo_url" :alt="`Logo de l'entreprise ${props.displayData.name}`" class="h-11 self-start">
                                     <img src="/assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-11 self-start">
-                                    <img src="/assets/logos/logo_hug_h_gris.png" alt="Logo HUG" class="h-11 self-start">
+                                    <img src="/assets/logos/logo_hug_h_quadri.png" alt="Logo HUG" class="h-11 self-start">
                                 </SheetFooter>
                             </SheetContent>
                         </Sheet>

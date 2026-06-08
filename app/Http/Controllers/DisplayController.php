@@ -160,7 +160,7 @@ class DisplayController extends Controller
             $collect = $company->collects->where('date_of', '>=', today())->sortBy('date_of')->first();
 
             if (! $collect) {
-                return to_route('home.slug', $company->slug);
+                return to_route('conditions.slug', $company->slug);
             }
 
             if ($step && (! is_numeric($step) || $step < 1)) {

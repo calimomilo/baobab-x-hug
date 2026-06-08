@@ -27,6 +27,7 @@ Route::controller(DisplayController::class)->group(function () {
     Route::get('/{slug}/blood-league', 'displayBloodLeague')->name('blood-league.slug');
     Route::get('/{slug}/don-du-sang', 'displayDonDuSang')->name('don-du-sang.slug');
 
+    Route::get('/{slug}/don-du-sang#conditions', 'displayDonDuSang')->name('conditions.slug');
     Route::get('/{slug}/checker/{step?}', 'displayChecker')->name('checker');
 });
 

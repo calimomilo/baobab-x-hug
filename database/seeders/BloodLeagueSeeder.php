@@ -90,8 +90,8 @@ class BloodLeagueSeeder extends Seeder
                 'email' => 'marc.dubois@pictet.example.ch',
                 'phone' => '+41 58 323 23 23',
                 'slug' => 'pictet',
-                'primary_color' => '#003E5C',
-                'secondary_color' => '#C8A464',
+                'primary_color' => '#a90000',
+                'secondary_color' => '#313131',
                 'logo_url' => 'https://green-finance.fr/wp-content/uploads/2020/12/pictet_logo.png',
                 'anonymous' => false,
                 'created_at' => $now,
@@ -106,9 +106,121 @@ class BloodLeagueSeeder extends Seeder
                 'email' => 'claire.berthier@richemont.example.ch',
                 'phone' => '+41 22 721 35 00',
                 'slug' => 'richemont',
-                'primary_color' => '#1A1A1A',
-                'secondary_color' => '#B8860B',
+                'primary_color' => '#04348c',
+                'secondary_color' => '#059fff',
                 'logo_url' => 'https://logodix.com/logo/2024456.png',
+                'anonymous' => false,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 4,
+                'company_name' => 'Givaudan SA',
+                'address' => 'Chemin de la Parfumerie 5, 1214 Vernier',
+                'contact_address' => 'Chemin de la Parfumerie 5, 1214 Vernier',
+                'contact_name' => 'Julien Favre',
+                'email' => 'julien.favre@givaudan.example.ch',
+                'phone' => '+41 22 780 91 11',
+                'slug' => 'givaudan',
+                'primary_color' => '#8a0111',
+                'secondary_color' => '#1D1D1B',
+                'logo_url' => 'https://logo.clearbit.com/givaudan.com',
+                'anonymous' => false,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 5,
+                'company_name' => 'SGS SA',
+                'address' => 'Place des Alpes 1, 1201 Genève',
+                'contact_address' => 'Place des Alpes 1, 1201 Genève',
+                'contact_name' => 'Nathalie Roux',
+                'email' => 'nathalie.roux@sgs.example.ch',
+                'phone' => '+41 22 739 91 11',
+                'slug' => 'sgs',
+                'primary_color' => '#FF6900',
+                'secondary_color' => '#464646',
+                'logo_url' => 'https://logo.clearbit.com/sgs.com',
+                'anonymous' => false,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 6,
+                'company_name' => 'Patek Philippe SA',
+                'address' => 'Chemin du Pont-du-Centenaire 141, 1228 Plan-les-Ouates',
+                'contact_address' => 'Chemin du Pont-du-Centenaire 141, 1228 Plan-les-Ouates',
+                'contact_name' => 'Camille Girard',
+                'email' => 'camille.girard@patek.example.ch',
+                'phone' => '+41 22 884 20 20',
+                'slug' => 'patek-philippe',
+                'primary_color' => '#9C7C38',
+                'secondary_color' => '#1A1A1A',
+                'logo_url' => 'https://logo.clearbit.com/patek.com',
+                'anonymous' => false,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 7,
+                'company_name' => 'Banque Lombard Odier & Cie SA',
+                'address' => 'Rue de la Corraterie 1, 1204 Genève',
+                'contact_address' => 'Rue de la Corraterie 1, 1204 Genève',
+                'contact_name' => 'Philippe Mercier',
+                'email' => 'philippe.mercier@lombardodier.example.ch',
+                'phone' => '+41 22 709 21 11',
+                'slug' => 'lombard-odier',
+                'primary_color' => '#121212',
+                'secondary_color' => '#A6926A',
+                'logo_url' => 'https://logo.clearbit.com/lombardodier.com',
+                'anonymous' => false,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 8,
+                'company_name' => 'JT International SA (JTI)',
+                'address' => 'Rue Kazem-Radjavi 8, 1202 Genève',
+                'contact_address' => 'Rue Kazem-Radjavi 8, 1202 Genève',
+                'contact_name' => 'Sandra Keller',
+                'email' => 'sandra.keller@jti.example.ch',
+                'phone' => '+41 22 703 07 77',
+                'slug' => 'jti',
+                'primary_color' => '#00843D',
+                'secondary_color' => '#000000',
+                'logo_url' => 'https://logo.clearbit.com/jti.com',
+                'anonymous' => false,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 9,
+                'company_name' => 'Mediterranean Shipping Company SA (MSC)',
+                'address' => 'Chemin Rieu 12-14, 1208 Genève',
+                'contact_address' => 'Chemin Rieu 12-14, 1208 Genève',
+                'contact_name' => 'Antoine Blanc',
+                'email' => 'antoine.blanc@msc.example.ch',
+                'phone' => '+41 22 703 88 88',
+                'slug' => 'msc',
+                'primary_color' => '#002F6C',
+                'secondary_color' => '#1f68fa',
+                'logo_url' => 'https://logo.clearbit.com/msc.com',
+                'anonymous' => false,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'id' => 10,
+                'company_name' => 'Firmenich SA',
+                'address' => 'Rue de la Bergère 7, 1242 Satigny',
+                'contact_address' => 'Rue de la Bergère 7, 1242 Satigny',
+                'contact_name' => 'Laure Fontaine',
+                'email' => 'laure.fontaine@firmenich.example.ch',
+                'phone' => '+41 22 780 22 11',
+                'slug' => 'firmenich',
+                'primary_color' => '#0033A0',
+                'secondary_color' => '#fff757',
+                'logo_url' => 'https://logo.clearbit.com/firmenich.com',
                 'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,
@@ -116,7 +228,7 @@ class BloodLeagueSeeder extends Seeder
         ];
 
         DB::table('companies')->insert($companies);
-        $this->command->info('  → 3 entreprises créées (Rolex, Pictet, Richemont)');
+        $this->command->info('  → 10 entreprises créées (Rolex, Pictet, Richemont, Givaudan, SGS, Patek Philippe, Lombard Odier, JTI, MSC, Firmenich)');
     }
 
     // Liens fictifs pour les rdv (pour pouvoir comptabiliser le clic)
@@ -156,14 +268,36 @@ class BloodLeagueSeeder extends Seeder
             [20, 3, 2, '2025-11-18', '09:00:00', '17:00:00', 'Richemont Bellevue — Hall A', 'https://rdv.hug.ch/richemont-2025-q4', 2800, 78, 61, 1],
 
             // ========== SAISON 2026 (en cours) ==========
-            // Rolex 2026 — collecte 1 terminée
-            [21, 1, 3, '2026-02-24', '09:00:00', '17:00:00', 'Rolex Acacias — Salle de conférence A', 'https://rdv.hug.ch/rolex-2026-q1', 5200, 108, 94, 1],
+            [21, 1, 3, '2026-02-24', '09:00:00', '17:00:00', 'Rolex Acacias — Salle de conférence A', 'https://rdv.hug.ch/rolex-2026-q1', 5200, 108, 98, 1],
             // Rolex 2026 — collecte LIVE (mi-journée)
             [22, 1, 3, Carbon::now()->format('Y-m-d'), '09:00:00', '17:00:00', 'Rolex Plan-les-Ouates — Auditoire central', 'https://rdv.hug.ch/rolex-2026-q2', 5200, 47, 12, 0],
-            // Pictet 2026
+            // Pictet 2026 (GOLD : efficacité 77.8% → 32, supporters 70.6% → 8)
             [23, 2, 3, '2026-03-04', '08:30:00', '16:30:00', 'Pictet Acacias — Salle plénière', 'https://rdv.hug.ch/pictet-2026-q1', 3400, 72, 56, 1],
-            // Richemont 2026
-            [24, 3, 3, '2026-04-08', '09:00:00', '17:00:00', 'Richemont Bellevue — Hall A', 'https://rdv.hug.ch/richemont-2026-q1', 2800, 84, 67, 1],
+            // Richemont 2026 (CLASSIC : efficacité 65.5% → 24, supporters 35.9% → 6)
+            [24, 3, 3, '2026-04-08', '09:00:00', '17:00:00', 'Richemont Bellevue — Hall A', 'https://rdv.hug.ch/richemont-2026-q1', 2800, 84, 55, 1],
+            // Givaudan 2026 (LEGEND)
+            [25, 4, 3, '2026-03-18', '09:00:00', '17:00:00', 'Givaudan Vernier — Centre de R&D', 'https://rdv.hug.ch/givaudan-2026-q1', 4800, 96, 89, 1],
+            // SGS 2026 (GOLD)
+            [26, 5, 3, '2026-03-25', '08:30:00', '16:30:00', 'SGS Genève — Siège Place des Alpes', 'https://rdv.hug.ch/sgs-2026-q1', 3000, 80, 64, 1],
+            // Patek Philippe 2026 (LEGEND)
+            [27, 6, 3, '2026-04-15', '09:00:00', '17:00:00', 'Patek Philippe Plan-les-Ouates — Manufacture', 'https://rdv.hug.ch/patek-2026-q1', 2500, 88, 80, 1],
+            // Lombard Odier 2026 (GOLD)
+            [28, 7, 3, '2026-04-22', '08:30:00', '16:30:00', 'Lombard Odier — Rue de la Corraterie', 'https://rdv.hug.ch/lombardodier-2026-q1', 2600, 60, 48, 1],
+            // JTI 2026 (CLASSIC)
+            [29, 8, 3, '2026-05-06', '09:00:00', '17:00:00', 'JTI Genève — World Headquarters', 'https://rdv.hug.ch/jti-2026-q1', 2400, 70, 42, 1],
+            // MSC 2026 (GOLD)
+            [30, 9, 3, '2026-05-13', '08:30:00', '16:30:00', 'MSC Genève — Chemin Rieu', 'https://rdv.hug.ch/msc-2026-q1', 4500, 90, 72, 1],
+            // Firmenich 2026 (CLASSIC)
+            [31, 10, 3, '2026-05-20', '09:00:00', '17:00:00', 'Firmenich Satigny — Site de production', 'https://rdv.hug.ch/firmenich-2026-q1', 3200, 78, 47, 1],
+
+            // ========== SAISON 2025 — nouvelles entreprises ==========
+            [32, 4, 2, '2025-04-16', '09:00:00', '17:00:00', 'Givaudan Vernier — Centre de R&D', 'https://rdv.hug.ch/givaudan-2025-q2', 4800, 92, 85, 1],
+            [33, 5, 2, '2025-04-23', '08:30:00', '16:30:00', 'SGS Genève — Siège Place des Alpes', 'https://rdv.hug.ch/sgs-2025-q2', 3000, 76, 61, 1],
+            [34, 6, 2, '2025-05-14', '09:00:00', '17:00:00', 'Patek Philippe Plan-les-Ouates — Manufacture', 'https://rdv.hug.ch/patek-2025-q2', 2500, 84, 77, 1],
+            [35, 7, 2, '2025-05-21', '08:30:00', '16:30:00', 'Lombard Odier — Rue de la Corraterie', 'https://rdv.hug.ch/lombardodier-2025-q2', 2600, 58, 46, 1],
+            [36, 8, 2, '2025-06-04', '09:00:00', '17:00:00', 'JTI Genève — World Headquarters', 'https://rdv.hug.ch/jti-2025-q2', 2400, 66, 40, 1],
+            [37, 9, 2, '2025-06-11', '08:30:00', '16:30:00', 'MSC Genève — Chemin Rieu', 'https://rdv.hug.ch/msc-2025-q2', 4500, 86, 69, 1],
+            [38, 10, 2, '2025-06-18', '09:00:00', '17:00:00', 'Firmenich Satigny — Site de production', 'https://rdv.hug.ch/firmenich-2025-q2', 3200, 74, 45, 1],
         ];
 
         $collects = array_map(fn ($r) => [
@@ -184,7 +318,7 @@ class BloodLeagueSeeder extends Seeder
         ], $raw);
 
         DB::table('collects')->insert($collects);
-        $this->command->info('  → 24 collectes créées');
+        $this->command->info('  → 38 collectes créées');
     }
 
     private function seedCollectData(): void
@@ -218,11 +352,36 @@ class BloodLeagueSeeder extends Seeder
         $this->fillCollectData($data, 20, 86, 79, 32, 37, 30, $token, $now);
 
         // ========== Saison 2026 ==========
-        $this->fillCollectData($data, 21, 119, 110, 60, 51, 42, $token, $now);
+        // Rolex — LEGEND (41/45 = 91% → 12)
+        $this->fillCollectData($data, 21, 119, 110, 60, 45, 41, $token, $now);
         // Collecte LIVE (état mi-journée pour démo)
         $this->fillCollectData($data, 22, 52, 47, 7, 22, 18, $token, $now);
-        $this->fillCollectData($data, 23, 79, 73, 30, 34, 28, $token, $now);
-        $this->fillCollectData($data, 24, 92, 85, 42, 39, 32, $token, $now);
+        // Pictet — GOLD (24/34 = 70.6% → 8)
+        $this->fillCollectData($data, 23, 79, 73, 30, 34, 24, $token, $now);
+        // Richemont — CLASSIC (14/39 = 35.9% → 6)
+        $this->fillCollectData($data, 24, 92, 85, 42, 39, 14, $token, $now);
+        // Givaudan — LEGEND (46/50 = 92% → 12)
+        $this->fillCollectData($data, 25, 98, 92, 50, 50, 46, $token, $now);
+        // SGS — GOLD (22/36 = 61% → 8)
+        $this->fillCollectData($data, 26, 71, 78, 34, 36, 22, $token, $now);
+        // Patek Philippe — LEGEND (35/38 = 92% → 12)
+        $this->fillCollectData($data, 27, 86, 86, 40, 38, 35, $token, $now);
+        // Lombard Odier — GOLD (18/30 = 60% → 8)
+        $this->fillCollectData($data, 28, 53, 58, 26, 30, 18, $token, $now);
+        // JTI — CLASSIC (11/32 = 34.4% → 6)
+        $this->fillCollectData($data, 29, 46, 68, 22, 32, 11, $token, $now);
+        // MSC — GOLD (26/40 = 65% → 8)
+        $this->fillCollectData($data, 30, 79, 88, 38, 40, 26, $token, $now);
+        // Firmenich — CLASSIC (12/34 = 35.3% → 6)
+        $this->fillCollectData($data, 31, 51, 76, 24, 34, 12, $token, $now);
+
+        $this->fillCollectData($data, 32, 94, 90, 50, 48, 44, $token, $now); // Givaudan
+        $this->fillCollectData($data, 33, 67, 74, 32, 34, 21, $token, $now); // SGS
+        $this->fillCollectData($data, 34, 85, 82, 38, 36, 33, $token, $now); // Patek
+        $this->fillCollectData($data, 35, 51, 56, 24, 28, 17, $token, $now); // Lombard Odier
+        $this->fillCollectData($data, 36, 44, 64, 20, 30, 10, $token, $now); // JTI
+        $this->fillCollectData($data, 37, 76, 84, 36, 38, 25, $token, $now); // MSC
+        $this->fillCollectData($data, 38, 49, 72, 22, 32, 11, $token, $now); // Firmenich
 
         foreach (array_chunk($data, 500) as $chunk) {
             DB::table('collect_data')->insert($chunk);

@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class BloodLeagueSeeder extends Seeder
 {
@@ -76,7 +78,7 @@ class BloodLeagueSeeder extends Seeder
                 'slug' => 'rolex',
                 'primary_color' => '#006039',
                 'secondary_color' => '#A37E2C',
-                'logo_url' => 'https://www.freepnglogos.com/uploads/rolex-png-logo/rolex-png-logo-0.png',
+                'logo_url' => $this->importLogo('rolex', 'Rolex.svg.png'),
                 'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,
@@ -92,7 +94,7 @@ class BloodLeagueSeeder extends Seeder
                 'slug' => 'pictet',
                 'primary_color' => '#a90000',
                 'secondary_color' => '#313131',
-                'logo_url' => 'https://green-finance.fr/wp-content/uploads/2020/12/pictet_logo.png',
+                'logo_url' => $this->importLogo('pictet', 'pictet-logo.png'),
                 'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,
@@ -108,7 +110,7 @@ class BloodLeagueSeeder extends Seeder
                 'slug' => 'richemont',
                 'primary_color' => '#04348c',
                 'secondary_color' => '#059fff',
-                'logo_url' => 'https://logodix.com/logo/2024456.png',
+                'logo_url' => $this->importLogo('richemont', 'Logo_Richemont.svg.png'),
                 'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,
@@ -124,7 +126,7 @@ class BloodLeagueSeeder extends Seeder
                 'slug' => 'givaudan',
                 'primary_color' => '#8a0111',
                 'secondary_color' => '#1D1D1B',
-                'logo_url' => 'https://logo.clearbit.com/givaudan.com',
+                'logo_url' => $this->importLogo('givaudan', 'Givaudan_logotype.svg.png'),
                 'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,
@@ -140,7 +142,7 @@ class BloodLeagueSeeder extends Seeder
                 'slug' => 'sgs',
                 'primary_color' => '#FF6900',
                 'secondary_color' => '#464646',
-                'logo_url' => 'https://logo.clearbit.com/sgs.com',
+                'logo_url' => $this->importLogo('sgs', 'SGS_LOGO.svg.png'),
                 'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,
@@ -156,7 +158,7 @@ class BloodLeagueSeeder extends Seeder
                 'slug' => 'patek-philippe',
                 'primary_color' => '#9C7C38',
                 'secondary_color' => '#1A1A1A',
-                'logo_url' => 'https://logo.clearbit.com/patek.com',
+                'logo_url' => $this->importLogo('patek-philippe', 'Logo_Patek_Philippe.svg.png'),
                 'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,
@@ -172,7 +174,7 @@ class BloodLeagueSeeder extends Seeder
                 'slug' => 'lombard-odier',
                 'primary_color' => '#121212',
                 'secondary_color' => '#A6926A',
-                'logo_url' => 'https://logo.clearbit.com/lombardodier.com',
+                'logo_url' => $this->importLogo('lombard-odier', 'Lombard_Odier_logo.svg.png'),
                 'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,
@@ -188,7 +190,7 @@ class BloodLeagueSeeder extends Seeder
                 'slug' => 'jti',
                 'primary_color' => '#00843D',
                 'secondary_color' => '#000000',
-                'logo_url' => 'https://logo.clearbit.com/jti.com',
+                'logo_url' => $this->importLogo('jti', 'JTI_Logo.png'),
                 'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,
@@ -204,7 +206,7 @@ class BloodLeagueSeeder extends Seeder
                 'slug' => 'msc',
                 'primary_color' => '#002F6C',
                 'secondary_color' => '#1f68fa',
-                'logo_url' => 'https://logo.clearbit.com/msc.com',
+                'logo_url' => $this->importLogo('msc', 'Mediterranean_Shipping_Company_logo.svg.png'),
                 'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,
@@ -220,7 +222,7 @@ class BloodLeagueSeeder extends Seeder
                 'slug' => 'firmenich',
                 'primary_color' => '#0033A0',
                 'secondary_color' => '#fff757',
-                'logo_url' => 'https://logo.clearbit.com/firmenich.com',
+                'logo_url' => $this->importLogo('firmenich', 'Firmenich_(Unternehmen)_logo.svg.png'),
                 'anonymous' => false,
                 'created_at' => $now,
                 'updated_at' => $now,
@@ -229,6 +231,22 @@ class BloodLeagueSeeder extends Seeder
 
         DB::table('companies')->insert($companies);
         $this->command->info('  → 10 entreprises créées (Rolex, Pictet, Richemont, Givaudan, SGS, Patek Philippe, Lombard Odier, JTI, MSC, Firmenich)');
+    }
+
+
+    private function importLogo(string $slug, string $sourceFile): string
+    {
+        $source = database_path('seeders/logos/'.$sourceFile);
+        $extension = pathinfo($sourceFile, PATHINFO_EXTENSION) ?: 'png';
+        $target = 'logos/'.$slug.'.'.$extension;
+
+        if (File::exists($source)) {
+            Storage::disk('public')->put($target, File::get($source));
+        } else {
+            $this->command->warn("Logo introuvable : {$sourceFile}");
+        }
+
+        return asset('storage/'.$target);
     }
 
     // Liens fictifs pour les rdv (pour pouvoir comptabiliser le clic)

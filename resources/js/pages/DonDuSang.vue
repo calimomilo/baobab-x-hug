@@ -118,7 +118,7 @@ const conditions = [
                 </div>
                 <div class="pt-8 pb-4 border-t-2">
                     <h4 class="text-lg font-semibold pb-2 lg:text-2xl">Avoir vérifié vos voyages sur le Travelcheck.</h4>
-                    <p>Certains pays imposent un délai d\'attente après le retour. Le <a href="https://www.hug.ch/travelcheck" class="underline text-brand-indigo-500 hover:text-brand-indigo-400 mt-2" target="_blank">Travelcheck des HUG</a> vérifie votre éligibilité en quelques clics.</p>
+                    <p>Certains pays imposent un délai d\'attente après le retour. Le <a href="https://www.hug.ch/travelcheck" class="underline text-brand-indigo-500 hover:text-brand-indigo-400 mt-2" target="_blank">Travelcheck</a> des HUG vérifie votre éligibilité en quelques clics.</p>
                 </div>
             </div>
         </section>

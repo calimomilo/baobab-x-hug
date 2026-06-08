@@ -53,7 +53,7 @@ const questions = [
         yes: false
     },
     {
-        title: 'Avez-vous été testé(e) positif pour le VIH (sida), ou VHB (hépatite B) ou VHC (hépatite C) ou la syphilis ?',
+        title: 'Avez-vous été testé(e) positif pour le VIH (sida), VHB (hépatite B), VHC (hépatite C) ou la syphilis ?',
         explanation: 'Ces infections sont transmissibles par le sang et représentent un risque vital pour le receveur, même avec un traitement.',
         yes: false
     },
@@ -103,40 +103,82 @@ const questions = [
         yes: false
     },
     {
-    title: 'Avez-vous vérifié sur le <a href="https://www.hug.ch/travelcheck" target="_blank">Travelcheck</a> que vos voyages récents ou futurs vous autorisent à donner votre sang ?',
-    explanation: 'Certains pays présentent des risques infectieux (paludisme, virus tropicaux) qui imposent un délai d\'attente après le retour. Le Travelcheck des HUG vérifie en quelques clics votre éligibilité selon vos destinations.',
-    yes: true
+        title: 'Avez-vous vérifié sur le Travelcheck que vos voyages récents ou futurs vous autorisent à donner votre sang ?',
+        explanation: 'Certains pays présentent des risques infectieux (paludisme, virus tropicaux) qui imposent un délai d\'attente après le retour. Le Travelcheck des HUG vérifie en quelques clics votre éligibilité selon vos destinations.',
+        yes: true
     },
+]
+
+const mascottes = [
+    { src: `/assets/mascottes/ClockBlueHexa.svg`, alt: `Mascotte en retard`},
+    { src: `/assets/mascottes/DrinkPinkFlower.svg`, alt: `Mascotte boit`},
+    { src: `/assets/mascottes/EgiptGreenTri.svg`, alt: `Mascotte dance`},
+    { src: `/assets/mascottes/ScreamBlueNona.svg`, alt: `Moascotte crie`},
+    { src: `/assets/mascottes/PeacePinkTri.svg`, alt: `Mascotte signe V`},
+    { src: `/assets/mascottes/NinjaGreenFlam.svg`, alt: `Mascotte est ninja`},
+    { src: `/assets/mascottes/KneelBlueFlower.svg`, alt: `Mascotte célèbre`},
+    { src: `/assets/mascottes/VenusPinkStar.svg`, alt: `Mascotte est la Venus de botticelli`},
+    { src: `/assets/mascottes/HiGreenTri.svg`, alt: `Mascotte salut`},
+    { src: `/assets/mascottes/LoveBlueCerf.svg`, alt: `Mascotte aime`},
+    { src: `/assets/mascottes/PlantPinkTri.svg`, alt: `Mascotte jardine`},
+    { src: `/assets/mascottes/RunBlueFlam.svg`, alt: `Mascotte court`},
+    { src: `/assets/mascottes/ShopGreenHexa.svg`, alt: `Mascotte fait du shopping`},
+    { src: `/assets/mascottes/YeahPinkFlam.svg`, alt: `Mascotte supporte`},
+    { src: `/assets/mascottes/WriteBlueStar.svg`, alt: `Mascotte écrit`},
+    { src: `/assets/mascottes/PaintPinkHexa.svg`, alt: `Mascotte peint`},
+    { src: `/assets/mascottes/LightGreenTri.svg`, alt: `Mascotte à une idée`},
 ]
 
 type answer = boolean | null;
 
 const answers : Array<answer> = [];
 
-for (let i = 1; i <= 16; i++) {
-    answers.push(getItem(`answer-${i}`));    
-}
+for (let i = 1; i <= 17; i++) {
+    answers.push(getItem(`answer-${i}`));
+} 
 
 const checkYes = () => {
-    if (props.step == 1 || props.step == 2) {
-        setItem(`answer-${props.step}`, true);
+    if (props.step == 1) {
+        setItem('answer-1', true);
+        setItem('answer-2', null);
+    } else if (props.step == 2) {
+        setItem('answer-2', true);
     } else {
         setItem(`answer-${props.step}`, questions[props.step].yes);
     }
 
-    router.visit(`/${props.displayData?.slug}/checker/${+props.step + 1}`);
-    console.log(getItem(`answer-${props.step}`));
+    if (props.step == 17) {
+        const check = answers.reduce((carry, answer) => {
+            return carry && answer;
+        }, true);
+
+        if (check) {
+            router.visit(`/${props.displayData?.slug}/donor`);
+        } else {
+            router.visit(`/${props.displayData?.slug}/checker/${answers.indexOf(null) + 1}`);
+        }
+    } else if (getItem(`answer-${props.step}`)) {
+        router.visit(`/${props.displayData?.slug}/checker/${+props.step + 1}`);
+    } else {
+        router.visit(`/${props.displayData?.slug}/supporter`);
+    }
 }
 
 const checkNo = () => {
-    if (props.step == 1 || props.step == 2) {
-        setItem(`answer-${props.step}`, false);
+    if (props.step == 1) {
+        setItem('answer-1', false);
+        setItem('answer-2', null);
+    } else if (props.step == 2) {
+        setItem('answer-2', false);
     } else {
         setItem(`answer-${props.step}`, !questions[props.step].yes);
     }
 
-    router.visit(`/${props.displayData?.slug}/checker/${+props.step + 1}`);
-    console.log(getItem(`answer-${props.step}`));
+    if (getItem(`answer-${props.step}`)) {
+        router.visit(`/${props.displayData?.slug}/checker/${+props.step + 1}`);
+    } else {
+        router.visit(`/${props.displayData?.slug}/supporter`);
+    }
 }
 
 // POP-UP
@@ -146,6 +188,19 @@ const showPopup = ref(false);
 const showP = () => showPopup.value = true;
 const hideP = () => showPopup.value = false;
 const toggleP = () => showPopup.value = !showPopup.value;
+
+// NAV
+
+const prev = () => {
+    if (props.step != 0) {
+        router.visit(`/${props.displayData?.slug}/checker/${+props.step - 1}`);
+    }
+};
+const next = () => {
+    if (answers[props.step-1] !== null) {
+        router.visit(`/${props.displayData?.slug}/checker/${+props.step + 1}`);
+    }
+};
 </script>
 
 <template>
@@ -168,52 +223,77 @@ const toggleP = () => showPopup.value = !showPopup.value;
         <Link :href="`/${props.displayData?.slug}/checker/1`" class="text-white font-semibold bg-brand-rose-400 hover:bg-brand-rose-500/100 active:bg-brand-rose-600/100 h-11 rounded px-3 self-center flex items-center">Commencer le test</Link>
     </section>
 
-    <section v-else :id="`question-${props.step}`" class="relative h-[100vh] bg-brand-rose-200 flex flex-col px-8 py-10 lg:px-40 font-medium lg:text-lg">
+    <section v-else :id="`question-${props.step}`" class="relative h-[100vh] bg-brand-rose-200 flex flex-col px-8 py-10 font-medium lg:text-lg lg:px-20">
         <!-- LOGOS -->
-        <div class="flex gap-2 items-center">
+        <div class="flex gap-2 items-center lg:px-12">
             <img src="/assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-8 self-start lg:h-12">
             <span>✕</span>
             <img src="/assets/logos/HUG_blanc.png" alt="Logo HUG" class="h-8 self-start">
         </div>
         
         <!-- STEP -->
-        <p class="text-end my-6 text-brand-rose-500 md:hidden">{{ props.step }} / 16</p>
+        <p class="text-end my-6 text-brand-rose-500 md:hidden lg:px-12">{{ props.step }} / 17</p>
+        <div class="hidden md:flex flex-nowrap gap-2 w-full mt-10">
+            <div v-for="mascotte, index in mascottes" :key="index" class="w-200 border-b-5 pb-1 px-2 self-end" :class="{
+                'border-brand-rose-400' : answers[index] !== null,
+                'border-white' : answers[index] === null
+            }">
+                <img v-if="index < props.step" :src="mascotte.src" :alt="mascotte.alt" class="inline w-full">
+            </div>
+        </div>
 
-        <div class="grow flex flex-col justify-center gap-x-8 gap-y-10">
-            <h2 class="text-center text-2xl font-bold">{{ 
-                props.step == 1? questions[0].title 
-                : props.step == 2 && answers[0]? questions[1].title
-                : props.step == 2 && !answers[0]? questions[2].title
-                :questions[props.step].title
-                }}</h2>
+        <!-- QUESTIONS -->
+        <div class="grow flex flex-col justify-center gap-y-10 md:flex-row md:justify-between md:mt-[10vh] lg:px-12 lg:text-xl">
+            <div class="flex flex-col gap-10 md:w-3/5">
+                <h2 v-if="props.step == 17" class="text-center text-2xl font-bold md:text-start md:text-4xl">Avez-vous vérifié sur le <a href="https://www.hug.ch/travelcheck" class="underline text-brand-indigo-600 hover:text-brand-indigo-400" target="_blank">Travelcheck</a> que vos voyages récents ou futurs vous autorisent à donner votre sang ?</h2>
+                <h2 v-else class="text-center text-2xl font-bold md:text-start md:text-4xl">{{ 
+                    props.step == 1? questions[0].title 
+                    : props.step == 2 && answers[0]? questions[1].title
+                    : props.step == 2 && !answers[0]? questions[2].title
+                    :questions[props.step].title
+                    }}</h2>
+                    
 
-            <!-- POPUP -->
-            <div class="flex flex-col gap-8 items-center md:flex-row md:items-start">
-                <div class="w-12 h-12 rounded-full p-2 bg-brand-rose-400 text-white text-center text-2xl font-bold z-10"
-                    @mouseenter="showP" 
-                    @mouseleave="hideP" 
-                    @click="toggleP">?
-                </div>
-                <div v-if="showPopup" class="flex flex-col items-start px-6 py-4 rounded-lg bg-white max-w-150 gap-3 font-medium">
-                    <h3 class="text-lg font-semibold md:text-xl">Pourquoi cette question ?</h3>
-                    <p class="leading-[130%]">{{ 
-                        props.step == 1? questions[0].explanation 
-                        : props.step == 2 && answers[0]? questions[1].explanation
-                        : props.step == 2 && !answers[0]? questions[2].explanation
-                        :questions[props.step].explanation
-                    }}</p>
+                <!-- POPUP -->
+                <div class="flex flex-col gap-8 items-center md:flex-row md:items-start">
+                    <div class="w-12 h-12 rounded-full p-2 bg-brand-rose-400 text-white text-center text-2xl font-bold shrink-0"
+                        @mouseenter="showP" 
+                        @mouseleave="hideP" 
+                        @click="toggleP">?
+                    </div>
+                    <div v-if="showPopup" class="flex flex-col items-start px-6 py-4 rounded-lg bg-white max-w-150 gap-3 font-medium md:mt-5">
+                        <h3 class="text-lg font-semibold md:text-xl">Pourquoi cette question ?</h3>
+                        <p class="leading-[130%]">{{ 
+                            props.step == 1? questions[0].explanation 
+                            : props.step == 2 && answers[0]? questions[1].explanation
+                            : props.step == 2 && !answers[0]? questions[2].explanation
+                            :questions[props.step].explanation
+                        }}</p>
+                    </div>
                 </div>
             </div>
 
             <!-- OPTIONS -->
-            <div class="flex flex-col gap-6">
-                <div class="grow" @click="checkYes()">
+            <div class="flex flex-col gap-6 md:w-1/4 md:mt-[5vh] md:gap-10">
+                <div class="grow md:grow-0" @click="checkYes()">
                     <Badge :color="answers[props.step-1] === null ? 'checker-unselected' : answers[props.step-1] === questions[props.step].yes ? 'checker-selected' : 'checker-unselected'" class="justify-center">Oui</Badge>
                 </div>
-                <div class="grow" @click="checkNo()">
+                <div class="grow md:grow-0" @click="checkNo()">
                     <Badge :color="answers[props.step-1] === null ? 'checker-unselected' : answers[props.step-1] === questions[props.step].yes ? 'checker-unselected' : 'checker-selected'" class="justify-center">Non</Badge>
                 </div>
             </div>
+        </div>
+        
+        <!-- NAV -->
+        <div class="mb-10 flex justify-between md:px-80">
+            <div class="w-12 h-12 rounded-full p-2 text-white text-center text-4xl font-bold shrink-0 scale-x-[-1] hover:cursor-pointer"
+                @click="prev">➤</div>
+            <div class="w-12 h-12 rounded-full p-2 text-white text-center text-4xl font-bold shrink-0"
+                :class="{
+                    'hidden' : props.step == 17,
+                    'disabled text-white/40' : answers[props.step-1] === null,
+                    'hover:cursor-pointer' : answers[props.step-1] !== null
+                }" @click="next">➤</div>
         </div>
     </section>
 </template>

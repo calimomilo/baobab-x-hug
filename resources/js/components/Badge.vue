@@ -14,8 +14,8 @@ const colors: colors = {
     'sage': 'text-brand-sage-600 border-brand-sage-600 bg-white',
     'rose-selected': 'text-white border-white bg-rose-500 hover:cursor-pointer',
     'empty': 'text-white-border-white hover:cursor-pointer',
-    'checker-selected': 'text-white bg-brand-rose-400 border-brand-rose-400 hover:cursor-pointer',
-    'checker-unselected': 'text-brand-rose-400 border-brand-rose-400 bg-white'
+    'checker-selected': 'text-white bg-brand-rose-400 border-brand-rose-400 hover:bg-brand-rose-500 hover:cursor-pointer',
+    'checker-unselected': 'text-brand-rose-400 border-brand-rose-400 bg-white hover:bg-brand-rose-50 active:bg-brand-rose-400 active:text-white'
 }
 </script>
 

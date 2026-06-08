@@ -69,7 +69,7 @@ class BloodLeagueSeeder extends Seeder
         $companies = [
             [
                 'id' => 1,
-                'company_name' => 'Rolex SA',
+                'company_name' => 'Rolex',
                 'address' => 'Rue François-Dussaud 3-7, 1227 Acacias',
                 'contact_address' => 'Rue François-Dussaud 3-7, 1227 Acacias',
                 'contact_name' => 'Sophie Marchand',
@@ -85,7 +85,7 @@ class BloodLeagueSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'company_name' => 'Banque Pictet & Cie SA',
+                'company_name' => 'Banque Pictet & Cie',
                 'address' => 'Route des Acacias 60, 1211 Genève',
                 'contact_address' => 'Route des Acacias 60, 1211 Genève',
                 'contact_name' => 'Marc Dubois',
@@ -101,7 +101,7 @@ class BloodLeagueSeeder extends Seeder
             ],
             [
                 'id' => 3,
-                'company_name' => 'Richemont International SA',
+                'company_name' => 'Richemont International',
                 'address' => 'Route des Biches 10, 1752 Villars-sur-Glâne',
                 'contact_address' => 'Route des Biches 10, 1752 Villars-sur-Glâne',
                 'contact_name' => 'Claire Berthier',
@@ -117,7 +117,7 @@ class BloodLeagueSeeder extends Seeder
             ],
             [
                 'id' => 4,
-                'company_name' => 'Givaudan SA',
+                'company_name' => 'Givaudan',
                 'address' => 'Chemin de la Parfumerie 5, 1214 Vernier',
                 'contact_address' => 'Chemin de la Parfumerie 5, 1214 Vernier',
                 'contact_name' => 'Julien Favre',
@@ -133,7 +133,7 @@ class BloodLeagueSeeder extends Seeder
             ],
             [
                 'id' => 5,
-                'company_name' => 'SGS SA',
+                'company_name' => 'SGS',
                 'address' => 'Place des Alpes 1, 1201 Genève',
                 'contact_address' => 'Place des Alpes 1, 1201 Genève',
                 'contact_name' => 'Nathalie Roux',
@@ -149,7 +149,7 @@ class BloodLeagueSeeder extends Seeder
             ],
             [
                 'id' => 6,
-                'company_name' => 'Patek Philippe SA',
+                'company_name' => 'Patek Philippe',
                 'address' => 'Chemin du Pont-du-Centenaire 141, 1228 Plan-les-Ouates',
                 'contact_address' => 'Chemin du Pont-du-Centenaire 141, 1228 Plan-les-Ouates',
                 'contact_name' => 'Camille Girard',
@@ -165,7 +165,7 @@ class BloodLeagueSeeder extends Seeder
             ],
             [
                 'id' => 7,
-                'company_name' => 'Banque Lombard Odier & Cie SA',
+                'company_name' => 'Banque Lombard Odier & Cie',
                 'address' => 'Rue de la Corraterie 1, 1204 Genève',
                 'contact_address' => 'Rue de la Corraterie 1, 1204 Genève',
                 'contact_name' => 'Philippe Mercier',
@@ -181,7 +181,7 @@ class BloodLeagueSeeder extends Seeder
             ],
             [
                 'id' => 8,
-                'company_name' => 'JT International SA (JTI)',
+                'company_name' => 'JT International (JTI)',
                 'address' => 'Rue Kazem-Radjavi 8, 1202 Genève',
                 'contact_address' => 'Rue Kazem-Radjavi 8, 1202 Genève',
                 'contact_name' => 'Sandra Keller',
@@ -197,7 +197,7 @@ class BloodLeagueSeeder extends Seeder
             ],
             [
                 'id' => 9,
-                'company_name' => 'Mediterranean Shipping Company SA (MSC)',
+                'company_name' => 'Mediterranean Shipping Company (MSC)',
                 'address' => 'Chemin Rieu 12-14, 1208 Genève',
                 'contact_address' => 'Chemin Rieu 12-14, 1208 Genève',
                 'contact_name' => 'Antoine Blanc',
@@ -213,7 +213,7 @@ class BloodLeagueSeeder extends Seeder
             ],
             [
                 'id' => 10,
-                'company_name' => 'Firmenich SA',
+                'company_name' => 'Firmenich',
                 'address' => 'Rue de la Bergère 7, 1242 Satigny',
                 'contact_address' => 'Rue de la Bergère 7, 1242 Satigny',
                 'contact_name' => 'Laure Fontaine',
@@ -246,7 +246,7 @@ class BloodLeagueSeeder extends Seeder
             $this->command->warn("Logo introuvable : {$sourceFile}");
         }
 
-        return asset('storage/'.$target);
+        return '/storage/'.$target;
     }
 
     // Liens fictifs pour les rdv (pour pouvoir comptabiliser le clic)

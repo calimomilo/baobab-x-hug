@@ -21,6 +21,11 @@ Route::controller(DisplayController::class)->group(function () {
     Route::get('/leaderboard', 'displayLeaderboard')->name('leaderboard');
     Route::get('/blood-league', 'displayBloodLeague')->name('blood-league');
     Route::get('/don-du-sang', 'displayDonDuSang')->name('don-du-sang');
+
+    Route::get('/{slug}', 'displayHome');
+    Route::get('/{slug}/leaderboard', 'displayLeaderboard');
+    Route::get('/{slug}/blood-league', 'displayBloodLeague');
+    Route::get('/{slug}/don-du-sang', 'displayDonDuSang');
 });
 
 Route::get('/contact', [ContactFormController::class, 'create'])->name('contact');

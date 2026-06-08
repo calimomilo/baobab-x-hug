@@ -176,20 +176,20 @@ class BloodLeagueScorer
             return null;
         }
 
-        return Season::where('year_of', '<', $season->year_of, true)
+        return Season::where('year_of', '<', $season->year_of)
             ->orderByDesc('year_of')
             ->value('id');
     }
 
     private function isNewcomer(int $companyId, int $seasonId): bool
     {
-        $currentYear = Season::where('id', '=', $seasonId, true)->value('year_of');
+        $currentYear = Season::where('id', $seasonId)->value('year_of');
 
         if ($currentYear === null) {
             return false;
         }
 
-        $participatedBefore = Collect::where('company_id', '=', $companyId, true)
+        $participatedBefore = Collect::where('company_id', $companyId)
             ->where('completed', 1)
             ->whereHas('season', fn ($q) => $q->where('year_of', '<', $currentYear))
             ->exists();

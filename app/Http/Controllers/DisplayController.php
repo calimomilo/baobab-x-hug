@@ -136,4 +136,27 @@ class DisplayController extends Controller
 
         return Inertia::render('Leaderboard', ['companies' => $base, 'season' => $season->year_of, 'displayData' => $companyDisplayData ?? null]);
     }
+
+    public function displayAdmin()
+    {
+        $season = Season::where('status', 'open')->with('collects')->first();
+        $season->wins = app(BloodLeagueScorer::class)->electWinners($season->id);
+
+        $collectIds = $season->collects->pluck('company_id');
+        $companies = Company::whereIn('id', $collectIds)->get();
+        $companies->map(function ($company) use ($season) {
+            $label = app(BloodLeagueScorer::class)->computeLabel($company->id, $season->id);
+            $company->label = [
+                'name' => $label->name(),
+                'slug' => $label,
+            ];
+
+            $score = app(BloodLeagueScorer::class)->computeScore($company->id, $season->id);
+            $company->score = $score;
+        });
+
+        echo $season.'<br>'.$companies;
+
+        return Inertia::render('Dashboard', ['season' => $season, 'companies' => $companies]);
+    }
 }

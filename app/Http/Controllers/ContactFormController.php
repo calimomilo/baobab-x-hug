@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
 use App\Models\ContactForm;
-use App\Models\Season;
-use App\Services\BloodLeagueScorer;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -53,18 +50,6 @@ class ContactFormController extends Controller
             'phone' => $validated['phone'],
             'message' => $validated['message'],
         ]);
-
-        // $collectIds = Season::where('status', 'open')->with('collects')->first()->collects->pluck('company_id');
-        // $companies = Company::whereIn('id', $collectIds)->get();
-        // $companies->map(function ($company) {
-        //     $label = app(BloodLeagueScorer::class)->computeLabel($company->id, 2);
-        //     $company->label = [
-        //         'name' => $label->name(),
-        //         'slug' => $label,
-        //     ];
-        // });
-
-        // $base = $companies->where('anonymous', '=', 0)->select(['company_name', 'logo_url', 'label']);
 
         return to_route('home')->with('toast', [
             'success' => $contact->exists,

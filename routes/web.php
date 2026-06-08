@@ -13,25 +13,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('/auth/login', 'showLogin')->name('login');
-    Route::post('/auth/login', 'login');
-});
-
-Route::controller(DisplayController::class)->group(function () {
-    Route::get('/', 'displayHome')->name('home');
-    Route::get('/leaderboard', 'displayLeaderboard')->name('leaderboard');
-    Route::get('/blood-league', 'displayBloodLeague')->name('blood-league');
-    Route::get('/don-du-sang', 'displayDonDuSang')->name('don-du-sang');
-
-    Route::get('/{slug}', 'displayHome');
-    Route::get('/{slug}/leaderboard', 'displayLeaderboard');
-    Route::get('/{slug}/blood-league', 'displayBloodLeague');
-    Route::get('/{slug}/don-du-sang', 'displayDonDuSang');
+    Route::post('/auth/login', 'login')->middleware([HandlePrecognitiveRequests::class]);
 });
 
 Route::get('/contact', [ContactFormController::class, 'create'])->name('contact');
 Route::post('/contact', [ContactFormController::class, 'store'])->middleware([HandlePrecognitiveRequests::class]);
 
 Route::middleware('auth')->group(function () {
+    Route::get('/admin', [DisplayController::class, 'displayAdmin'])->name('admin');
+
     Route::resource('companies', CompanyController::class);
 
     Route::resource('contacts', ContactFormController::class)->only(['index', 'show', 'destroy']);
@@ -49,6 +39,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::inertia('dashboard', 'Dashboard')->name('dashboard');
+Route::controller(DisplayController::class)->group(function () {
+    Route::get('/', 'displayHome')->name('home');
+    Route::get('/leaderboard', 'displayLeaderboard')->name('leaderboard');
+    Route::get('/blood-league', 'displayBloodLeague')->name('blood-league');
+    Route::get('/don-du-sang', 'displayDonDuSang')->name('don-du-sang');
+
+    Route::get('/{slug}', 'displayHome');
+    Route::get('/{slug}/leaderboard', 'displayLeaderboard');
+    Route::get('/{slug}/blood-league', 'displayBloodLeague');
+    Route::get('/{slug}/don-du-sang', 'displayDonDuSang');
 });

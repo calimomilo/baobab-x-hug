@@ -316,6 +316,14 @@ class BloodLeagueSeeder extends Seeder
             [36, 8, 2, '2025-06-04', '09:00:00', '17:00:00', 'JTI Genève — World Headquarters', 'https://rdv.hug.ch/jti-2025-q2', 2400, 66, 40, 1],
             [37, 9, 2, '2025-06-11', '08:30:00', '16:30:00', 'MSC Genève — Chemin Rieu', 'https://rdv.hug.ch/msc-2025-q2', 4500, 86, 69, 1],
             [38, 10, 2, '2025-06-18', '09:00:00', '17:00:00', 'Firmenich Satigny — Site de production', 'https://rdv.hug.ch/firmenich-2025-q2', 3200, 74, 45, 1],
+
+            [39, 1, 3, Carbon::now()->addDays(15)->format('Y-m-d'), '09:00:00', '17:00:00', 'Rolex Acacias — Salle de conférence A', 'https://rdv.hug.ch/rolex-2026-q3', 5200, 84, 0, 0],
+            [40, 4, 3, Carbon::now()->addDays(22)->format('Y-m-d'), '09:00:00', '17:00:00', 'Givaudan Vernier — Centre de R&D', 'https://rdv.hug.ch/givaudan-2026-q2', 4800, 68, 0, 0],
+            [41, 6, 3, Carbon::now()->addMonths(3)->format('Y-m-d'), '09:00:00', '17:00:00', 'Patek Philippe Plan-les-Ouates — Manufacture', 'https://rdv.hug.ch/patek-2026-q2', 2500, 72, 0, 0],
+            [42, 5, 3, Carbon::now()->addMonths(4)->format('Y-m-d'), '08:30:00', '16:30:00', 'SGS Genève — Siège Place des Alpes', 'https://rdv.hug.ch/sgs-2026-q2', 3000, 58, 0, 0],
+            [43, 9, 3, Carbon::now()->addMonths(4)->addDays(14)->format('Y-m-d'), '08:30:00', '16:30:00', 'MSC Genève — Chemin Rieu', 'https://rdv.hug.ch/msc-2026-q2', 4500, 80, 0, 0],
+            [44, 2, 3, Carbon::now()->addMonths(5)->format('Y-m-d'), '08:30:00', '16:30:00', 'Pictet Acacias — Salle plénière', 'https://rdv.hug.ch/pictet-2026-q2', 3400, 54, 0, 0],
+            [45, 10, 3, Carbon::now()->addMonths(6)->format('Y-m-d'), '09:00:00', '17:00:00', 'Firmenich Satigny — Site de production', 'https://rdv.hug.ch/firmenich-2026-q2', 3200, 49, 0, 0],
         ];
 
         $collects = array_map(fn ($r) => [
@@ -336,7 +344,7 @@ class BloodLeagueSeeder extends Seeder
         ], $raw);
 
         DB::table('collects')->insert($collects);
-        $this->command->info('  → 38 collectes créées');
+        $this->command->info('  → '.count($collects).' collectes créées (dont 7 RDV à venir non encore déroulés)');
     }
 
     private function seedCollectData(): void

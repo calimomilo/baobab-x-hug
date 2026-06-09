@@ -32,6 +32,7 @@ const user_uuid = localStorage.getItem('user_uuid');
             <div class="flex flex-col gap-x-8 gap-y-4 md:flex-row">
                 <Link :href="`/${props.displayData?.slug}/appointment-click`" method="post" :data="{'user_uuid': user_uuid, 'collect': props.collect}" class="text-white text-center font-semibold bg-brand-rose-400 hover:bg-brand-rose-500/100 active:bg-brand-rose-600/100 h-11 rounded px-3 flex justify-center items-center">Prendre rendez-vous</Link>
                 <Link :href="`/${props.displayData?.slug}/donor-share`" method="post" :data="{'user_uuid': user_uuid, 'collect': props.collect}" class="font-semibold bg-brand-sage-200 hover:bg-brand-sage-300 active:bg-brand-sage-400 h-11 rounded px-3 flex justify-center items-center">Partager sur les réseaux</Link>
+                <a href="/kits/donor" download class="font-semibold bg-brand-sage-200 hover:bg-brand-sage-300 active:bg-brand-sage-400 h-11 rounded px-3 flex justify-center items-center">Télécharger mon kit de communication</a>
             </div>
             <Link :href="`/${props.displayData?.slug}`" class="text-sm md:text-md underline text-brand-indigo-700 hover:text-brand-indigo-500">Retourner à l'accueil</Link>
         </div>
@@ -50,6 +51,7 @@ const user_uuid = localStorage.getItem('user_uuid');
             <p class="text-center md:text-lg md:text-start">Vous n'êtes malheureusement pas éligible, mais vous pouvez partager sur les réseaux sociaux pour faire remporter des points à votre équipe.</p>
             <div class="flex flex-col gap-x-8 gap-y-4 md:flex-row">
                 <Link :href="`/${props.displayData?.slug}/supporter-share`" method="post" :data="{'user_uuid': user_uuid, 'collect': props.collect}" class="text-white text-center font-semibold bg-brand-rose-400 hover:bg-brand-rose-500/100 active:bg-brand-rose-600/100 h-11 rounded px-3 flex justify-center items-center">Partager sur les réseaux</Link>
+                <a href="/kits/supporter" download class="font-semibold bg-brand-sage-200 hover:bg-brand-sage-300 active:bg-brand-sage-400 h-11 rounded px-3 flex justify-center items-center">Télécharger mon kit de communication</a>
             </div>
             <Link :href="`/${props.displayData?.slug}`" class="text-sm md:text-md underline text-brand-indigo-700 hover:text-brand-indigo-500">Retourner à l'accueil</Link>
         </div>

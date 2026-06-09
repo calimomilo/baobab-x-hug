@@ -179,8 +179,6 @@ class KPIController extends Controller
             return to_route('home');
         }
 
-        Storage::download('logos/rolex.png'); // mettre le fichier dans storage/app/public
-
         return to_route('donor');
     }
 
@@ -207,8 +205,26 @@ class KPIController extends Controller
             return to_route('home');
         }
 
-        Storage::download('logos/rolex.png'); // mettre le fichier dans storage/app/public
-
         return to_route('supporter');
+    }
+
+    public function downloadDonorKit()
+    {
+        abort_unless(Storage::disk('local')->exists('kits/kit-donneur.zip'), 404);
+
+        return Storage::disk('local')->download(
+            'kits/kit-donneur.zip',
+            'kit-communication-donneur.zip'
+        );
+    }
+
+    public function downloadSupporterKit()
+    {
+        abort_unless(Storage::disk('local')->exists('kits/kit-supporter.zip'), 404);
+
+        return Storage::disk('local')->download(
+            'kits/kit-supporter.zip',
+            'kit-communication-supporter.zip'
+        );
     }
 }

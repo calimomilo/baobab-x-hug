@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\Category;
 use App\Enums\Label;
 use App\Models\Collect;
 use App\Models\Company;
@@ -149,6 +150,15 @@ class BloodLeagueScorer
         }
 
         // $this->persistWinners($seasonId, $winners);
+
+        $winners['climber']['label'] = Category::THE_CLIMBER->label();
+        $winners['climber']['short'] = Category::THE_CLIMBER;
+        $winners['flood']['label'] = Category::THE_FLOOD->label();
+        $winners['flood']['short'] = Category::THE_FLOOD;
+        $winners['pulse']['label'] = Category::THE_PULSE->label();
+        $winners['pulse']['short'] = Category::THE_PULSE;
+        $winners['new_vein']['label'] = Category::THE_NEW_VEIN->label();
+        $winners['new_vein']['short'] = Category::THE_NEW_VEIN;
 
         return $winners;
     }

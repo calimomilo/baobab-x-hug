@@ -3,7 +3,8 @@
 const props = defineProps({
     title : {type: String, default: ''},
     color : {type: String, default: 'black'},
-    size : {type: String, default: ''}
+    size : {type: String, default: ''},
+    class: {type: String, default: ''}
 })
 
 type strings = {
@@ -27,7 +28,7 @@ const sizes: strings = {
 </script>
 
 <template>
-    <div class="flex flex-col justify-center items-center p-6 rounded-lg min-h-40 py-10 gap-1 text-xl font-medium" :class="colors[props.color] + ' ' + sizes[props.size]">
+    <div class="flex flex-col justify-center items-center rounded-lg min-h-40 px-6 py-10 gap-1 text-xl text-center font-medium" :class="colors[props.color] + ' ' + sizes[props.size] + ' ' + props.class">
         <slot />
     </div>
 </template>

@@ -5,6 +5,7 @@ use App\Http\Controllers\CollectController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\DisplayController;
+use App\Http\Controllers\KPIController;
 use App\Http\Controllers\SeasonController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
@@ -22,10 +23,23 @@ Route::controller(DisplayController::class)->group(function () {
     Route::get('/blood-league', 'displayBloodLeague')->name('blood-league');
     Route::get('/don-du-sang', 'displayDonDuSang')->name('don-du-sang');
 
-    Route::get('/{slug}', 'displayHome');
-    Route::get('/{slug}/leaderboard', 'displayLeaderboard');
-    Route::get('/{slug}/blood-league', 'displayBloodLeague');
-    Route::get('/{slug}/don-du-sang', 'displayDonDuSang');
+    Route::get('/{slug}', 'displayHome')->name('home.slug');
+    Route::get('/{slug}/leaderboard', 'displayLeaderboard')->name('leaderboard.slug');
+    Route::get('/{slug}/blood-league', 'displayBloodLeague')->name('blood-league.slug');
+    Route::get('/{slug}/don-du-sang', 'displayDonDuSang')->name('don-du-sang.slug');
+
+    Route::get('/{slug}/don-du-sang#conditions', 'displayDonDuSang')->name('conditions.slug');
+    Route::get('/{slug}/checker/{step?}', 'displayChecker')->name('checker');
+});
+
+Route::controller(KPIController::class)->group(function () {
+    Route::get('/{slug}/donor', 'showDonorResult')->name('donor');
+    Route::get('/{slug}/supporter', 'showSupporterResult')->name('supporter');
+    Route::post('/{slug}/donor', 'donorResult');
+    Route::post('/{slug}/supporter', 'supporterResult');
+    Route::post('/{slug}/appointment-click', 'appointmentClick')->name('appointment-click');
+    Route::post('/{slug}/donor-share', 'donorShare')->name('donor-share');
+    Route::post('/{slug}/supporter-share', 'supporterShare')->name('supporter-share');
 });
 
 Route::get('/contact', [ContactFormController::class, 'create'])->name('contact');

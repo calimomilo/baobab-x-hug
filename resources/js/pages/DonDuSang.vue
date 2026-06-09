@@ -70,10 +70,6 @@ const conditions = [
         title: 'Pas de gastroscopie ou coloscopie dans les 4 derniers mois',
         desc: 'Ces examens invasifs nécessitent un délai pour s\'assurer qu\'aucune infection ou complication n\'est survenue.'
     },
-    {
-        title: 'Avoir vérifié vos voyages sur le Travelcheck',
-        desc: 'Certains pays imposent un délai d\'attente après le retour. Le <a href="https://www.hug.ch/travelcheck" target="_blank">Travelcheck des HUG</a> vérifie votre éligibilité en quelques clics.'
-    },
 ]
 
 </script>
@@ -120,12 +116,16 @@ const conditions = [
                     <h4 class="text-lg font-semibold pb-2 lg:text-2xl">{{ condition.title }}</h4>
                     <p>{{ condition.desc }}</p>
                 </div>
+                <div class="pt-8 pb-4 border-t-2">
+                    <h4 class="text-lg font-semibold pb-2 lg:text-2xl">Avoir vérifié vos voyages sur le Travelcheck.</h4>
+                    <p>Certains pays imposent un délai d\'attente après le retour. Le <a href="https://www.hug.ch/travelcheck" class="underline text-brand-indigo-500 hover:text-brand-indigo-400 mt-2" target="_blank">Travelcheck</a> des HUG vérifie votre éligibilité en quelques clics.</p>
+                </div>
             </div>
         </section>
         <section v-if="props.displayData" id="checker" class="relative flex flex-col px-8 py-10 gap-12 bg-brand-rose-400 font-medium items-center text-white lg:px-40 lg:text-lg">
             <h2 class="text-[38px]/[130%] font-semibold px-4 ">Envie d'aider ?</h2>
             <p class="text-center font-medium uppercase tracking-[8%] mx-12">Avant de réserver, assurez-vous de pouvoir donner. Vérifiez votre éligibilité en 2 minutes grâce à notre checker et prenez rendez-vous.</p>
-            <Link href="/checker" class="lg:relative lg:right-90 lg:bottom-5">
+            <Link :href="`/${props.displayData.slug}/checker`" class="lg:relative lg:right-90 lg:bottom-5">
                 <img src="/assets/round_button_verify.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="w-40 h-40 -rotate-10 lg:w-50 lg:h-50 hover:scale-110 hover:rotate-20 transition duration-150 ease-in-out"> <!-- figure out how to make pink -->
             </Link>
             <img src="/assets/mascottes/WriteBlueStar.svg" alt="Mascotte écrit" class="hidden lg:block  absolute h-80 right-5 bottom-5">

@@ -9,7 +9,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <div v-if="props.type === 'holding_hands'" class="w-fit" :class="props.class">
+    <div v-if="props.type === 'holding-hands'" class="w-fit" :class="props.class">
         <svg class="m-auto" width="256" height="148" viewBox="0 0 256 148" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M227.624 24.4822C228.159 26.905 229.465 29.1525 231.311 30.8139C232.622 26.4943 233.268 21.8378 232.705 16.8352" stroke="#F60065" stroke-width="3.23046" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M231.312 30.8185C233.513 27.2327 235.11 23.1162 235.557 18.312" stroke="#F60065" stroke-width="3.23046" stroke-linecap="round" stroke-linejoin="round"/>

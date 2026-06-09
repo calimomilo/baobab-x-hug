@@ -75,7 +75,7 @@ class BloodLeagueSeeder extends Seeder
                 'contact_name' => 'Sophie Marchand',
                 'email' => 'sophie.marchand@rolex.example.ch',
                 'phone' => '+41 22 302 22 00',
-                'slug' => 'rolex',
+                'slug' => $this->randomSlug(),
                 'primary_color' => '#006039',
                 'secondary_color' => '#A37E2C',
                 'logo_url' => $this->importLogo('rolex', 'Rolex.svg.png'),
@@ -91,7 +91,7 @@ class BloodLeagueSeeder extends Seeder
                 'contact_name' => 'Marc Dubois',
                 'email' => 'marc.dubois@pictet.example.ch',
                 'phone' => '+41 58 323 23 23',
-                'slug' => 'pictet',
+                'slug' => $this->randomSlug(),
                 'primary_color' => '#a90000',
                 'secondary_color' => '#313131',
                 'logo_url' => $this->importLogo('pictet', 'pictet-logo.png'),
@@ -107,7 +107,7 @@ class BloodLeagueSeeder extends Seeder
                 'contact_name' => 'Claire Berthier',
                 'email' => 'claire.berthier@richemont.example.ch',
                 'phone' => '+41 22 721 35 00',
-                'slug' => 'richemont',
+                'slug' => $this->randomSlug(),
                 'primary_color' => '#04348c',
                 'secondary_color' => '#059fff',
                 'logo_url' => $this->importLogo('richemont', 'Logo_Richemont.svg.png'),
@@ -123,9 +123,9 @@ class BloodLeagueSeeder extends Seeder
                 'contact_name' => 'Julien Favre',
                 'email' => 'julien.favre@givaudan.example.ch',
                 'phone' => '+41 22 780 91 11',
-                'slug' => 'givaudan',
-                'primary_color' => '#8a0111',
-                'secondary_color' => '#1D1D1B',
+                'slug' => $this->randomSlug(),
+                'primary_color' => '#1a1818',
+                'secondary_color' => '#a40a0a',
                 'logo_url' => $this->importLogo('givaudan', 'Givaudan_logotype.svg.png'),
                 'anonymous' => false,
                 'created_at' => $now,
@@ -139,7 +139,7 @@ class BloodLeagueSeeder extends Seeder
                 'contact_name' => 'Nathalie Roux',
                 'email' => 'nathalie.roux@sgs.example.ch',
                 'phone' => '+41 22 739 91 11',
-                'slug' => 'sgs',
+                'slug' => $this->randomSlug(),
                 'primary_color' => '#FF6900',
                 'secondary_color' => '#464646',
                 'logo_url' => $this->importLogo('sgs', 'SGS_LOGO.svg.png'),
@@ -155,7 +155,7 @@ class BloodLeagueSeeder extends Seeder
                 'contact_name' => 'Camille Girard',
                 'email' => 'camille.girard@patek.example.ch',
                 'phone' => '+41 22 884 20 20',
-                'slug' => 'patek-philippe',
+                'slug' => $this->randomSlug(),
                 'primary_color' => '#9C7C38',
                 'secondary_color' => '#1A1A1A',
                 'logo_url' => $this->importLogo('patek-philippe', 'Logo_Patek_Philippe.svg.png'),
@@ -171,7 +171,7 @@ class BloodLeagueSeeder extends Seeder
                 'contact_name' => 'Philippe Mercier',
                 'email' => 'philippe.mercier@lombardodier.example.ch',
                 'phone' => '+41 22 709 21 11',
-                'slug' => 'lombard-odier',
+                'slug' => $this->randomSlug(),
                 'primary_color' => '#121212',
                 'secondary_color' => '#A6926A',
                 'logo_url' => $this->importLogo('lombard-odier', 'Lombard_Odier_logo.svg.png'),
@@ -187,7 +187,7 @@ class BloodLeagueSeeder extends Seeder
                 'contact_name' => 'Sandra Keller',
                 'email' => 'sandra.keller@jti.example.ch',
                 'phone' => '+41 22 703 07 77',
-                'slug' => 'jti',
+                'slug' => $this->randomSlug(),
                 'primary_color' => '#00843D',
                 'secondary_color' => '#000000',
                 'logo_url' => $this->importLogo('jti', 'JTI_Logo.png'),
@@ -203,7 +203,7 @@ class BloodLeagueSeeder extends Seeder
                 'contact_name' => 'Antoine Blanc',
                 'email' => 'antoine.blanc@msc.example.ch',
                 'phone' => '+41 22 703 88 88',
-                'slug' => 'msc',
+                'slug' => $this->randomSlug(),
                 'primary_color' => '#002F6C',
                 'secondary_color' => '#1f68fa',
                 'logo_url' => $this->importLogo('msc', 'Mediterranean_Shipping_Company_logo.svg.png'),
@@ -219,7 +219,7 @@ class BloodLeagueSeeder extends Seeder
                 'contact_name' => 'Laure Fontaine',
                 'email' => 'laure.fontaine@firmenich.example.ch',
                 'phone' => '+41 22 780 22 11',
-                'slug' => 'firmenich',
+                'slug' => $this->randomSlug(),
                 'primary_color' => '#0033A0',
                 'secondary_color' => '#fff757',
                 'logo_url' => $this->importLogo('firmenich', 'Firmenich_(Unternehmen)_logo.svg.png'),
@@ -234,11 +234,38 @@ class BloodLeagueSeeder extends Seeder
     }
 
 
-    private function importLogo(string $slug, string $sourceFile): string
+    /**
+     * Slugs déjà générés dans ce run, pour garantir l'unicité du lot.
+     *
+     * @var array<int, string>
+     */
+    private array $usedSlugs = [];
+
+    /**
+     * Génère un slug aléatoire imprévisible de 16 caractères (a-z minuscules + chiffres,
+     * sans caractères ambigus 0/o/1/l), unique au sein du seeder.
+     */
+    private function randomSlug(int $length = 16): string
+    {
+        $alphabet = '23456789abcdefghjkmnpqrstuvwxyz';
+
+        do {
+            $slug = '';
+            for ($i = 0; $i < $length; $i++) {
+                $slug .= $alphabet[random_int(0, strlen($alphabet) - 1)];
+            }
+        } while (in_array($slug, $this->usedSlugs, true));
+
+        $this->usedSlugs[] = $slug;
+
+        return $slug;
+    }
+
+    private function importLogo(string $name, string $sourceFile): string
     {
         $source = database_path('seeders/logos/'.$sourceFile);
         $extension = pathinfo($sourceFile, PATHINFO_EXTENSION) ?: 'png';
-        $target = 'logos/'.$slug.'.'.$extension;
+        $target = 'logos/'.$name.'.'.$extension;
 
         if (File::exists($source)) {
             Storage::disk('public')->put($target, File::get($source));
@@ -324,6 +351,13 @@ class BloodLeagueSeeder extends Seeder
             [43, 9, 3, Carbon::now()->addMonths(4)->addDays(14)->format('Y-m-d'), '08:30:00', '16:30:00', 'MSC Genève — Chemin Rieu', 'https://rdv.hug.ch/msc-2026-q2', 4500, 80, 0, 0],
             [44, 2, 3, Carbon::now()->addMonths(5)->format('Y-m-d'), '08:30:00', '16:30:00', 'Pictet Acacias — Salle plénière', 'https://rdv.hug.ch/pictet-2026-q2', 3400, 54, 0, 0],
             [45, 10, 3, Carbon::now()->addMonths(6)->format('Y-m-d'), '09:00:00', '17:00:00', 'Firmenich Satigny — Site de production', 'https://rdv.hug.ch/firmenich-2026-q2', 3200, 49, 0, 0],
+
+            // ========== SAISON 2026 — EN ATTENTE DE VALIDATION ADMIN ==========
+            // Collectes déjà déroulées (date passée, RDV enregistrés) mais dont les DONS
+            // doivent encore être saisis à la main puis validés par un admin.
+            // → donations = 0 et completed = 0 (l'admin entre le nombre de dons puis valide).
+            [46, 8, 3, '2026-05-27', '09:00:00', '17:00:00', 'JTI Genève — World Headquarters', 'https://rdv.hug.ch/jti-2026-q2', 2400, 58, 0, 0],
+            [47, 7, 3, '2026-06-02', '08:30:00', '16:30:00', 'Lombard Odier — Rue de la Corraterie', 'https://rdv.hug.ch/lombardodier-2026-q2', 2600, 49, 0, 0],
         ];
 
         $collects = array_map(fn ($r) => [
@@ -344,7 +378,7 @@ class BloodLeagueSeeder extends Seeder
         ], $raw);
 
         DB::table('collects')->insert($collects);
-        $this->command->info('  → '.count($collects).' collectes créées (dont 7 RDV à venir non encore déroulés)');
+        $this->command->info('  → '.count($collects).' collectes créées (dont 7 RDV à venir non encore déroulés, et 2 déroulées en attente de saisie/validation des dons par l\'admin)');
     }
 
     private function seedCollectData(): void

@@ -5,8 +5,8 @@ import Badge from '@/components/Badge.vue';
 import { setItem, getItem } from '@/lib/sessionStorage.js';
 
 const props = defineProps({
-    appointment_link: {type: String},
     displayData: Object,
+    collect: Object,
     step: {type: Number, default: null}
 })
 
@@ -148,19 +148,20 @@ const checkYes = () => {
     }
 
     if (props.step == 17) {
-        const check = answers.reduce((carry, answer) => {
+        console.log(answers);
+        const check = answers.slice(1).reduce((carry, answer) => {
             return carry && answer;
         }, true);
 
         if (check) {
-            router.visit(`/${props.displayData?.slug}/donor`);
+            router.post(`/${props.displayData?.slug}/donor`, {'user_uuid': uuid, 'collect': props.collect});
         } else {
             router.visit(`/${props.displayData?.slug}/checker/${answers.indexOf(null) + 1}`);
         }
-    } else if (getItem(`answer-${props.step}`)) {
+    } else if (props.step == 1 || getItem(`answer-${props.step}`)) {
         router.visit(`/${props.displayData?.slug}/checker/${+props.step + 1}`);
     } else {
-        router.visit(`/${props.displayData?.slug}/supporter`);
+        router.post(`/${props.displayData?.slug}/supporter`, {'user_uuid': uuid, 'collect': props.collect});
     }
 }
 
@@ -174,10 +175,11 @@ const checkNo = () => {
         setItem(`answer-${props.step}`, !questions[props.step].yes);
     }
 
-    if (getItem(`answer-${props.step}`)) {
+    if (props.step == 1 || getItem(`answer-${props.step}`)) {
         router.visit(`/${props.displayData?.slug}/checker/${+props.step + 1}`);
     } else {
-        router.visit(`/${props.displayData?.slug}/supporter`);
+        console.log('no to support', props.step);
+        router.post(`/${props.displayData?.slug}/supporter`, {'user_uuid': uuid, 'collect': props.collect});
     }
 }
 
@@ -211,24 +213,26 @@ const next = () => {
     </Head>
 
     <!-- INTRO -->
-    <section v-if="props.step === null" id="intro" class="relative h-[100vh] bg-brand-sage-100 flex flex-col justify-center px-8 py-10 gap-x-8 gap-y-8 lg:px-40 font-medium lg:text-lg">
+    <section v-if="props.step === null" id="intro" class="relative h-[100vh] bg-brand-sage-100 flex flex-col justify-center items-center px-8 py-10 gap-8 lg:px-40 font-medium md:flex-row-reverse">
         <div class="absolute left-8 top-10 flex gap-2 items-center">
-            <img src="/assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-8 self-start lg:h-12">
+            <img src="/assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-8 lg:h-12">
             <span>✕</span>
-            <img src="/assets/logos/logo_hug_h_quadri.png" alt="Logo HUG" class="h-8 self-start">
+            <img src="/assets/logos/logo_hug_h_quadri.png" alt="Logo HUG" class="h-8">
         </div>
-        <img src="/assets/mascottes/WriteBlueStar.svg" alt="Mascotte écrit" class="h-60">
-        <h1 class=" text-center text-2xl font-bold">Puis-je donner mon sang ?</h1>
-        <p class="text-sm text-center">Ce test rapide vous permet de vérifier que vous soyez actuellement en mesure de donner votrer sang.</p>
-        <Link :href="`/${props.displayData?.slug}/checker/1`" class="text-white font-semibold bg-brand-rose-400 hover:bg-brand-rose-500/100 active:bg-brand-rose-600/100 h-11 rounded px-3 self-center flex items-center">Commencer le test</Link>
+        <img src="/assets/mascottes/WriteBlueStar.svg" alt="Mascotte écrit" class="h-60 md:h-[30vw]">
+        <div class="flex flex-col gap-8 items-center md:items-start">
+            <h1 class=" text-center text-2xl font-bold md:text-4xl md:text-start">Puis-je donner mon sang ?</h1>
+            <p class="text-sm text-center md:text-lg md:text-start">Ce test rapide vous permet de vérifier que vous soyez actuellement en mesure de donner votrer sang.</p>
+            <Link :href="`/${props.displayData?.slug}/checker/${answers.slice(1).indexOf(false) != -1? answers.slice(1).indexOf(false)+2 : answers.indexOf(null) == -1? 17: answers.indexOf(null)+1}`" class="text-white font-semibold bg-brand-rose-400 hover:bg-brand-rose-500/100 active:bg-brand-rose-600/100 h-11 rounded px-3 flex items-center">{{ answers[0] === null? 'Commencer' : 'Continuer' }} le test</Link>
+        </div>
     </section>
 
     <section v-else :id="`question-${props.step}`" class="relative h-[100vh] bg-brand-rose-200 flex flex-col px-8 py-10 font-medium lg:text-lg lg:px-20">
         <!-- LOGOS -->
         <div class="flex gap-2 items-center lg:px-12">
-            <img src="/assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-8 self-start lg:h-12">
+            <img src="/assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-8 lg:h-12">
             <span>✕</span>
-            <img src="/assets/logos/HUG_blanc.png" alt="Logo HUG" class="h-8 self-start">
+            <img src="/assets/logos/HUG_blanc.png" alt="Logo HUG" class="h-8">
         </div>
         
         <!-- STEP -->

@@ -163,11 +163,16 @@ class DisplayController extends Controller
                 return to_route('conditions.slug', $company->slug);
             }
 
-            if ($step && (! is_numeric($step) || $step < 1)) {
+            if ($step !== null && (! is_numeric($step) || $step < 1)) {
                 return to_route('checker', ['slug' => $company->slug, 'step' => null]);
             }
 
-            return Inertia::render('Checker', ['displayData' => $companyDisplayData, 'appointment_link' => $collect->appointment_link, 'step' => $step]);
+            $base = [
+                'id' => $collect->id,
+                'appointment_link' => $collect->appointment_link,
+            ];
+
+            return Inertia::render('Checker', ['displayData' => $companyDisplayData, 'collect' => $base, 'step' => $step]);
         }
     }
 }

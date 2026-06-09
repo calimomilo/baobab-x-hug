@@ -149,7 +149,7 @@ const checkYes = () => {
 
     if (props.step == 17) {
         console.log(answers);
-        const check = answers.slice(1).reduce((carry, answer) => {
+        const check = answers.slice(1, -1).reduce((carry, answer) => {
             return carry && answer;
         }, true);
 
@@ -214,11 +214,11 @@ const next = () => {
 
     <!-- INTRO -->
     <section v-if="props.step === null" id="intro" class="relative h-[100vh] bg-brand-sage-100 flex flex-col justify-center items-center px-8 py-10 gap-8 lg:px-40 font-medium md:flex-row-reverse">
-        <div class="absolute left-8 top-10 flex gap-2 items-center">
+        <Link :href="`/${props.displayData?.slug}`" class="absolute left-8 top-10 flex gap-2 items-center">
             <img src="/assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-8 lg:h-12">
             <span>✕</span>
             <img src="/assets/logos/logo_hug_h_quadri.png" alt="Logo HUG" class="h-8">
-        </div>
+        </Link>
         <img src="/assets/mascottes/WriteBlueStar.svg" alt="Mascotte écrit" class="h-60 md:h-[30vw]">
         <div class="flex flex-col gap-8 items-center md:items-start">
             <h1 class=" text-center text-2xl font-bold md:text-4xl md:text-start">Puis-je donner mon sang ?</h1>
@@ -229,11 +229,11 @@ const next = () => {
 
     <section v-else :id="`question-${props.step}`" class="relative h-[100vh] bg-brand-rose-200 flex flex-col px-8 py-10 font-medium lg:text-lg lg:px-20">
         <!-- LOGOS -->
-        <div class="flex gap-2 items-center lg:px-12">
+        <Link :href="`/${props.displayData?.slug}`" class="flex gap-2 items-center lg:px-12">
             <img src="/assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-8 lg:h-12">
             <span>✕</span>
             <img src="/assets/logos/HUG_blanc.png" alt="Logo HUG" class="h-8">
-        </div>
+        </Link>
         
         <!-- STEP -->
         <p class="text-end my-6 text-brand-rose-500 md:hidden lg:px-12">{{ props.step }} / 17</p>
@@ -242,7 +242,7 @@ const next = () => {
                 'border-brand-rose-400' : answers[index] !== null,
                 'border-white' : answers[index] === null
             }">
-                <img v-if="index < props.step" :src="mascotte.src" :alt="mascotte.alt" class="inline w-full">
+                <img v-if="index < props.step" :src="mascotte.src" :alt="mascotte.alt" class="inline w-full" @click="router.visit(`/${props.displayData?.slug}/checker/${index + 1}`)">
             </div>
         </div>
 

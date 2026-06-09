@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\DataType;
 use App\Models\Company;
 use App\Models\Season;
 use App\Services\BloodLeagueScorer;
@@ -139,7 +140,7 @@ class DisplayController extends Controller
 
     public function displayAdmin()
     {
-        $season = Season::where('status', 'open')->with('collects')->first();
+        $season = Season::where('status', 'open')->with('collects.data')->first();
         $season->wins = app(BloodLeagueScorer::class)->electWinners($season->id);
 
         $collectIds = $season->collects->pluck('company_id');
@@ -153,6 +154,16 @@ class DisplayController extends Controller
 
             $score = app(BloodLeagueScorer::class)->computeScore($company->id, $season->id);
             $company->score = $score;
+        });
+
+        $season->collects->map(function ($collect) {
+            $collect->donor_results = $collect->data->where('data_type', DataType::DONOR_RESULT)->count();
+            $collect->supporter_results = $collect->data->where('data_type', DataType::SUPPORTER_RESULT)->count();
+            $collect->appointment_clicks = $collect->data->where('data_type', DataType::APPOINTMENT_CLIC)->count();
+            $collect->donor_shares = $collect->data->where('data_type', DataType::DONOR_SHARE)->count();
+            $collect->supporter_shares = $collect->data->where('data_type', DataType::SUPPORTER_RESULT)->count();
+
+            $collect->makeHidden('data');
         });
 
         return Inertia::render('Dashboard', ['season' => $season, 'companies' => $companies]);

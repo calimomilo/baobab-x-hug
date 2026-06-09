@@ -11,8 +11,11 @@ type strings = {
 }
 
 const colors: strings = {
-    'rose': 'text-brand-rose-900 bg-brand-rose-200',
-    'teal': 'text-brand-teal-900 bg-brand-teal-200'
+    'rose': 'text-brand-rose-900 bg-brand-rose-100',
+    'teal': 'text-brand-teal-900 bg-brand-teal-200',
+    'sage': 'text-brand-sage-900 bg-brand-sage-200',
+    'violet': 'text-brand-violet-900 bg-brand-violet-200',
+    'indigo': 'text-brand-indigo-900 bg-brand-indigo-200'
 }
 
 const sizes: strings = {
@@ -24,7 +27,7 @@ const sizes: strings = {
 </script>
 
 <template>
-    <div class="flex flex-col justify-center items-center p-6 rounded-lg h-40 gap-1 text-xl font-medium" :class="colors[props.color] + ' ' + sizes[props.size]">
+    <div class="flex flex-col justify-center items-center p-6 rounded-lg min-h-40 py-10 gap-1 text-xl font-medium" :class="colors[props.color] + ' ' + sizes[props.size]">
         <slot />
     </div>
 </template>

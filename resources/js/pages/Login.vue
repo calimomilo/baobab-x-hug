@@ -16,7 +16,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
                         <div v-if="invalid('username')" class="text-sm text-brand-error-600 mt-1">{{ errors['username'] }}</div>
                     </div>
                     <div>
-                        <label for="password" class="block text-sm mb-1 text-neutral-700">Mot de passe<span class="text-brand-error-600 font-bold">*</span></label>
+                        <label for="password" class="block text-sm mb-1 text-neutral-700">Mot de passe</label>
                         <input id="password" type="password" name="password" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-rose-500 focus:border-transparent" @change="validate('password')">
                         <div v-if="invalid('password')" class="text-sm text-brand-error-600 mt-1">{{ errors['password'] }}</div>
                     </div>

@@ -24,8 +24,7 @@ const sizes: strings = {
 </script>
 
 <template>
-    <div class="flex flex-col justify-center items-center p-6 rounded-lg h-40 gap-4 text-xl font-medium" :class="colors[props.color] + ' ' + sizes[props.size]">
-        <h3 class="text-3xl font-bold">{{ props.title }}</h3>
+    <div class="flex flex-col justify-center items-center p-6 rounded-lg h-40 gap-1 text-xl font-medium" :class="colors[props.color] + ' ' + sizes[props.size]">
         <slot />
     </div>
 </template>

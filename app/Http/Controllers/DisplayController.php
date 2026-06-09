@@ -155,8 +155,6 @@ class DisplayController extends Controller
             $company->score = $score;
         });
 
-        echo $season.'<br>'.$companies;
-
         return Inertia::render('Dashboard', ['season' => $season, 'companies' => $companies]);
     }
 }

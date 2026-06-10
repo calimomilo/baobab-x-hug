@@ -45,10 +45,13 @@ class DisplayController extends Controller
             ];
 
             $collect = $company->collects->where('date_of', '>=', today())->sortBy('date_of')->first();
-            $collect->countdown = new Carbon($collect->date_of)->locale('fr')->diffForHumans(null, CarbonInterface::DIFF_ABSOLUTE, false, 6);
-            $collect->date_of = new Carbon($collect->date_of)->locale('fr')->format('j.m.o');
-            $collect->start_time = new Carbon($collect->start_time)->format('G\hi');
-            $collect->end_time = new Carbon($collect->end_time)->format('G\hi');
+
+            if ($collect) {
+                $collect->countdown = new Carbon($collect->date_of)->locale('fr')->diffForHumans(null, CarbonInterface::DIFF_ABSOLUTE, false, 4);
+                $collect->date_of = new Carbon($collect->date_of)->locale('fr')->format('j.m.o');
+                $collect->start_time = new Carbon($collect->start_time)->format('G\hi');
+                $collect->end_time = new Carbon($collect->end_time)->format('G\hi');
+            }
         }
 
         return Inertia::render('Home', ['companies' => $base, 'displayData' => $companyDisplayData ?? null, 'collect' => $collect ?? null]);
@@ -136,6 +139,42 @@ class DisplayController extends Controller
         }
 
         return Inertia::render('Leaderboard', ['companies' => $base, 'season' => $season->year_of, 'displayData' => $companyDisplayData ?? null]);
+    }
+
+    public function displayChecker(string $slug, ?string $step = null)
+    {
+        if ($slug) {
+            $company = Company::where('slug', $slug)->with('collects')->first();
+
+            if (! $company) {
+                return to_route('home');
+            }
+
+            $companyDisplayData = [
+                'name' => $company->company_name,
+                'slug' => $company->slug,
+                'primary_color' => $company->primary_color,
+                'secondary_color' => $company->secondary_color,
+                'logo_url' => $company->logo_url,
+            ];
+
+            $collect = $company->collects->where('date_of', '>=', today())->sortBy('date_of')->first();
+
+            if (! $collect) {
+                return to_route('conditions.slug', $company->slug);
+            }
+
+            if ($step !== null && (! is_numeric($step) || $step < 1)) {
+                return to_route('checker', ['slug' => $company->slug, 'step' => null]);
+            }
+
+            $base = [
+                'id' => $collect->id,
+                'appointment_link' => $collect->appointment_link,
+            ];
+
+            return Inertia::render('Checker', ['displayData' => $companyDisplayData, 'collect' => $base, 'step' => $step]);
+        }
     }
 
     public function displayAdmin()

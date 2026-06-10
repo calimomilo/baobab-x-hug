@@ -11,6 +11,7 @@ type colors = {
 
 const colors: colors = {
     'rose': 'text-brand-rose-400 border-brand-rose-400',
+    'white': 'bg-white border-white'
 }
 </script>
 

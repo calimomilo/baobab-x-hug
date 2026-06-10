@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link, router } from '@inertiajs/vue3';
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import LogoLoop from '@/components/bits/LogoLoop.vue';
 import type { LogoItemImage } from '@/components/bits/LogoLoop.vue';
 import Card from '@/components/Card.vue';
@@ -41,11 +41,19 @@ props.companies?.forEach((company) => {
 });
 console.log(props.collect);
 
-// onMounted(() => {
-//     setInterval(() => {
-//         router.reload({only: ['collect.date_of']});
-//     },499)
-// })
+let interval = 0;
+
+onMounted(() => {
+    if (props.collect) {
+        interval = setInterval(() => {
+            router.reload({only: ['collect.date_of']});
+        },10000)
+    }
+})
+
+onUnmounted(() => {
+    clearInterval(interval);
+})
 </script>
 
 <template>
@@ -61,14 +69,14 @@ console.log(props.collect);
                 <BrandedMascot type="flag" :primary="props.displayData.primary_color" :secondary="props.displayData.secondary_color" class="mx-auto md:scale-[2] md:mr-14 md:ml-16 md:mt-20 lg:relative lg:mr-0 lg:right-16"></BrandedMascot>
             </div>
             <div v-if="props.collect">
-                <h3 class="text-2xl font-bold md:text-3xl md:mt-6 md:ml-30 lg:ml-16">Prochaine collecte :</h3>
+                <h3 class="text-xl font-bold md:text-3xl md:mt-6 md:ml-30 lg:ml-16">Prochaine collecte :</h3>
                 <div class="flex flex-col gap-6 my-6 md:my-10">
                     <div class="flex gap-10">
                         <div class="flex flex-col justify-center gap-2 bg-brand-teal-300 text-brand-teal-900 rounded-lg px-6 py-8 py-auto w-full min-w-38 text-center lg:gap-4 lg:py-12">
                             <p class="text-xl font-semibold lg:text-3xl">{{ props.collect.date_of }}</p>
                             <p class="lg:text-xl">{{ props.collect.countdown }}</p>
                         </div>
-                        <Link href="/checker" class="hidden grow md:inline-block lg:shrink-0">
+                        <Link :href="`/${props.displayData.slug}/checker`" class="hidden grow md:inline-block lg:shrink-0">
                             <img src="/assets/round_button_verify.svg" alt="Bouton noir rond avec le texte Vérifier mon éligibilité" class="relative h-full w-full scale-130 rotate-3 transition duration-150 ease-in-out hover:scale-140 hover:rotate-30 md:right-1 md:bottom-2 lg:bottom-4 lg:left-2">
                         </Link>
                     </div>
@@ -80,20 +88,21 @@ console.log(props.collect);
                             <p class="text-xl font-semibold lg:text-3xl">{{ props.collect.location }}</p>
                         </div>
                     </div>
-                    <Link href="/checker" class="md:hidden self-center mt-10">
+                    <Link :href="`/${props.displayData.slug}/checker`" class="md:hidden self-center mt-10">
                         <img src="/assets/round_button_verify.svg" alt="Bouton noir rond avec le texte Vérifier mon éligibilité" class="h-40 w-40 rotate-3 transition duration-150 ease-in-out hover:scale-110"/>
                         <!-- figure out how to make pink -->
                     </Link>
                 </div>
             </div>
-            <div v-else>
-                <h3 class="text-xl font-semibold md:text-2xl">Aucune collecte prévue !</h3>
+            <div v-else class="md:ml-40 lg:ml-32">
+                <h3 class="text-xl font-bold md:text-3xl md:mt-6">Aucune collecte prévue !</h3>
                 <p class="mt-2"><Link href="/contact" class="underline text-brand-indigo-600 hover:text-brand-indigo-400 mt-2">Contactez-nous</Link> pour organiser une collecte.</p>
+                <BrandedMascot type="holding-hands" :primary="props.displayData.primary_color" :secondary="props.displayData.secondary_color" class="hidden absolute scale-[1.6] right-40 bottom-40 lg:right-60 lg:scale-[1.8] md:block"></BrandedMascot>
             </div>
         </section>
         <section v-else id="hero" class="relative min-h-[calc(100vh-76px)] flex flex-col justify-center items-center gap-20 md:gap-6">
             <h1 class="flex flex-col text-center text-2xl font-bold gap-2 items-center md:text-4xl md:gap-3 lg:text-[64px] lg:gap-6">
-                <span class="-rotate-6 -translate-x-[calc(10vw)] md:-translate-x-[calc(20vw-100px)] lg:-translate-x-[calc(20vw-150px)">Mobilisez votre équipe.</span>
+                <span class="-rotate-6 -translate-x-[calc(10vw)] md:-translate-x-[calc(20vw-100px)] lg:-translate-x-[calc(20vw-150px)]">Mobilisez votre équipe.</span>
                 <span class="rotate-4 translate-x-[calc(10vw+15px)] lg:translate-x-[calc(25vw-80px)] lg:translate-y-2">Sauvez des vies.</span>
                 <span>Rejoignez la Blood League.</span>
             </h1>
@@ -204,7 +213,7 @@ console.log(props.collect);
         <section v-if="props.collect" id="contact" class="relative flex min-h-[calc(100vh-76px)] flex-col items-center justify-start bg-brand-rose-400 pt-16 text-white lg:px-40" >
             <h2 class="mb-4 px-4 text-[38px]/[130%] font-semibold lg:hidden lg:w-[40vw]">Vérifier mon éligibilité</h2>
             <img src="/assets/cts-appel-don-du-sang.jpg" alt="Prise de sang pour un don" class="h-[50vh] w-9/10 rounded-lg object-cover lg:h-[70vh]" />
-            <Link href="/checker" class="absolute bottom-[10%] lg:right-[8%] lg:bottom-[40%]" >
+            <Link :href="`/${props.displayData?.slug}/checker`" class="absolute bottom-[10%] lg:right-[8%] lg:bottom-[40%]" >
                 <img src="/assets/round_button_lance.svg" alt="Bouton noir rond avec le texte Je me lance" class="h-40 w-40 rotate-3 transition duration-150 ease-in-out hover:scale-110 hover:rotate-30 lg:h-50 lg:w-50" />
                 <!-- figure out how to make pink -->
             </Link>
@@ -228,7 +237,7 @@ console.log(props.collect);
             <div class="absolute bottom-[8%] hidden w-[60vw] rounded-lg bg-brand-rose-400 px-4 py-2 text-center lg:block" >
                 <h2 class="mb-4 px-4 text-[38px]/[130%] font-semibold">Organiser une collecte</h2>
                 <p class="text-center font-medium tracking-[8%] uppercase">
-                    Vous avez un espace disponible et des employés motivés ? Le CTS s'occupe du reste. Matériel, personnel médical, créneaux, tout est pris en charge. Vous diffusez le lien, vos employés s'inscrivent.
+                    Vous avez un espace disponible et des employé.e.s motivé.e.s ? Le CTS s'occupe du reste. Matériel, personnel médical, créneaux, tout est pris en charge. Vous diffusez le lien, vos employés s'inscrivent.
                 </p>
             </div>
         </section>

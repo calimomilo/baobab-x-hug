@@ -169,7 +169,7 @@ const brandedCompany = props.displayData ? props.companies?.filter((c) => c.comp
         <section v-if="props.displayData" id="checker" class="relative flex flex-col px-8 py-10 gap-12 bg-brand-rose-400 font-medium items-center text-white lg:px-40 lg:text-lg">
             <h2 class="text-[38px]/[130%] font-semibold px-4 ">Envie d'aider ?</h2>
             <p class="text-center font-medium uppercase tracking-[8%] mx-12">Avant de réserver, assurez-vous de pouvoir donner. Vérifiez votre éligibilité en 2 minutes grâce à notre checker et prenez rendez-vous.</p>
-            <Link href="/checker" class="lg:relative lg:right-90 lg:bottom-5">
+            <Link :href="`/${props.displayData.slug}/checker`" class="lg:relative lg:right-90 lg:bottom-5">
                 <img src="/assets/round_button_verify.svg" alt="Bouton noir rond avec le texte Organiser une collecte" class="w-40 h-40 -rotate-10 lg:w-50 lg:h-50 hover:scale-110 hover:rotate-20 transition duration-150 ease-in-out"> <!-- figure out how to make pink -->
             </Link>
             <img src="/assets/mascottes/WriteBlueStar.svg" alt="Mascotte écrit" class="hidden lg:block  absolute h-80 right-5 bottom-5">

@@ -23,7 +23,7 @@ const donorShare = () => {
     http.post(`/${props.slug}/donor-share`);
 
     const a = document.createElement('a');
-    a.setAttribute('href', `/${props.slug}/kits/donor?user_uuid=${user_uuid}&collect_id=${props.collect?.id}`);
+    a.setAttribute('href', `/download/kits/donor`);
     a.setAttribute('download', 'kit-communication-donneur.zip');
     a.click();
 }
@@ -32,7 +32,7 @@ const donorShare = () => {
     http.post(`/${props.slug}/supporter-share`);
     
     const a = document.createElement('a');
-    a.setAttribute('href', `/${props.slug}/kits/supporter?user_uuid=${user_uuid}&collect_id=${props.collect?.id}`);
+    a.setAttribute('href', `/download/kits/supporter`);
     a.setAttribute('download', 'kit-communication-supporter.zip');
     a.click();
  }

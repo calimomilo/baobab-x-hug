@@ -416,24 +416,25 @@ class BloodLeagueSeeder extends Seeder
         $this->fillCollectData($data, 21, 119, 110, 60, 45, 41, $token, $now);
         // Collecte LIVE (état mi-journée pour démo)
         $this->fillCollectData($data, 22, 52, 47, 7, 22, 18, $token, $now);
-        // Pictet — GOLD (24/34 = 70.6% → 8)
-        $this->fillCollectData($data, 23, 79, 73, 30, 34, 24, $token, $now);
-        // Richemont — CLASSIC (14/39 = 35.9% → 6)
-        $this->fillCollectData($data, 24, 92, 85, 42, 39, 14, $token, $now);
-        // Givaudan — LEGEND (46/50 = 92% → 12)
-        $this->fillCollectData($data, 25, 98, 92, 50, 50, 46, $token, $now);
-        // SGS — GOLD (22/36 = 61% → 8)
-        $this->fillCollectData($data, 26, 71, 78, 34, 36, 22, $token, $now);
-        // Patek Philippe — LEGEND (35/38 = 92% → 12)
-        $this->fillCollectData($data, 27, 86, 86, 40, 38, 35, $token, $now);
-        // Lombard Odier — GOLD (18/30 = 60% → 8)
-        $this->fillCollectData($data, 28, 53, 58, 26, 30, 18, $token, $now);
-        // JTI — CLASSIC (11/32 = 34.4% → 6)
+        // Rolex — LEGEND : eff 90.7% → 40, supporters 91.1% → 12 ⇒ total 59
+        // Pictet — GOLD : eff 77.8% → 32, supporters 91.2% → 12 ⇒ total 51
+        $this->fillCollectData($data, 23, 79, 73, 30, 34, 31, $token, $now);
+        // Richemont — CLASSIC : eff 65.5% → 24, supporters 56.4% → 8 ⇒ total 39
+        $this->fillCollectData($data, 24, 92, 85, 42, 39, 22, $token, $now);
+        // Givaudan — LEGEND : eff 92.7% → 40, supporters 84% → 10 ⇒ total 57
+        $this->fillCollectData($data, 25, 98, 92, 50, 50, 42, $token, $now);
+        // SGS — GOLD : eff 80% → 32, supporters 77.8% → 10 ⇒ total 49
+        $this->fillCollectData($data, 26, 71, 78, 34, 36, 28, $token, $now);
+        // Patek Philippe — LEGEND : eff 90.9% → 40, supporters 65.8% → 8 ⇒ total 55
+        $this->fillCollectData($data, 27, 86, 86, 40, 38, 25, $token, $now);
+        // Lombard Odier — GOLD : eff 80% → 32, supporters 40% → 6 ⇒ total 45
+        $this->fillCollectData($data, 28, 53, 58, 26, 30, 12, $token, $now);
+        // JTI — CLASSIC : eff 60% → 24, supporters 34.4% → 6 ⇒ total 37
         $this->fillCollectData($data, 29, 46, 68, 22, 32, 11, $token, $now);
-        // MSC — GOLD (26/40 = 65% → 8)
+        // MSC — GOLD : eff 80% → 32, supporters 65% → 8 ⇒ total 47
         $this->fillCollectData($data, 30, 79, 88, 38, 40, 26, $token, $now);
-        // Firmenich — CLASSIC (12/34 = 35.3% → 6)
-        $this->fillCollectData($data, 31, 51, 76, 24, 34, 12, $token, $now);
+        // Firmenich — CLASSIC : eff 60.3% → 24, supporters 17.6% → 4 ⇒ total 35
+        $this->fillCollectData($data, 31, 51, 76, 24, 34, 6, $token, $now);
 
         $this->fillCollectData($data, 32, 94, 90, 50, 48, 44, $token, $now); // Givaudan
         $this->fillCollectData($data, 33, 67, 74, 32, 34, 21, $token, $now); // SGS

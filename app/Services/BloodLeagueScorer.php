@@ -11,6 +11,16 @@ use Illuminate\Support\Facades\DB;
 class BloodLeagueScorer
 {
     /**
+     * Seuils de score (sur un total max de 102) déterminant le label.
+     * Un label par seuil absolu garde chaque entreprise dans sa division
+     * indépendamment du classement des autres, ce qui autorise des totaux
+     * distincts au sein d'un même label (contrairement à un calcul par rang).
+     */
+    private const LABEL_LEGEND_MIN = 55;
+
+    private const LABEL_GOLD_MIN = 42;
+
+    /**
      * Calcule le score complet d'une entreprise pour une saison
      */
     public function computeScore(int $companyId, int $seasonId): array
@@ -80,28 +90,11 @@ class BloodLeagueScorer
             return null; // pas participé
         }
 
-        // Récupère les scores de toutes les entreprises de cette saison
-        $allCompanies = Company::pluck('id', null);
-        $scores = [];
-        foreach ($allCompanies as $id) {
-            $s = $this->computeScore($id, $seasonId)['total'];
-            if ($s > 0) {
-                $scores[] = $s;
-            }
-        }
-
-        rsort($scores);
-        $rank = array_search($myScore, $scores);
-        $percentile = ($rank / count($scores)) * 100;
-
-        if ($percentile <= 15) {
-            return Label::LEGEND;
-        }
-        if ($percentile <= 50) {
-            return Label::GOLD;
-        }
-
-        return Label::CLASSIC;
+        return match (true) {
+            $myScore >= self::LABEL_LEGEND_MIN => Label::LEGEND,
+            $myScore >= self::LABEL_GOLD_MIN => Label::GOLD,
+            default => Label::CLASSIC,
+        };
     }
 
     /**

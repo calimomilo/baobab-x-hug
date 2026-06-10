@@ -82,7 +82,7 @@ class CollectController extends Controller
 
         $collect->save();
 
-        // return page inertia /collects/$collect->id
+        return to_route('collects.show', ['id' => $collect->id]);
     }
 
     /**
@@ -138,7 +138,7 @@ class CollectController extends Controller
             'employees' => $validated['employees'],
         ]);
 
-        // return page inertia /collects/$collect->id
+        return to_route('collects.show', ['id' => $collect->id]);
     }
 
     /**
@@ -150,7 +150,7 @@ class CollectController extends Controller
 
         $collect->deleteOrFail();
 
-        // return page inertia /collects
+        return to_route('collects.index');
     }
 
     /**
@@ -164,7 +164,7 @@ class CollectController extends Controller
 
         $collect->save();
 
-        // return page inertia /collects/$collect->$id
+        return to_route('collects.show', ['id' => $collect->id]);
     }
 
     /**
@@ -178,6 +178,6 @@ class CollectController extends Controller
 
         $collect->save();
 
-        // return page inertia /collects/$collect->$id
+        return to_route('collects.show', ['id' => $collect->id]);
     }
 }

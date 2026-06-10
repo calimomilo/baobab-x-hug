@@ -135,35 +135,14 @@ const score = computed(() => {
                 <Tag v-else color="soon">Prochainement</Tag>
             </div>
 
-            <div class="grid grid-cols-12 auto-rows-min gap-6">
-                <DashboardTile color="sage" class="col-span-8 self-end items-start text-start pl-12">
-                    <h2 class="font-bold text-2xl -mt-2 mb-2">Informations</h2>
-                    <table class="table-auto">
-                        <tbody>
-                            <tr>
-                                <td class="text-end pb-2 pr-6">Entreprise organisatrice :</td>
-                                <td class="pb-2">{{ props.collect.company.company_name }} ({{ props.collect.company.address }})</td>
-                            </tr>
-                            <tr>
-                                <td class="text-end pb-2 pr-6">Lieu :</td>
-                                <td class="pb-2">{{ props.collect.location }}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-end pb-2 pr-6">Date et heures :</td>
-                                <td class="pb-2">{{ formatDate(props.collect.date_of, props.collect.start_time, props.collect.end_time) }}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-end pb-2 pr-6">Lien de prise de rdv :</td>
-                                <td class="pb-2">{{ props.collect.appointment_link }}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-end pb-2 pr-6">Employé.e.s :</td>
-                                <td class="pb-2">{{ props.collect.completed? props.collect.employees : '/' }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </DashboardTile>
-                <DashboardTile color="rose" class="col-span-4 items-end text-end pr-12">
+            <div class="grid grid-cols-12 auto-rows-min gap-6 my-6">
+                <div class="flex gap-4 justify-end col-span-8 self-end">
+                    <Link v-if="!props.collect.completed" :href="`/admin/collects/${props.collect.id}/edit`" class="flex items-center px-3 h-11 rounded font-medium bg-brand-neutral-50 hover:bg-brand-neutral-100 active:bg-brand-neutral-200 w-fit">Modifier</Link>
+                    <Link v-if="!props.collect.completed && Date.parse(props.collect.date_of) < Date.now()" :href="`/admin/${props.collect.id}/collects/complete`" class="flex items-center px-3 h-11 rounded font-medium bg-brand-teal-300 hover:bg-brand-teal-400 active:bg-brand-teal-500 w-fit">Compléter</Link>
+                    <Link v-if="props.collect.completed" :href="`/admin/${props.collect.id}/collects/incomplete`" class="flex items-center px-3 h-11 rounded font-medium bg-brand-teal-300 hover:bg-brand-teal-400 active:bg-brand-teal-500 w-fit">Compléter</Link>
+                    <Link :href="`/admin/collects/${props.collect.id}`" method="delete" class="flex items-center px-3 h-11 rounded font-medium bg-brand-error-600 hover:bg-brand-error-700 active:bg-brand-error-800 text-white w-fit">Supprimer</Link>
+                </div>
+                <DashboardTile color="rose" class="col-span-4 row-span-2 items-end text-end pr-12">
                     <h2 class="font-bold text-2xl -mt-2 mb-2">Points</h2>
                     <table class="table-auto">
                         <tbody>
@@ -189,6 +168,33 @@ const score = computed(() => {
                             <tr class="font-semibold">
                                 <td class="text-end pt-2">Total :</td>
                                 <td class="pt-2">{{ score }} pts</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </DashboardTile>
+                <DashboardTile color="sage" class="col-span-8 self-end items-start text-start pl-12">
+                    <h2 class="font-bold text-2xl -mt-2 mb-2">Informations</h2>
+                    <table class="table-auto">
+                        <tbody>
+                            <tr>
+                                <td class="text-end pb-2 pr-6">Entreprise organisatrice :</td>
+                                <td class="pb-2">{{ props.collect.company.company_name }} ({{ props.collect.company.address }})</td>
+                            </tr>
+                            <tr>
+                                <td class="text-end pb-2 pr-6">Lieu :</td>
+                                <td class="pb-2">{{ props.collect.location }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-end pb-2 pr-6">Date et heures :</td>
+                                <td class="pb-2">{{ formatDate(props.collect.date_of, props.collect.start_time, props.collect.end_time) }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-end pb-2 pr-6">Lien de prise de rdv :</td>
+                                <td class="pb-2">{{ props.collect.appointment_link }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-end pb-2 pr-6">Employé.e.s :</td>
+                                <td class="pb-2">{{ props.collect.completed? props.collect.employees : '/' }}</td>
                             </tr>
                         </tbody>
                     </table>

@@ -260,6 +260,5 @@ const companiesSorted = computed(() => props.companies.toSorted((a, b) => b.scor
                 </table>
             </div>
         </section>
-        {{ props.season.collects }}
     </AdminLayout>
 </template>

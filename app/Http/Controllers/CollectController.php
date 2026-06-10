@@ -29,7 +29,7 @@ class CollectController extends Controller
             $collect->makeHidden('data');
         });
 
-        return Inertia::render('admin/Collectes', ['collects' => $collects]);
+        return Inertia::render('admin/Collects', ['collects' => $collects]);
     }
 
     /**
@@ -92,7 +92,15 @@ class CollectController extends Controller
     {
         $collect = Collect::with(['company', 'season', 'data'])->findOrFail($id);
 
-        // return page inertia /collects/$collect->$id
+        $collect->donor_results = $collect->data->where('data_type', DataType::DONOR_RESULT)->count();
+        $collect->supporter_results = $collect->data->where('data_type', DataType::SUPPORTER_RESULT)->count();
+        $collect->appointment_clicks = $collect->data->where('data_type', DataType::APPOINTMENT_CLIC)->count();
+        $collect->donor_shares = $collect->data->where('data_type', DataType::DONOR_SHARE)->count();
+        $collect->supporter_shares = $collect->data->where('data_type', DataType::SUPPORTER_RESULT)->count();
+
+        $collect->makeHidden('data');
+
+        return Inertia::render('admin/Collect', ['collect' => $collect]);
     }
 
     /**

@@ -140,44 +140,6 @@ const collectsFuture = computed(() => collectsSorted.value.filter((c) => {
 }));
 
 const companiesSorted = computed(() => props.companies.toSorted((a, b) => b.score.total - a.score.total));
-
-// const companiesClassic = computed(() => companiesSorted.value.filter((c) => c.label.slug === 'classic'));
-
-// const companiesGold = computed(() => companiesSorted.value.filter((c) => c.label.slug === 'gold'));
-
-// const companiesLegend = computed(() => companiesSorted.value.filter((c) => c.label.slug === 'legend'));
-
-        // <!-- TABLE ENTREPRISES -->
-        // <table class="table-auto border-collapse col-span-6 self-start text-md font-normal">
-        //     <thead class="bg-brand-teal-400 text-white text-lg border border-brand-teal-400">
-        //         <tr>
-        //             <th class="font-semibold p-2 text-start">Entreprise</th>
-        //             <th class="font-semibold p-2 text-start">Points</th>
-        //         </tr>
-        //     </thead>
-        //     <tbody>
-        //         <tr class="border border-brand-neutral-100 font-medium"><p class="px-2 py-1">Division Legend</p></tr>
-        //         <tr v-for="company in companiesLegend" :key="company.id">
-        //             <td class="p-2 border border-brand-neutral-100">{{ company.company_name }}</td>
-        //             <td class="p-2 border border-brand-neutral-100">{{ company.score.total }}</td>
-        //         </tr>
-        //         <tr v-if="companiesLegend.length === 0" class="border border-brand-neutral-100"><p class="p-2 italic  text-brand-neutral-500">Aucune entreprise</p></tr>
-
-        //         <tr class="border border-brand-neutral-100 font-medium"><p class="px-2 py-1">Division Gold</p></tr>
-        //         <tr v-for="company in companiesGold" :key="company.id">
-        //             <td class="p-2 border border-brand-neutral-100">{{ company.company_name }}</td>
-        //             <td class="p-2 border border-brand-neutral-100">{{ company.score.total }}</td>
-        //         </tr>
-        //         <tr v-if="companiesGold.length === 0" class="border border-brand-neutral-100"><p class="p-2 italic  text-brand-neutral-500">Aucune entreprise</p></tr>
-                
-        //         <tr class="border border-brand-neutral-100 font-medium"><p class="px-2 py-1">Division Classic</p></tr>
-        //         <tr v-for="company in companiesClassic" :key="company.id">
-        //             <td class="p-2 border border-brand-neutral-100">{{ company.company_name }}</td>
-        //             <td class="p-2 border border-brand-neutral-100">{{ company.score.total }}</td>
-        //         </tr>
-        //         <tr v-if="companiesClassic.length === 0" class="border border-brand-neutral-100"><p class="p-2 italic  text-brand-neutral-500">Aucune entreprise</p></tr>
-        //     </tbody>
-        // </table>
         
 </script>
 
@@ -235,16 +197,16 @@ const companiesSorted = computed(() => props.companies.toSorted((a, b) => b.scor
                     <tbody>
                         <tr class="border border-brand-neutral-100 font-medium"><td class="px-2 py-1">Prochaines collectes</td></tr>
                         <tr v-for="collect in collectsFuture" :key="collect.id">
-                            <td class="p-2 border border-brand-neutral-100">{{ props.companies.find((c) => c.id === collect.company_id)?.company_name }}</td>
-                            <td class="p-2 border border-brand-neutral-100">{{ formatDate(collect.date_of) }}</td>
-                            <td class="p-2 border border-brand-neutral-100">{{ collect.appointment_clicks }}</td>
+                            <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ props.companies.find((c) => c.id === collect.company_id)?.company_name }}</Link></td>
+                            <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ formatDate(collect.date_of) }}</Link></td>
+                            <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ collect.appointment_clicks }}</Link></td>
                         </tr>
                         <tr v-if="collectsFuture.length === 0" class="border border-brand-neutral-100"><td class="p-2 italic  text-brand-neutral-500">Aucune collecte</td></tr>
                         <tr class="border border-brand-neutral-100 font-medium"><td class="px-2 py-1">Collectes à compléter</td></tr>
                         <tr v-for="collect in collectsToComplete" :key="collect.id">
-                            <td class="p-2 border border-brand-neutral-100">{{ props.companies.find((c) => c.id === collect.company_id)?.company_name }}</td>
-                            <td class="p-2 border border-brand-neutral-100">{{ formatDate(collect.date_of) }}</td>
-                            <td class="p-2 border border-brand-neutral-100">{{ collect.appointment_clicks }}</td>
+                            <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ props.companies.find((c) => c.id === collect.company_id)?.company_name }}</Link></td>
+                            <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ formatDate(collect.date_of) }}</Link></td>
+                            <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ collect.appointment_clicks }}</Link></td>
                         </tr>
                         <tr v-if="collectsToComplete.length === 0" class="border border-brand-neutral-100"><td class="p-2 italic  text-brand-neutral-500">Aucune collecte</td></tr>
                     </tbody>
@@ -298,5 +260,6 @@ const companiesSorted = computed(() => props.companies.toSorted((a, b) => b.scor
                 </table>
             </div>
         </section>
+        {{ props.season.collects }}
     </AdminLayout>
 </template>

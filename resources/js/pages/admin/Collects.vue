@@ -145,11 +145,11 @@ const collectsActive = computed(() => props.collects.filter((c) => c.season_id =
 
 const collectsToComplete = computed(() => collectsActive.value.filter((c) => {
     return c.completed === 0 && Date.parse(c.date_of) < Date.now();
-}));
+}).toReversed());
 
 const collectsFuture = computed(() => collectsActive.value.filter((c) => {
     return c.completed === 0 && Date.parse(c.date_of) >= Date.now();
-}));
+}).toReversed());
 
 const collectsCompleted = computed(() => collectsActive.value.filter((c) => {
     return c.completed === 1;
@@ -183,30 +183,30 @@ const collectsCompleted = computed(() => collectsActive.value.filter((c) => {
                 <tbody v-if="activeSeason.status === 'open'">
                     <tr class="border border-brand-neutral-100 font-semibold text-brand-sage-400"><td class="px-2 py-1">Prochaines collectes</td></tr>
                     <tr v-for="collect in collectsFuture" :key="collect.id">
-                        <td class="p-2 border border-brand-neutral-100">{{ collect.company.company_name }}</td>
-                        <td class="p-2 border border-brand-neutral-100">{{ formatDate(collect.date_of, collect.start_time, collect.end_time) }}</td>
-                        <td class="p-2 border border-brand-neutral-100">{{ collect.location }}</td>
-                        <td class="p-2 border border-brand-neutral-100">{{ collect.appointments !== 0? collect.appointments : collect.appointment_clicks }}</td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ collect.company.company_name }}</Link></td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ formatDate(collect.date_of, collect.start_time, collect.end_time) }}</Link></td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ collect.location }}</Link></td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ collect.appointments !== 0? collect.appointments : collect.appointment_clicks }}</Link></td>
                         <td class="p-2 border border-brand-neutral-100">/</td>
                     </tr>
                     <tr v-if="collectsFuture.length === 0" class="border border-brand-neutral-100"><td class="p-2 italic  text-brand-neutral-500">Aucune collecte</td></tr>
 
                     <tr class="border border-brand-neutral-100 font-semibold text-brand-sage-400"><td class="px-2 py-1">Collectes à compléter</td></tr>
                     <tr v-for="collect in collectsToComplete" :key="collect.id">
-                        <td class="p-2 border border-brand-neutral-100">{{ collect.company.company_name }}</td>
-                        <td class="p-2 border border-brand-neutral-100">{{ formatDate(collect.date_of, collect.start_time, collect.end_time) }}</td>
-                        <td class="p-2 border border-brand-neutral-100">{{ collect.location }}</td>
-                        <td class="p-2 border border-brand-neutral-100">{{ collect.appointments !== 0? collect.appointments : collect.appointment_clicks }}</td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ collect.company.company_name }}</Link></td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ formatDate(collect.date_of, collect.start_time, collect.end_time) }}</Link></td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ collect.location }}</Link></td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ collect.appointments !== 0? collect.appointments : collect.appointment_clicks }}</Link></td>
                         <td class="p-2 border border-brand-neutral-100">/</td>
                     </tr>
                     <tr v-if="collectsToComplete.length === 0" class="border border-brand-neutral-100"><td class="p-2 italic  text-brand-neutral-500">Aucune collecte</td></tr>
 
                     <tr class="border border-brand-neutral-100 font-semibold text-brand-sage-400"><td class="px-2 py-1">Collectes complétées</td></tr>
                     <tr v-for="collect in collectsCompleted" :key="collect.id">
-                        <td class="p-2 border border-brand-neutral-100">{{ collect.company.company_name }}</td>
-                        <td class="p-2 border border-brand-neutral-100">{{ formatDate(collect.date_of, collect.start_time, collect.end_time) }}</td>
-                        <td class="p-2 border border-brand-neutral-100">{{ collect.location }}</td>
-                        <td class="p-2 border border-brand-neutral-100">{{ collect.appointments !== 0? collect.appointments : collect.appointment_clicks }}</td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ collect.company.company_name }}</Link></td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ formatDate(collect.date_of, collect.start_time, collect.end_time) }}</Link></td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ collect.location }}</Link></td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ collect.appointments !== 0? collect.appointments : collect.appointment_clicks }}</Link></td>
                         <td class="p-2 border border-brand-neutral-100">/</td>
                     </tr>
                     <tr v-if="collectsCompleted.length === 0" class="border border-brand-neutral-100"><td class="p-2 italic  text-brand-neutral-500">Aucune collecte</td></tr>

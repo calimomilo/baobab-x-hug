@@ -37,7 +37,7 @@ type seasonType = {
 
 const props = defineProps<{
     companies: Array<company>,
-    season: {type: seasonType}
+    season: seasonType
 }>()
 
 const companiesSorted = computed(() => props.companies.toSorted((a, b) => b.total - a.total));

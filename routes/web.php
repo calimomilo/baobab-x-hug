@@ -5,6 +5,7 @@ use App\Http\Controllers\CollectController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\DisplayController;
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\KPIController;
 use App\Http\Controllers\SeasonController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
@@ -30,16 +31,22 @@ Route::controller(DisplayController::class)->group(function () {
 
     Route::get('/{slug}/don-du-sang#conditions', 'displayDonDuSang')->name('conditions.slug');
     Route::get('/{slug}/checker/{step?}', 'displayChecker')->name('checker');
+
+    Route::get('/{slug}/{id}/donor', 'displayDonor')->name('donor');
+    Route::get('/{slug}/{id}/supporter', 'displaySupporter')->name('supporter');
 });
 
 Route::controller(KPIController::class)->group(function () {
-    Route::get('/{slug}/donor', 'showDonorResult')->name('donor');
-    Route::get('/{slug}/supporter', 'showSupporterResult')->name('supporter');
-    Route::post('/{slug}/donor', 'donorResult');
-    Route::post('/{slug}/supporter', 'supporterResult');
+    Route::post('/{slug}/donor', 'donorResult')->name('donor-result');
+    Route::post('/{slug}/supporter', 'supporterResult')->name('supporter-result');
     Route::post('/{slug}/appointment-click', 'appointmentClick')->name('appointment-click');
-    Route::get('/{slug}/donor-share', 'donorShare')->name('donor-share');
-    Route::get('/{slug}/supporter-share', 'supporterShare')->name('supporter-share');
+    Route::post('/{slug}/donor-share', 'donorShare')->name('donor-share');
+    Route::post('/{slug}/supporter-share', 'supporterShare')->name('supporter-share');
+});
+
+Route::controller(DownloadController::class)->prefix('download')->group(function () {
+    Route::get('/kits/donor', 'downloadDonorKit')->name('download.donor');
+    Route::get('/kits/supporter', 'downloadSupporterKit')->name('download.supporter');
 });
 
 Route::get('/contact', [ContactFormController::class, 'create'])->name('contact');

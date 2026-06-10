@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Collect;
 use App\Models\Company;
 use App\Models\Season;
 use App\Services\BloodLeagueScorer;
@@ -174,5 +175,19 @@ class DisplayController extends Controller
 
             return Inertia::render('Checker', ['displayData' => $companyDisplayData, 'collect' => $base, 'step' => $step]);
         }
+    }
+
+    public function displayDonor(string $slug, string $id)
+    {
+        $collect = Collect::find($id);
+
+        return Inertia::render('Result', ['slug' => $slug, 'collect' => $collect, 'type' => 'donor']);
+    }
+
+    public function displaySupporter(string $slug, string $id)
+    {
+        $collect = Collect::find($id);
+
+        return Inertia::render('Result', ['slug' => $slug, 'collect' => $collect, 'type' => 'supporter']);
     }
 }

@@ -21,10 +21,18 @@ class CompanyController extends Controller
 
         $companies->map(function ($company) use ($season) {
             $label = app(BloodLeagueScorer::class)->computeLabel($company->id, $season->id);
-            $company->label = [
-                'name' => $label->name(),
-                'slug' => $label,
-            ];
+
+            if (! $label) {
+                $company->label = [
+                    'name' => 'Aucune participation',
+                    'slug' => 'outsider',
+                ];
+            } else {
+                $company->label = [
+                    'name' => $label->name(),
+                    'slug' => $label,
+                ];
+            }
 
             $score = app(BloodLeagueScorer::class)->computeScore($company->id, $season->id);
             $company->total = $score['total'];
@@ -90,29 +98,48 @@ class CompanyController extends Controller
     /**
      * Display the specified company.
      */
-    public function show(string $slug)
+    public function show(string $id)
     {
+        $season = Season::where('status', 'open')->first();
+
         $company = Company::with([
             'wins',
-            'collect' => [
+            'collects' => [
                 'season',
                 'data',
             ],
-        ])->where('slug', $slug)->first();
+        ])->findOrFail($id);
 
         if (! $company) {
             return response()->json(['message' => 'Company not found.'], 404);
         }
 
-        // return page inertia /companies/$company->slug
+        $label = app(BloodLeagueScorer::class)->computeLabel($company->id, $season->id);
+
+        if (! $label) {
+            $company->label = [
+                'name' => 'Aucune participation',
+                'slug' => 'outsider',
+            ];
+        } else {
+            $company->label = [
+                'name' => $label->name(),
+                'slug' => $label,
+            ];
+        }
+
+        $score = app(BloodLeagueScorer::class)->computeScore($company->id, $season->id);
+        $company->score = $score;
+
+        return Inertia::render('admin/Company', ['season' => $season, 'company' => $company]);
     }
 
     /**
      * Show the form for editing the specified company.
      */
-    public function edit(string $slug)
+    public function edit(string $id)
     {
-        $company = Company::where('slug', '=', $slug, true)->first();
+        $company = Company::findOrFail($id);
 
         if (! $company) {
             return response()->json(['message' => 'Company not found.'], 404);
@@ -124,7 +151,7 @@ class CompanyController extends Controller
     /**
      * Update the specified company in storage.
      */
-    public function update(Request $request, string $slug)
+    public function update(Request $request, string $id)
     {
         $validated = $request->validate([
             'company_name' => 'required|string|min:2|max:255',
@@ -139,7 +166,7 @@ class CompanyController extends Controller
             'anonymous' => 'required|boolean',
         ]);
 
-        $company = Company::where('slug', '=', $slug, true)->first();
+        $company = Company::findOrFail($id);
 
         if (! $company) {
             return response()->json(['message' => 'Company not found.'], 404);
@@ -164,9 +191,9 @@ class CompanyController extends Controller
     /**
      * Remove the specified company from storage.
      */
-    public function destroy(string $slug)
+    public function destroy(string $id)
     {
-        $company = Company::where('slug', '=', $slug, true)->first();
+        $company = Company::findOrFail($id);
 
         if (! $company) {
             return response()->json(['message' => 'Company not found.'], 404);

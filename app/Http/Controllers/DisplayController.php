@@ -21,10 +21,18 @@ class DisplayController extends Controller
         $companies = Company::whereIn('id', $collectIds)->get();
         $companies->map(function ($company) {
             $label = app(BloodLeagueScorer::class)->computeLabel($company->id, 2);
-            $company->label = [
-                'name' => $label->name(),
-                'slug' => $label,
-            ];
+
+            if (! $label) {
+                $company->label = [
+                    'name' => 'Aucune participation',
+                    'slug' => 'outsider',
+                ];
+            } else {
+                $company->label = [
+                    'name' => $label->name(),
+                    'slug' => $label,
+                ];
+            }
         });
 
         $base = $companies->where('anonymous', '=', 0)->select(['company_name', 'logo_url', 'label']);
@@ -106,10 +114,18 @@ class DisplayController extends Controller
         $companies = Company::whereIn('id', $collectIds)->get();
         $companies->map(function ($company) use ($season) {
             $label = app(BloodLeagueScorer::class)->computeLabel($company->id, $season->id);
-            $company->label = [
-                'name' => $label->name(),
-                'slug' => $label,
-            ];
+
+            if (! $label) {
+                $company->label = [
+                    'name' => 'Aucune participation',
+                    'slug' => 'outsider',
+                ];
+            } else {
+                $company->label = [
+                    'name' => $label->name(),
+                    'slug' => $label,
+                ];
+            }
 
             $score = app(BloodLeagueScorer::class)->computeScore($company->id, $season->id);
             $company->total = $score['total'];
@@ -186,10 +202,18 @@ class DisplayController extends Controller
         $companies = Company::whereIn('id', $collectIds)->get();
         $companies->map(function ($company) use ($season) {
             $label = app(BloodLeagueScorer::class)->computeLabel($company->id, $season->id);
-            $company->label = [
-                'name' => $label->name(),
-                'slug' => $label,
-            ];
+
+            if (! $label) {
+                $company->label = [
+                    'name' => 'Aucune participation',
+                    'slug' => 'outsider',
+                ];
+            } else {
+                $company->label = [
+                    'name' => $label->name(),
+                    'slug' => $label,
+                ];
+            }
 
             $score = app(BloodLeagueScorer::class)->computeScore($company->id, $season->id);
             $company->score = $score;

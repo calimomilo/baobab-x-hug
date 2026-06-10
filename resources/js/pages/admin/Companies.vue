@@ -48,7 +48,7 @@ const companiesGold = computed(() => companiesSorted.value.filter((c) => c.label
 
 const companiesLegend = computed(() => companiesSorted.value.filter((c) => c.label.slug === 'legend'));
 
-const companiesInactive = computed(() => companiesSorted.value.filter((c) => c.currentCollects === 0));
+const companiesInactive = computed(() => companiesSorted.value.filter((c) => c.label.slug === 'outsider'));
         
 </script>
 

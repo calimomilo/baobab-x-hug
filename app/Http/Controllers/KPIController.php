@@ -158,58 +158,8 @@ class KPIController extends Controller
 
     public function donorShare(Request $request, string $slug)
     {
-        $validated = $request->validate([
-            'user_uuid' => 'required|string',
-            'collect.id' => 'required|exists:collects,id',
-            'collect.appointment_link' => 'required|exists:collects,appointment_link',
-        ]);
+        $this->recordShare($request, DataType::DONOR_SHARE);
 
-        $data = new CollectData(['session_id' => $validated['user_uuid'], 'data_type' => DataType::DONOR_SHARE]);
-        $collect = Collect::with('data')->find($validated['collect']['id']);
-
-        $existing = CollectData::where('collect_id', $validated['collect']['id'])->where('session_id', $validated['user_uuid'])->where('data_type', DataType::DONOR_SHARE)->first();
-
-        if (! $existing) {
-            $collect->data()->save($data);
-        }
-
-        $company = Company::where('slug', $slug)->with('collects')->first();
-
-        if (! $company) {
-            return to_route('home');
-        }
-
-        return to_route('donor');
-    }
-
-    public function supporterShare(Request $request, string $slug)
-    {
-        $validated = $request->validate([
-            'user_uuid' => 'required|string',
-            'collect.id' => 'required|exists:collects,id',
-            'collect.appointment_link' => 'required|exists:collects,appointment_link',
-        ]);
-
-        $data = new CollectData(['session_id' => $validated['user_uuid'], 'data_type' => DataType::SUPPORTER_SHARE]);
-        $collect = Collect::with('data')->find($validated['collect']['id']);
-
-        $existing = CollectData::where('collect_id', $validated['collect']['id'])->where('session_id', $validated['user_uuid'])->where('data_type', DataType::SUPPORTER_SHARE)->first();
-
-        if (! $existing) {
-            $collect->data()->save($data);
-        }
-
-        $company = Company::where('slug', $slug)->with('collects')->first();
-
-        if (! $company) {
-            return to_route('home');
-        }
-
-        return to_route('supporter');
-    }
-
-    public function downloadDonorKit()
-    {
         abort_unless(Storage::disk('local')->exists('kits/kit-donneur.zip'), 404);
 
         return Storage::disk('local')->download(
@@ -218,13 +168,43 @@ class KPIController extends Controller
         );
     }
 
-    public function downloadSupporterKit()
+    public function supporterShare(Request $request, string $slug)
     {
+        $this->recordShare($request, DataType::SUPPORTER_SHARE);
+
         abort_unless(Storage::disk('local')->exists('kits/kit-supporter.zip'), 404);
 
         return Storage::disk('local')->download(
             'kits/kit-supporter.zip',
             'kit-communication-supporter.zip'
         );
+    }
+
+    private function recordShare(Request $request, DataType $type): void
+    {
+        $userUuid = trim((string) $request->query('user_uuid'));
+        $collectId = (int) $request->query('collect_id');
+
+        if ($userUuid === '' || $userUuid === 'null' || $collectId === 0) {
+            return;
+        }
+
+        $collect = Collect::find($collectId);
+
+        if (! $collect) {
+            return;
+        }
+
+        $existing = CollectData::where('collect_id', $collectId)
+            ->where('session_id', $userUuid)
+            ->where('data_type', $type)
+            ->first();
+
+        if (! $existing) {
+            $collect->data()->save(new CollectData([
+                'session_id' => $userUuid,
+                'data_type' => $type,
+            ]));
+        }
     }
 }

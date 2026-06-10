@@ -38,10 +38,8 @@ Route::controller(KPIController::class)->group(function () {
     Route::post('/{slug}/donor', 'donorResult');
     Route::post('/{slug}/supporter', 'supporterResult');
     Route::post('/{slug}/appointment-click', 'appointmentClick')->name('appointment-click');
-    Route::post('/{slug}/donor-share', 'donorShare')->name('donor-share');
-    Route::post('/{slug}/supporter-share', 'supporterShare')->name('supporter-share');
-    Route::get('/kits/donor', 'downloadDonorKit')->name('kit.donor');
-    Route::get('/kits/supporter', 'downloadSupporterKit')->name('kit.supporter');
+    Route::get('/{slug}/donor-share', 'donorShare')->name('donor-share');
+    Route::get('/{slug}/supporter-share', 'supporterShare')->name('supporter-share');
 });
 
 Route::get('/contact', [ContactFormController::class, 'create'])->name('contact');

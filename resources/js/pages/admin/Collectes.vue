@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import { formatDate } from '@/lib/dateTimeFormatting';
 
@@ -54,6 +54,7 @@ const props = defineProps<{
     collects: Array<collect>,
 }>()
 
+// SEASONS HANDLING
 const seasons = ref<Array<season>>([]);
 
 props.collects.forEach((c) => {
@@ -63,42 +64,96 @@ props.collects.forEach((c) => {
 })
 seasons.value.sort((a,b) => b.year_of - a.year_of);
 
-const activeSeason = ref(seasons.value.find((s) => s.status === 'open'));
+const activeSeasonPosition = ref(seasons.value.findIndex((s) => s.status === 'open'));
+const activeSeason = computed(() => seasons.value[activeSeasonPosition.value]);
+    
+const nextSeason = () => {
+    activeSeasonPosition.value = seasons.value.findIndex((s) => s.id === activeSeason.value.id) - 1;
+}
+
+const prevSeason = () => {
+    activeSeasonPosition.value = seasons.value.findIndex((s) => s.id === activeSeason.value.id) + 1;
+}
 
 // COMPUTE RESULTS
 
-// const collectsAmount = computed(() => props.collects.length ?? 0);
+const scoreEfficacite = (collect: collect) => {
+    const rate = collect.donations/collect.appointments;
 
-// const donationsAmount = computed(() => props.collects.reduce((carry, current) => {
-//     return carry + current.donations;
-// }, 0));
+    if (rate >= 0.9) {
+        return 40;
+    } else if (rate >= 0.75) {
+        return 32;
+    } else if (rate >= 0.5) {
+        return 24;
+    } else if (rate >= 0.25) {
+        return 16;
+    } else if (rate >= 0.1) {
+        return 8;
+    } else if (rate >= 0.01) {
+        return 2;
+    } else {
+        return 0;
+    }
+}
 
-// const supporterResultsAmount = computed(() => props.season?.collects.reduce((carry, current) => {
-//     return carry + current.supporter_results;
-// }, 0));
+const scoreDonneurs = (collect: collect) => {
+    const rate = collect.donations/collect.employees;
 
-// const supporterSharesAmount = computed(() => props.season?.collects.reduce((carry, current) => {
-//     return carry + current.supporter_shares;
-// }, 0));
+    if (rate >= 0.9) {
+        return 30;
+    } else if (rate >= 0.75) {
+        return 24;
+    } else if (rate >= 0.5) {
+        return 18;
+    } else if (rate >= 0.25) {
+        return 12;
+    } else if (rate >= 0.1) {
+        return 6;
+    } else if (rate >= 0.01) {
+        return 2;
+    } else {
+        return 0;
+    }
+}
 
-// const donorSharesAmount = computed(() => props.season?.collects.reduce((carry, current) => {
-//     return carry + current.donor_shares;
-// }, 0));
+const scoreSupporters = (collect: collect) => {
+    const rate = collect.supporter_shares/collect.supporter_results;
 
-// const appointmentsAmount = computed(() => props.season?.collects.reduce((carry, current) => {
-//     return current.completed? carry + current.appointments : carry + current.appointment_clicks;
-// }, 0));
-// const efficiencyMean = computed(() => {
-//     if (companiesAmount.value === 0) {
-//         return 0;
-//     }
+    if (rate >= 0.9) {
+        return 12;
+    } else if (rate >= 0.75) {
+        return 1;
+    } else if (rate >= 0.5) {
+        return 8;
+    } else if (rate >= 0.25) {
+        return 6;
+    } else if (rate >= 0.1) {
+        return 4;
+    } else if (rate >= 0.01) {
+        return 2;
+    } else {
+        return 0;
+    }
+}
 
-//     const sum = props.companies?.reduce((carry, amount) => {
-//         return carry + amount.score.raw.taux_efficacite;
-//     }, 0) ?? 0;
+const score = (collect: collect) => {
+    return scoreEfficacite(collect) + 5 + scoreDonneurs(collect) + scoreSupporters(collect);
+}
 
-//     return Math.round(sum*100/companiesAmount.value)/100.0;
-// });
+const collectsActive = computed(() => props.collects.filter((c) => c.season_id === activeSeason.value?.id));
+
+const collectsToComplete = computed(() => collectsActive.value.filter((c) => {
+    return c.completed === 0 && Date.parse(c.date_of) < Date.now();
+}));
+
+const collectsFuture = computed(() => collectsActive.value.filter((c) => {
+    return c.completed === 0 && Date.parse(c.date_of) >= Date.now();
+}));
+
+const collectsCompleted = computed(() => collectsActive.value.filter((c) => {
+    return c.completed === 1;
+}));
 
 // // FILTER LISTS
 // const collectsToComplete = computed(() => props.season.collects.filter((c) => {
@@ -155,30 +210,68 @@ const activeSeason = ref(seasons.value.find((s) => s.status === 'open'));
     <AdminLayout title="Collectes" desc="Liste des collectes">
         <section id="collects" class="relative min-h-[calc(100vh-76px)] font-medium text-md font-cooper py-16 px-25">
             <Link href="/admin/dashboard" class="relative bottom-6 right-16 flex items-center px-3 h-11 rounded font-medium hover:bg-brand-neutral-50 active:bg-brand-neutral-100 w-fit">← Tableau de bord</Link>
-            <h1 class="col-span-12 font-bold text-4xl">Collectes de la saison {{ activeSeason?.year_of }}</h1>
-
-            <div v-for="season in seasons" :key="season.id">
-                <h2 class="font-bold text-2xl my-2">Saison {{ season.year_of }}</h2>
-                <table class="table-auto border-collapse w-full my-6">
-                    <thead>
-                        <tr class="bg-brand-sage-400 text-white text-lg border border-brand-sage-400">
-                            <th class="font-semibold p-2 text-start">Entreprise</th>
-                            <th class="font-semibold p-2 text-start">Date</th>
-                            <th class="font-semibold p-2 text-start">Lieu</th>
-                            <th class="font-semibold p-2 text-start">Rendez-vous pris</th>
-                            <th class="font-semibold p-2 text-start">Score</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="collect in collects.filter((c) => c.season_id === season.id)" :key="collect.id">
-                            <td class="p-2 border border-brand-neutral-100">{{ collect.company.company_name }}</td>
-                            <td class="p-2 border border-brand-neutral-100">{{ formatDate(collect.date_of, collect.start_time, collect.end_time) }}</td>
-                            <td class="p-2 border border-brand-neutral-100">{{ collect.location }}</td>
-                            <td class="p-2 border border-brand-neutral-100">{{ collect.appointments !== 0? collect.appointments : collect.appointment_clicks }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="flex justify-between">
+                <div class="w-50">
+                    <button v-if="activeSeasonPosition < seasons.length - 1" class="flex items-center px-3 h-11 rounded font-medium hover:bg-brand-neutral-50 active:bg-brand-neutral-100 w-fit" @click="prevSeason">← {{ seasons[activeSeasonPosition+1].year_of }}</button>
+                </div>
+                <h1 class="col-span-12 font-bold text-4xl">Collectes : saison {{ activeSeason?.year_of }}</h1>
+                <div class="w-50 flex justify-end">
+                    <button v-if="activeSeasonPosition > 0" class="flex items-center px-3 h-11 rounded font-medium hover:bg-brand-neutral-50 active:bg-brand-neutral-100 w-fit" @click="nextSeason">{{ seasons[activeSeasonPosition-1].year_of }} →</button>
+                </div>
             </div>
+            <table class="table-auto border-collapse w-full my-6">
+                <thead>
+                    <tr class="bg-brand-sage-400 text-white text-lg border border-brand-sage-400">
+                        <th class="font-semibold p-2 text-start">Entreprise</th>
+                        <th class="font-semibold p-2 text-start">Date</th>
+                        <th class="font-semibold p-2 text-start">Lieu</th>
+                        <th class="font-semibold p-2 text-start">RDV</th>
+                        <th class="font-semibold p-2 text-start">Score</th>
+                    </tr>
+                </thead>
+                <tbody v-if="activeSeason.status === 'open'">
+                    <tr class="border border-brand-neutral-100 font-semibold text-brand-sage-400"><td class="px-2 py-1">Prochaines collectes</td></tr>
+                    <tr v-for="collect in collectsFuture" :key="collect.id">
+                        <td class="p-2 border border-brand-neutral-100">{{ collect.company.company_name }}</td>
+                        <td class="p-2 border border-brand-neutral-100">{{ formatDate(collect.date_of, collect.start_time, collect.end_time) }}</td>
+                        <td class="p-2 border border-brand-neutral-100">{{ collect.location }}</td>
+                        <td class="p-2 border border-brand-neutral-100">{{ collect.appointments !== 0? collect.appointments : collect.appointment_clicks }}</td>
+                        <td class="p-2 border border-brand-neutral-100">/</td>
+                    </tr>
+                    <tr v-if="collectsFuture.length === 0" class="border border-brand-neutral-100"><td class="p-2 italic  text-brand-neutral-500">Aucune collecte</td></tr>
+
+                    <tr class="border border-brand-neutral-100 font-semibold text-brand-sage-400"><td class="px-2 py-1">Collectes à compléter</td></tr>
+                    <tr v-for="collect in collectsToComplete" :key="collect.id">
+                        <td class="p-2 border border-brand-neutral-100">{{ collect.company.company_name }}</td>
+                        <td class="p-2 border border-brand-neutral-100">{{ formatDate(collect.date_of, collect.start_time, collect.end_time) }}</td>
+                        <td class="p-2 border border-brand-neutral-100">{{ collect.location }}</td>
+                        <td class="p-2 border border-brand-neutral-100">{{ collect.appointments !== 0? collect.appointments : collect.appointment_clicks }}</td>
+                        <td class="p-2 border border-brand-neutral-100">/</td>
+                    </tr>
+                    <tr v-if="collectsToComplete.length === 0" class="border border-brand-neutral-100"><td class="p-2 italic  text-brand-neutral-500">Aucune collecte</td></tr>
+
+                    <tr class="border border-brand-neutral-100 font-semibold text-brand-sage-400"><td class="px-2 py-1">Collectes complétées</td></tr>
+                    <tr v-for="collect in collectsCompleted" :key="collect.id">
+                        <td class="p-2 border border-brand-neutral-100">{{ collect.company.company_name }}</td>
+                        <td class="p-2 border border-brand-neutral-100">{{ formatDate(collect.date_of, collect.start_time, collect.end_time) }}</td>
+                        <td class="p-2 border border-brand-neutral-100">{{ collect.location }}</td>
+                        <td class="p-2 border border-brand-neutral-100">{{ collect.appointments !== 0? collect.appointments : collect.appointment_clicks }}</td>
+                        <td class="p-2 border border-brand-neutral-100">/</td>
+                    </tr>
+                    <tr v-if="collectsCompleted.length === 0" class="border border-brand-neutral-100"><td class="p-2 italic  text-brand-neutral-500">Aucune collecte</td></tr>
+                </tbody>
+                
+                <tbody v-else>
+                    <tr class="border border-brand-neutral-100 font-semibold text-brand-sage-400"><td class="px-2 py-1">Saison terminée</td></tr>
+                    <tr v-for="collect in collectsActive" :key="collect.id">
+                        <td class="p-2 border border-brand-neutral-100">{{ collect.company.company_name }}</td>
+                        <td class="p-2 border border-brand-neutral-100">{{ formatDate(collect.date_of, collect.start_time, collect.end_time) }}</td>
+                        <td class="p-2 border border-brand-neutral-100">{{ collect.location }}</td>
+                        <td class="p-2 border border-brand-neutral-100">{{ collect.appointments !== 0? collect.appointments : collect.appointment_clicks }}</td>
+                        <td class="p-2 border border-brand-neutral-100">{{ score(collect) }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
     </AdminLayout>
     <section class="bg-white">

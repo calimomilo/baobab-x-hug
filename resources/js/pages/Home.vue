@@ -41,11 +41,11 @@ props.companies?.forEach((company) => {
 });
 console.log(props.collect);
 
-onMounted(() => {
-    setInterval(() => {
-        router.reload({only: ['collect.date_of']});
-    },499)
-})
+// onMounted(() => {
+//     setInterval(() => {
+//         router.reload({only: ['collect.date_of']});
+//     },499)
+// })
 </script>
 
 <template>

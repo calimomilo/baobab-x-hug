@@ -73,7 +73,7 @@ const companiesInactive = computed(() => companiesSorted.value.filter((c) => c.c
                     <tr class="border border-brand-violet-300 font-semibold bg-brand-violet-300 text-brand-violet-900"><td class="px-2 py-1">Division Legend</td><td></td><td></td><td></td><td></td></tr>
                     <tr v-for="company in companiesLegend" :key="company.id">
                         <td class="p-2 border border-brand-neutral-100">{{ company.company_name }}</td>
-                        <td class="p-2 border border-brand-neutral-100"><a :href="`blood-league.ch/${company.slug}`" target="_blank" class="underline text-brand-indigo-600 hover:text-brand-indigo-400 mt-2">{{ `blood-league.ch/${company.slug}` }}</a></td>
+                        <td class="p-2 border border-brand-neutral-100"><a :href="`https://blood-league.ch/${company.slug}`" target="_blank" class="underline text-brand-indigo-600 hover:text-brand-indigo-400 mt-2">{{ `blood-league.ch/${company.slug}` }}</a></td>
                         <td class="p-2 border border-brand-neutral-100">{{ company.score.donations }}</td>
                         <td class="p-2 border border-brand-neutral-100">{{ company.score.efficiency }}%</td>
                         <td class="p-2 border border-brand-neutral-100">{{ company.total }}</td>
@@ -83,7 +83,7 @@ const companiesInactive = computed(() => companiesSorted.value.filter((c) => c.c
                     <tr class="border border-brand-warning-300 font-semibold bg-brand-warning-300 text-brand-warning-800"><td class="px-2 py-1">Division Gold</td><td></td><td></td><td></td><td></td></tr>
                     <tr v-for="company in companiesGold" :key="company.id">
                         <td class="p-2 border border-brand-neutral-100">{{ company.company_name }}</td>
-                        <td class="p-2 border border-brand-neutral-100"><a :href="`blood-league.ch/${company.slug}`" target="_blank" class="underline text-brand-indigo-600 hover:text-brand-indigo-400 mt-2">{{ `blood-league.ch/${company.slug}` }}</a></td>
+                        <td class="p-2 border border-brand-neutral-100"><a :href="`https://blood-league.ch/${company.slug}`" target="_blank" class="underline text-brand-indigo-600 hover:text-brand-indigo-400 mt-2">{{ `blood-league.ch/${company.slug}` }}</a></td>
                         <td class="p-2 border border-brand-neutral-100">{{ company.score.donations }}</td>
                         <td class="p-2 border border-brand-neutral-100">{{ company.score.efficiency }}%</td>
                         <td class="p-2 border border-brand-neutral-100">{{ company.total }}</td>
@@ -93,7 +93,7 @@ const companiesInactive = computed(() => companiesSorted.value.filter((c) => c.c
                     <tr class="border border-brand-sage-300 font-semibold bg-brand-sage-300 text-brand-sage-900"><td class="px-2 py-1">Division Classic</td><td></td><td></td><td></td><td></td></tr>
                     <tr v-for="company in companiesClassic" :key="company.id">
                         <td class="p-2 border border-brand-neutral-100">{{ company.company_name }}</td>
-                        <td class="p-2 border border-brand-neutral-100"><a :href="`blood-league.ch/${company.slug}`" target="_blank" class="underline text-brand-indigo-600 hover:text-brand-indigo-400 mt-2">{{ `blood-league.ch/${company.slug}` }}</a></td>
+                        <td class="p-2 border border-brand-neutral-100"><a :href="`https://blood-league.ch/${company.slug}`" target="_blank" class="underline text-brand-indigo-600 hover:text-brand-indigo-400 mt-2">{{ `blood-league.ch/${company.slug}` }}</a></td>
                         <td class="p-2 border border-brand-neutral-100">{{ company.score.donations }}</td>
                         <td class="p-2 border border-brand-neutral-100">{{ company.score.efficiency }}%</td>
                         <td class="p-2 border border-brand-neutral-100">{{ company.total }}</td>
@@ -103,7 +103,7 @@ const companiesInactive = computed(() => companiesSorted.value.filter((c) => c.c
                     <tr class="border border-brand-neutral-100 font-semibold bg-brand-neutral-100"><td class="px-2 py-1">N'ont pas encore participé</td><td></td><td></td><td></td><td></td></tr>
                     <tr v-for="company in companiesInactive" :key="company.id">
                         <td class="p-2 border border-brand-neutral-100">{{ company.company_name }}</td>
-                        <td class="p-2 border border-brand-neutral-100"><a :href="`blood-league.ch/${company.slug}`" target="_blank" class="underline text-brand-indigo-600 hover:text-brand-indigo-400 mt-2">{{ `blood-league.ch/${company.slug}` }}</a></td>
+                        <td class="p-2 border border-brand-neutral-100"><a :href="`https://blood-league.ch/${company.slug}`" target="_blank" class="underline text-brand-indigo-600 hover:text-brand-indigo-400 mt-2">{{ `blood-league.ch/${company.slug}` }}</a></td>
                         <td class="p-2 border border-brand-neutral-100">{{ company.score.donations }}</td>
                         <td class="p-2 border border-brand-neutral-100">{{ company.score.efficiency }}%</td>
                         <td class="p-2 border border-brand-neutral-100">{{ company.total }}</td>

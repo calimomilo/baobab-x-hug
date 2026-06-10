@@ -14,8 +14,6 @@ const http = useHttp({
     'collect': props.collect
 });
 
-const download = useHttp({});
-
 const appointmentClick = () => {
     http.post(`/${props.slug}/appointment-click`);
     window.open(props.collect?.appointment_link, '_blank');

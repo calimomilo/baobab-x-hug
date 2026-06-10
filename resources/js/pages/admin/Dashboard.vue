@@ -255,7 +255,7 @@ const companiesSorted = computed(() => props.companies.toSorted((a, b) => b.scor
                 <!-- TABLE VAINQUEURS -->
                 <div class="w-full flex justify-between px-2">
                     <h2 class="font-bold text-2xl my-2">Vainqueurs provisoires</h2>
-                    <Link href="admin/companies" class="flex items-center px-4 mb-2 rounded font-medium text-brand-rose-400 hover:bg-brand-rose-50 active:bg-brand-rose-100">Voir tout →</Link>
+                    <Link href="/admin/companies" class="flex items-center px-4 mb-2 rounded font-medium text-brand-rose-400 hover:bg-brand-rose-50 active:bg-brand-rose-100">Voir tout →</Link>
                 </div>
                 <table class="table-auto border-collapse w-full text-md font-normal">
                     <thead class="bg-brand-rose-400 text-white text-lg border border-brand-rose-400">

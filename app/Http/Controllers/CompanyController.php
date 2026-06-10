@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Season;
+use App\Services\BloodLeagueScorer;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CompanyController extends Controller
 {
@@ -12,9 +15,32 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::orderBy('created_at', 'desc')->with('collects.data')->get();
+        $season = Season::where('status', 'open')->first();
 
-        // return page inertia /companies
+        $companies = Company::orderBy('company_name', 'asc')->with('collects')->get();
+
+        $companies->map(function ($company) use ($season) {
+            $label = app(BloodLeagueScorer::class)->computeLabel($company->id, $season->id);
+            $company->label = [
+                'name' => $label->name(),
+                'slug' => $label,
+            ];
+
+            $score = app(BloodLeagueScorer::class)->computeScore($company->id, $season->id);
+            $company->total = $score['total'];
+            $company->score = [
+                'donations' => $score['raw']['donations'],
+                'supporters' => $score['raw']['supporter_shares'],
+                'efficiency' => $score['raw']['taux_efficacite'],
+            ];
+
+            $seasonCollects = $company->collects->where('season_id', $season->id);
+            $company->currentCollects = $seasonCollects->count();
+        });
+
+        $companies->makeHidden('collects');
+
+        return Inertia::render('admin/Companies', ['season' => $season, 'companies' => $companies]);
     }
 
     /**

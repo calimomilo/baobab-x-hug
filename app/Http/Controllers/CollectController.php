@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\DataType;
 use App\Enums\SeasonStatus;
 use App\Models\Collect;
 use App\Models\Company;
 use App\Models\Season;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CollectController extends Controller
 {
@@ -15,9 +17,19 @@ class CollectController extends Controller
      */
     public function index()
     {
-        $collects = Collect::orderBy('created_at', 'desc')->with(['company', 'season', 'data'])->get();
+        $collects = Collect::orderBy('date_of', 'desc')->with(['company', 'season', 'data'])->get();
 
-        // return page inertia /collects
+        $collects->map(function ($collect) {
+            $collect->donor_results = $collect->data->where('data_type', DataType::DONOR_RESULT)->count();
+            $collect->supporter_results = $collect->data->where('data_type', DataType::SUPPORTER_RESULT)->count();
+            $collect->appointment_clicks = $collect->data->where('data_type', DataType::APPOINTMENT_CLIC)->count();
+            $collect->donor_shares = $collect->data->where('data_type', DataType::DONOR_SHARE)->count();
+            $collect->supporter_shares = $collect->data->where('data_type', DataType::SUPPORTER_RESULT)->count();
+
+            $collect->makeHidden('data');
+        });
+
+        return Inertia::render('admin/Collectes', ['collects' => $collects]);
     }
 
     /**

@@ -20,21 +20,28 @@ Route::get('/contact', [ContactFormController::class, 'create'])->name('contact'
 Route::post('/contact', [ContactFormController::class, 'store'])->middleware([HandlePrecognitiveRequests::class]);
 
 Route::middleware('auth')->group(function () {
-    Route::get('/admin', [DisplayController::class, 'displayAdmin'])->name('admin');
 
-    Route::resource('companies', CompanyController::class);
+    Route::get('/admin', function () {
+        return to_route('dashboard');
+    });
 
-    Route::resource('contacts', ContactFormController::class)->only(['index', 'show', 'destroy']);
+    Route::prefix('admin')->group(function () {
+        Route::get('/dashboard', [DisplayController::class, 'displayAdmin'])->name('dashboard');
 
-    Route::resource('collects', CollectController::class);
-    Route::put('/collects/{id}/complete', [CollectController::class, 'complete']);
-    Route::put('/collects/{id}/incomplete', [CollectController::class, 'incomplete']);
+        Route::resource('companies', CompanyController::class);
 
-    Route::get('/seasons/open', [SeasonController::class, 'showOpen']);
-    Route::post('/seasons/open', [SeasonController::class, 'open']);
-    Route::resource('seasons', SeasonController::class)->only(['show', 'edit', 'update', 'destroy']);
-    Route::get('/seasons/{id}/close', [SeasonController::class, 'showClose']);
-    Route::put('/seasons/{id}/close', [SeasonController::class, 'close']);
+        Route::resource('contacts', ContactFormController::class)->only(['index', 'show', 'destroy']);
+
+        Route::resource('collects', CollectController::class);
+        Route::put('/collects/{id}/complete', [CollectController::class, 'complete']);
+        Route::put('/collects/{id}/incomplete', [CollectController::class, 'incomplete']);
+
+        Route::get('/seasons/open', [SeasonController::class, 'showOpen']);
+        Route::post('/seasons/open', [SeasonController::class, 'open']);
+        Route::resource('seasons', SeasonController::class)->only(['show', 'edit', 'update', 'destroy']);
+        Route::get('/seasons/{id}/close', [SeasonController::class, 'showClose']);
+        Route::put('/seasons/{id}/close', [SeasonController::class, 'close']);
+    });
 
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 });

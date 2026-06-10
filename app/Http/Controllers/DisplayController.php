@@ -166,6 +166,6 @@ class DisplayController extends Controller
             $collect->makeHidden('data');
         });
 
-        return Inertia::render('Dashboard', ['season' => $season, 'companies' => $companies]);
+        return Inertia::render('admin/Dashboard', ['season' => $season, 'companies' => $companies]);
     }
 }

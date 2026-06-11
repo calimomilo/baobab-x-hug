@@ -37,7 +37,10 @@ class CollectController extends Controller
      */
     public function create()
     {
-        // return page inertia /collects/create
+        $companies = Company::all();
+        $seasons = Season::all();
+
+        return Inertia::render('admin/CollectForm', ['companies' => $companies, 'seasons' => $seasons]);
     }
 
     /**
@@ -56,10 +59,14 @@ class CollectController extends Controller
         ]);
 
         $company = Company::findOrFail($request->company_id);
-        $season = Season::where('year_of', '=', $validated['season_year'], true)->firstOrCreate([
-            'year_of' => $validated['season_year'],
-            'status' => SeasonStatus::FUTURE,
-        ]);
+        $season = Season::where('year_of', $validated['season_year'])->first();
+
+        if (! $season) {
+            $season = Season::create([
+                'year_of' => $validated['season_year'],
+                'status' => SeasonStatus::FUTURE,
+            ]);
+        }
 
         if ($season->status === SeasonStatus::CLOSED) {
             return response()->json(['message' => 'Season closed.'], 422);
@@ -82,7 +89,7 @@ class CollectController extends Controller
 
         $collect->save();
 
-        return to_route('collects.show', ['id' => $collect->id]);
+        return to_route('collects.show', ['collect' => $collect]);
     }
 
     /**

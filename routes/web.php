@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('contacts', ContactFormController::class)->only(['index', 'show', 'destroy']);
 
-        Route::resource('collects', CollectController::class);
+        Route::resource('collects', CollectController::class)->middleware([HandlePrecognitiveRequests::class]);
         Route::put('/collects/{id}/complete', [CollectController::class, 'complete']);
         Route::put('/collects/{id}/incomplete', [CollectController::class, 'incomplete']);
 

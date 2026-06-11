@@ -52,7 +52,7 @@ const minSeason = computed(() => Math.min(...props.seasons.map((s) => s.year_of)
 const maxSeason = computed(() => Math.max(...props.seasons.map((s) => s.year_of)));
 const seasonsSelect = ref<Array<number>>([]);
 
-for (let i = maxSeason.value+5; i > minSeason.value; i--) {
+for (let i = maxSeason.value+3; i > minSeason.value - 1; i--) {
     seasonsSelect.value.push(i);
 }
 
@@ -65,16 +65,22 @@ console.log(seasonsSelect);
 <template>
     <AdminLayout title="Nouvelle collecte" desc="Créer une nouvelle collecte.">
         <section id="collect-create" class="relative flex min-h-[calc(100vh-76px)] flex-col items-center justify-start bg-brand-sage-400 font-cooper font-medium py-16 lg:px-40" >
-            <Link :href="props.formData? `/admin/collects/${props.formData.id}` : '/admin/collects'" class="relative self-start bottom-6 right-16 flex items-center px-3 h-11 rounded font-medium bg-brand-sage-300 hover:bg-brand-sage-200 active:bg-brand-sage-100 w-fit">← Retour</Link>
+
+            <Link :href="props.formData? `/admin/collects/${props.formData.id}` : '/admin/collects'" class="relative self-start bottom-6 right-16 flex items-center px-3 h-11 rounded font-medium bg-brand-sage-300 hover:bg-brand-sage-200 active:bg-brand-sage-100 w-fit">
+                ← Retour
+            </Link>
+
             <div class="rounded-lg px-6 pt-15 pb-10 bg-white w-full">
                 <h1 v-if="formData" class="text-xl text-center pb-10 font-bold md:text-4xl">Modifier la collecte</h1>
                 <h1 v-else class="text-xl text-center pb-10 font-bold md:text-4xl">Nouvelle collecte</h1>
+
                 <Form :action="props.formData? `/admin/collects/${props.formData.id}` : '/admin/collects'" :method="props.formData? 'put' : 'post'" #default="{ errors, invalid, validate }" class="flex flex-col gap-4 mx-auto max-w-200">
+
                     <div class="flex gap-4 w-full">
                         <div class="grow">
                             <label for="season_year" class="block text-sm mb-1 text-neutral-700">Saison <span class="text-brand-error-600 font-bold">*</span></label>
                             <select name="season_year" id="season_year" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-sage-400 focus:border-transparent">
-                                <option v-for="year, index in seasonsSelect" :key="index" :value="year" :selected="formData? formData.season.year_of === currentSeason?.year_of : year === currentSeason?.year_of">{{ year }}</option>
+                                <option v-for="year, index in seasonsSelect" :key="index" :value="year" :selected="formData? year === formData.season.year_of : year === currentSeason?.year_of">{{ year }}</option>
                             </select>
                             <div v-if="invalid('season_year')" class="text-sm text-brand-error-600 mt-1">{{ errors['season_year'] }}</div>
                         </div>

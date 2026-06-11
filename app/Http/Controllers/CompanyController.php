@@ -127,7 +127,7 @@ class CompanyController extends Controller
         });
 
         if (! $company) {
-            return response()->json(['message' => 'Company not found.'], 404);
+            return;
         }
 
         $label = app(BloodLeagueScorer::class)->computeLabel($company->id, $season->id);
@@ -169,7 +169,7 @@ class CompanyController extends Controller
         $company = Company::findOrFail($id);
 
         if (! $company) {
-            return response()->json(['message' => 'Company not found.'], 404);
+            return;
         }
 
         return Inertia::render('admin/CompanyForm', ['slugs' => $slugs, 'formData' => $company]);
@@ -196,7 +196,7 @@ class CompanyController extends Controller
         $company = Company::findOrFail($id);
 
         if (! $company) {
-            return response()->json(['message' => 'Company not found.'], 404);
+            return;
         }
 
         $file = $request->file('logo_url');
@@ -235,7 +235,7 @@ class CompanyController extends Controller
         $company = Company::findOrFail($id);
 
         if (! $company) {
-            return response()->json(['message' => 'Company not found.'], 404);
+            return;
         }
 
         $company->deleteOrFail();

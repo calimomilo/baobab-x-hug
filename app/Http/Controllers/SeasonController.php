@@ -26,10 +26,7 @@ class SeasonController extends Controller
     /**
      * Show the form for opening a new season.
      */
-    public function showOpen()
-    {
-        // return page inertia /season/open
-    }
+    public function showOpen() {}
 
     /**
      * Open the specified season.
@@ -95,7 +92,7 @@ class SeasonController extends Controller
 
         $season->status = SeasonStatus::CLOSED;
 
-        return to_route('season.open');
+        return to_route('seasons.open');
     }
 
     /**
@@ -105,8 +102,8 @@ class SeasonController extends Controller
     {
         $season = Season::findOrFail($id);
 
-        if ($season->status === SeasonStatus::CLOSED) {
-            return response()->json(['message' => 'Season closed.'], 422); // vérifier si ça fait pas n'imp en front, redirect
+        if ($season->status === SeasonStatus::CLOSED->value) {
+            return; // vérifier si ça fait pas n'imp en front, redirect
         }
 
         // return page inertia /seasons/season->year/edit
@@ -119,8 +116,8 @@ class SeasonController extends Controller
     {
         $season = Season::findOrFail($id);
 
-        if ($season->status === SeasonStatus::CLOSED) {
-            return response()->json(['message' => 'Season closed.'], 422); // vérifier si ça fait pas n'imp en front, redirect
+        if ($season->status === SeasonStatus::CLOSED->value) {
+            return; // vérifier si ça fait pas n'imp en front, redirect
         }
 
         $validated = $request->validate([

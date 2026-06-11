@@ -170,6 +170,7 @@ const collectsCompleted = computed(() => collectsActive.value.filter((c) => {
                     <button v-if="activeSeasonPosition > 0" class="flex items-center px-3 h-11 rounded font-medium hover:bg-brand-neutral-50 active:bg-brand-neutral-100 w-fit" @click="nextSeason">{{ seasons[activeSeasonPosition-1].year_of }} →</button>
                 </div>
             </div>
+            <Link href="/admin/collects/create" class="flex items-center px-3 h-11 rounded font-medium bg-brand-rose-400 hover:bg-brand-rose-500 active:bg-brand-rose-600 text-white w-fit mt-6">Nouvelle collecte</Link>
             <table class="table-auto border-collapse w-full my-6">
                 <thead>
                     <tr class="bg-brand-sage-400 text-white text-lg border border-brand-sage-400">

@@ -8,6 +8,8 @@ use App\Models\Company;
 use App\Models\Season;
 use App\Services\BloodLeagueScorer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class CompanyController extends Controller
@@ -58,7 +60,9 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        // return page inertia /companies/create
+        $slugs = Company::pluck('slug');
+
+        return Inertia::render('admin/CompanyForm', ['slugs' => $slugs]);
     }
 
     /**
@@ -77,8 +81,13 @@ class CompanyController extends Controller
             'primary_color' => 'required|hex_color',
             'secondary_color' => 'required|hex_color',
             'logo_url' => 'required|image',
-            'anonymous' => 'required|boolean',
+            'anonymous' => 'boolean',
         ]);
+
+        $file = $request->file('logo_url');
+        $path = '/storage/'.Storage::disk('public')->put('/logos', $file);
+
+        $validated['logo_url'] = $path;
 
         $company = Company::create([
             'company_name' => $validated['company_name'],
@@ -94,7 +103,7 @@ class CompanyController extends Controller
             'anonymous' => $validated['anonymous'],
         ]);
 
-        // return page inertia /companies/$company->slug
+        return to_route('companies.show', ['company' => $company]);
     }
 
     /**
@@ -156,13 +165,14 @@ class CompanyController extends Controller
      */
     public function edit(string $id)
     {
+        $slugs = Company::pluck('slug');
         $company = Company::findOrFail($id);
 
         if (! $company) {
             return response()->json(['message' => 'Company not found.'], 404);
         }
 
-        // return page inertia /companies/$company->slug/edit
+        return Inertia::render('admin/CompanyForm', ['slugs' => $slugs, 'formData' => $company]);
     }
 
     /**
@@ -176,10 +186,10 @@ class CompanyController extends Controller
             'contact_name' => 'nullable|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
-            'slug' => 'required|string|alpha_dash:ascii|min:4|max:50|unique:companies',
+            'slug' => ['required', 'string', 'alpha_dash:ascii', 'min:4', 'max:50', Rule::unique('companies')->ignore($id)],
             'primary_color' => 'required|hex_color',
             'secondary_color' => 'required|hex_color',
-            'logo_url' => 'required|image',
+            'logo_url' => 'nullable|image',
             'anonymous' => 'required|boolean',
         ]);
 
@@ -187,6 +197,18 @@ class CompanyController extends Controller
 
         if (! $company) {
             return response()->json(['message' => 'Company not found.'], 404);
+        }
+
+        $file = $request->file('logo_url');
+
+        if ($file) {
+            Storage::disk('public')->delete($company->logo_url);
+
+            $path = '/storage/'.Storage::disk('public')->put('/logos', $file);
+
+            $validated['logo_url'] = $path;
+        } else {
+            $validated['logo_url'] = $company->logo_url;
         }
 
         $company->updateOrFail([
@@ -202,7 +224,7 @@ class CompanyController extends Controller
             'anonymous' => $validated['anonymous'],
         ]);
 
-        // return page inertia /companies/$company->slug
+        return to_route('companies.show', ['company' => $company]);
     }
 
     /**

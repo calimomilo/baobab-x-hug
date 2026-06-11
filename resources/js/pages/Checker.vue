@@ -232,7 +232,7 @@ const next = () => {
         <Link :href="`/${props.displayData?.slug}`" class="flex gap-2 items-center lg:px-12">
             <img src="/assets/logos/BloodLeague_logo_noir_filled.png" alt="Logo Blood League" class="h-8 lg:h-12">
             <span>✕</span>
-            <img src="/assets/logos/HUG_blanc.png" alt="Logo HUG" class="h-8">
+            <img src="/assets/logos/HUG_Blanc.png" alt="Logo HUG" class="h-8">
         </Link>
         
         <!-- STEP -->

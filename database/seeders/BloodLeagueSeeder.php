@@ -444,6 +444,16 @@ class BloodLeagueSeeder extends Seeder
         $this->fillCollectData($data, 37, 76, 84, 36, 38, 25, $token, $now); // MSC
         $this->fillCollectData($data, 38, 49, 72, 22, 32, 11, $token, $now); // Firmenich
 
+        $this->fillCollectData($data, 39, 47, 38, 9, 14, 7, $token, $now); // Rolex (à venir)
+        $this->fillCollectData($data, 40, 41, 30, 7, 11, 6, $token, $now); // Givaudan (à venir)
+        $this->fillCollectData($data, 41, 55, 32, 7, 10, 5, $token, $now); // Patek (à venir)
+        $this->fillCollectData($data, 42, 32, 26, 6, 9, 4, $token, $now); // SGS (à venir)
+        $this->fillCollectData($data, 43, 40, 34, 8, 12, 6, $token, $now); // MSC (à venir)
+        $this->fillCollectData($data, 44, 31, 24, 5, 8, 4, $token, $now); // Pictet (à venir)
+        $this->fillCollectData($data, 45, 35, 22, 5, 7, 3, $token, $now); // Firmenich (à venir)
+        $this->fillCollectData($data, 46, 49, 46, 8, 10, 6, $token, $now); // JTI (dons à valider)
+        $this->fillCollectData($data, 47, 53, 40, 7, 9, 5, $token, $now); // Lombard Odier (dons à valider)
+
         foreach (array_chunk($data, 500) as $chunk) {
             DB::table('collect_data')->insert($chunk);
         }

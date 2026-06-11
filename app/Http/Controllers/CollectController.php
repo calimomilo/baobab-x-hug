@@ -56,6 +56,8 @@ class CollectController extends Controller
             'appointment_link' => 'required|string|max:500',
             'employees' => 'required|integer|min:0',
             'season_year' => 'required|date_format:Y',
+        ], [
+            'date_of.after' => "Le champ date doit être une date postérieure à aujourd'hui.",
         ]);
 
         $company = Company::findOrFail($request->company_id);

@@ -56,7 +56,7 @@ randomString.value = props.formData?.slug ?? randString();
 <template>
     <AdminLayout title="Nouvelle entreprise" desc="Ajouter une nouvelle entreprise.">
         <section id="company-create" class="relative flex min-h-[calc(100vh-76px)] flex-col items-center justify-start bg-brand-sage-400 font-cooper font-medium py-16 lg:px-40" >
-            <Link href="/admin/companies" class="relative self-start bottom-6 right-16 flex items-center px-3 h-11 rounded font-medium bg-brand-sage-300 hover:bg-brand-sage-200 active:bg-brand-sage-100 w-fit">← Retour</Link>
+            <Link :href="props.formData? `/admin/companies/${props.formData.id}` : '/admin/companies'" class="relative self-start bottom-6 right-16 flex items-center px-3 h-11 rounded font-medium bg-brand-sage-300 hover:bg-brand-sage-200 active:bg-brand-sage-100 w-fit">← Retour</Link>
             <div class="rounded-lg px-6 pt-15 pb-10 bg-white w-full">
                 <h1 v-if="props.formData" class="text-xl text-center pb-10 font-bold md:text-4xl">Modifier l'entreprise {{ props.formData.company_name }}</h1>
                 <h1 v-else class="text-xl text-center pb-10 font-bold md:text-4xl">Ajouter une entreprise</h1>

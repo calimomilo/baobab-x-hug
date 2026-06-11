@@ -65,7 +65,7 @@ console.log(seasonsSelect);
 <template>
     <AdminLayout title="Nouvelle collecte" desc="Créer une nouvelle collecte.">
         <section id="collect-create" class="relative flex min-h-[calc(100vh-76px)] flex-col items-center justify-start bg-brand-sage-400 font-cooper font-medium py-16 lg:px-40" >
-            <Link href="/admin/collects" class="relative self-start bottom-6 right-16 flex items-center px-3 h-11 rounded font-medium bg-brand-sage-300 hover:bg-brand-sage-200 active:bg-brand-sage-100 w-fit">← Retour</Link>
+            <Link :href="props.formData? `/admin/collects/${props.formData.id}` : '/admin/collects'" class="relative self-start bottom-6 right-16 flex items-center px-3 h-11 rounded font-medium bg-brand-sage-300 hover:bg-brand-sage-200 active:bg-brand-sage-100 w-fit">← Retour</Link>
             <div class="rounded-lg px-6 pt-15 pb-10 bg-white w-full">
                 <h1 v-if="formData" class="text-xl text-center pb-10 font-bold md:text-4xl">Modifier la collecte</h1>
                 <h1 v-else class="text-xl text-center pb-10 font-bold md:text-4xl">Nouvelle collecte</h1>
@@ -92,18 +92,18 @@ console.log(seasonsSelect);
                         <div class="flex gap-4">
                             <div>
                                 <label for="date_of" class="block text-sm mb-1 text-neutral-700">Date <span class="text-brand-error-600 font-bold">*</span></label>
-                                <input type="date" name="date_of" id="date_of" :value="formData? formData.date_of : currentDate" :min="currentDate" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-sage-400 focus:border-transparent" @change="validate('date_of')">
+                                <input type="date" name="date_of" id="date_of" :value="formData? formData.date_of : currentDate" :min="formData? '' : currentDate" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-sage-400 focus:border-transparent" @change="validate('date_of')">
                                 <div v-if="invalid('date_of')" class="text-sm text-brand-error-600 mt-1">{{ errors['date_of'] }}</div>
                             </div>
                             
                             <div>
                                 <label for="start_time" class="block text-sm mb-1 text-neutral-700">Début <span class="text-brand-error-600 font-bold">*</span></label>
-                                <input type="time" name="start_time" id="start_time" :value="formData? formData.start_time : '09:00'" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-sage-400 focus:border-transparent" @change="validate('start_time')">
+                                <input type="time" name="start_time" id="start_time" :value="formData? formData.start_time.substring(0, 5) : '09:00'" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-sage-400 focus:border-transparent" @change="validate('start_time')">
                                 <div v-if="invalid('start_time')" class="text-sm text-brand-error-600 mt-1">{{ errors['start_time'] }}</div>
                             </div>
                             <div>
                                 <label for="end_time" class="block text-sm mb-1 text-neutral-700">Fin <span class="text-brand-error-600 font-bold">*</span></label>
-                                <input type="time" name="end_time" id="end_time" :value="formData? formData.end_time : '17:00'" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-sage-400 focus:border-transparent" @change="validate('end_time')">
+                                <input type="time" name="end_time" id="end_time" :value="formData? formData.end_time.substring(0, 5) : '17:00'" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-sage-400 focus:border-transparent" @change="validate('end_time')">
                                 <div v-if="invalid('end_time')" class="text-sm text-brand-error-600 mt-1">{{ errors['end_time'] }}</div>
                             </div>
                         </div>

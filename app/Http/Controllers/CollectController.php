@@ -128,7 +128,7 @@ class CollectController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'date_of' => 'required|date|after:now',
+            'date_of' => 'required|date',
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:start_time',
             'location' => 'required|string|max:500',
@@ -165,15 +165,22 @@ class CollectController extends Controller
     /**
      * Mark the specified collect as complete
      */
-    public function complete(string $id)
+    public function complete(Request $request, string $id)
     {
+        $validated = $request->validate([
+            'appointments' => 'required|integer|min:0',
+            'donations' => 'required|integer|min:0',
+        ]);
+
         $collect = Collect::findOrFail($id);
 
-        $collect->complete = 1;
+        $collect->appointments = $validated['appointments'];
+        $collect->donations = $validated['donations'];
+        $collect->completed = 1;
 
         $collect->save();
 
-        return to_route('collects.show', ['id' => $collect->id]);
+        return to_route('collects.show', ['collect' => $collect]);
     }
 
     /**
@@ -183,10 +190,10 @@ class CollectController extends Controller
     {
         $collect = Collect::findOrFail($id);
 
-        $collect->complete = 0;
+        $collect->completed = 0;
 
         $collect->save();
 
-        return to_route('collects.show', ['id' => $collect->id]);
+        return to_route('collects.show', ['collect' => $collect]);
     }
 }

@@ -115,9 +115,11 @@ class CollectController extends Controller
      */
     public function edit(string $id)
     {
-        $collect = Collect::findOrFail($id);
+        $companies = Company::all();
+        $seasons = Season::all();
+        $collect = Collect::with(['season', 'company'])->findOrFail($id);
 
-        // return page inertia /collects/$collect->$id/edit
+        return Inertia::render('admin/CollectForm', ['companies' => $companies, 'seasons' => $seasons, 'formData' => $collect]);
     }
 
     /**
@@ -145,7 +147,7 @@ class CollectController extends Controller
             'employees' => $validated['employees'],
         ]);
 
-        return to_route('collects.show', ['id' => $collect->id]);
+        return to_route('collects.show', ['collect' => $collect]);
     }
 
     /**

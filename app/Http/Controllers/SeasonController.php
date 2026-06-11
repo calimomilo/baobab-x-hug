@@ -52,7 +52,7 @@ class SeasonController extends Controller
     /**
      * Show the form for closing the specified season.
      */
-    public function confirmClose(string $id)
+    public function showClose(string $id)
     {
         $companies = Company::pluck('id', null);
         $season = Season::findOrFail($id);

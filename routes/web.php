@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [DisplayController::class, 'displayAdmin'])->name('dashboard');
 
-        Route::resource('companies', CompanyController::class);
+        Route::resource('companies', CompanyController::class)->middleware([HandlePrecognitiveRequests::class]);
 
         Route::resource('contacts', ContactFormController::class)->only(['index', 'show', 'destroy']);
 
@@ -39,7 +39,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/seasons/open', [SeasonController::class, 'showOpen']);
         Route::post('/seasons/open', [SeasonController::class, 'open']);
-        Route::resource('seasons', SeasonController::class)->only(['show', 'edit', 'update', 'destroy']);
+        Route::resource('seasons', SeasonController::class)->only(['destroy']);
         Route::get('/seasons/{id}/close', [SeasonController::class, 'showClose']);
         Route::put('/seasons/{id}/close', [SeasonController::class, 'close']);
     });

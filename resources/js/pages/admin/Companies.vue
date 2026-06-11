@@ -57,6 +57,7 @@ const companiesInactive = computed(() => companiesSorted.value.filter((c) => c.l
         <section id="companies" class="relative min-h-[calc(100vh-76px)] font-medium text-md font-cooper py-16 px-25">
             <Link href="/admin/dashboard" class="relative bottom-6 right-16 flex items-center px-3 h-11 rounded font-medium hover:bg-brand-neutral-50 active:bg-brand-neutral-100 w-fit">← Tableau de bord</Link>
             <h1 class="col-span-12 font-bold text-4xl">Entreprises : saison {{ season.year_of }}</h1>
+            <Link href="/admin/companies/create" class="flex items-center px-3 h-11 rounded font-medium bg-brand-rose-400 hover:bg-brand-rose-500 active:bg-brand-rose-600 text-white w-fit mt-6">Ajouter une entreprise</Link>
 
             <!-- TABLE ENTREPRISES -->
             <table class="table-auto border-collapse w-full my-6">

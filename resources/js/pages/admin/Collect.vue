@@ -190,7 +190,7 @@ const score = computed(() => {
                             </tr>
                             <tr>
                                 <td class="text-end pb-2 pr-6">Lien de prise de rdv :</td>
-                                <td class="pb-2">{{ props.collect.appointment_link }}</td>
+                                <td class="pb-2"><a :href="props.collect.appointment_link" target="_blank" class="underline text-brand-indigo-600 hover:text-brand-indigo-400 mt-2">{{ props.collect.appointment_link }}</a></td>
                             </tr>
                             <tr>
                                 <td class="text-end pb-2 pr-6">Employé.e.s :</td>

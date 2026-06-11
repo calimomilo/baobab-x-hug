@@ -16,7 +16,7 @@ const colors: strings = {
     'teal': 'text-brand-teal-900 bg-brand-teal-200',
     'sage': 'text-brand-sage-900 bg-brand-sage-200',
     'violet': 'text-brand-violet-900 bg-brand-violet-200',
-    'indigo': 'text-brand-indigo-900 bg-brand-indigo-200'
+    'indigo': 'text-brand-indigo-900 bg-brand-indigo-200',
 }
 
 const sizes: strings = {

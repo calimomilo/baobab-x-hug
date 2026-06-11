@@ -207,7 +207,7 @@ const collectsCompleted = computed(() => collectsActive.value.filter((c) => {
                         <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ formatDate(collect.date_of, collect.start_time, collect.end_time) }}</Link></td>
                         <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ collect.location }}</Link></td>
                         <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ collect.appointments !== 0? collect.appointments : collect.appointment_clicks }}</Link></td>
-                        <td class="p-2 border border-brand-neutral-100">/</td>
+                        <td class="p-2 border border-brand-neutral-100">{{ score(collect) }}</td>
                     </tr>
                     <tr v-if="collectsCompleted.length === 0" class="border border-brand-neutral-100"><td class="p-2 italic  text-brand-neutral-500">Aucune collecte</td></tr>
                 </tbody>

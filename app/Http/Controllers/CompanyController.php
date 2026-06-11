@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\DataType;
 use App\Models\Company;
 use App\Models\Season;
 use App\Services\BloodLeagueScorer;
@@ -103,7 +104,7 @@ class CompanyController extends Controller
         $season = Season::where('status', 'open')->first();
 
         $company = Company::with([
-            'wins',
+            'wins.season',
             'collects' => [
                 'season',
                 'data',
@@ -131,7 +132,17 @@ class CompanyController extends Controller
         $score = app(BloodLeagueScorer::class)->computeScore($company->id, $season->id);
         $company->score = $score;
 
-        return Inertia::render('admin/Company', ['season' => $season, 'company' => $company]);
+        $company->collects->map(function ($collect) {
+            $collect->donor_results = $collect->data->where('data_type', DataType::DONOR_RESULT)->count();
+            $collect->supporter_results = $collect->data->where('data_type', DataType::SUPPORTER_RESULT)->count();
+            $collect->appointment_clicks = $collect->data->where('data_type', DataType::APPOINTMENT_CLIC)->count();
+            $collect->donor_shares = $collect->data->where('data_type', DataType::DONOR_SHARE)->count();
+            $collect->supporter_shares = $collect->data->where('data_type', DataType::SUPPORTER_RESULT)->count();
+
+            $collect->makeHidden('data');
+        });
+
+        return Inertia::render('admin/Company', ['seasons' => Season::all(), 'company' => $company]);
     }
 
     /**

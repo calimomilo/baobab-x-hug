@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { Form, Link } from '@inertiajs/vue3';
+import { Form } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
-import AwardIcon from '@/components/svg/AwardIcon.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 
 type season = {
@@ -14,7 +13,6 @@ const props = defineProps<{
     seasons: Array<season>
 }>()
 
-const currentSeason = computed(() => props.seasons.find((s) => s.status === 'open'));
 const minSeason = computed(() => Math.min(...props.seasons.map((s) => s.year_of)));
 const maxSeason = computed(() => Math.max(...props.seasons.map((s) => s.year_of)));
 const seasonsSelect = ref<Array<number>>([]);

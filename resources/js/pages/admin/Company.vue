@@ -126,8 +126,8 @@ const collectsCompleted = computed(() => props.company.collects.filter((c) => c.
             <div class="grid grid-cols-12 auto-rows-min gap-6 my-6">
                 <h1 class="col-span-6 font-bold text-4xl">{{ props.company.company_name }}</h1>
                 <div class="flex gap-4 justify-end col-span-2 self-start">
-                    <Link :href="`/admin/collects/${props.company.id}/edit`" class="flex items-center px-3 h-11 rounded font-medium bg-brand-neutral-50 hover:bg-brand-neutral-100 active:bg-brand-neutral-200 w-fit">Modifier</Link>
-                    <Link :href="`/admin/collects/${props.company.id}`" method="delete" class="flex items-center px-3 h-11 rounded font-medium bg-brand-error-600 hover:bg-brand-error-700 active:bg-brand-error-800 text-white w-fit">Supprimer</Link>
+                    <Link :href="`/admin/companies/${props.company.id}/edit`" class="flex items-center px-3 h-11 rounded font-medium bg-brand-neutral-50 hover:bg-brand-neutral-100 active:bg-brand-neutral-200 w-fit">Modifier</Link>
+                    <Link :href="`/admin/companies/${props.company.id}`" method="delete" class="flex items-center px-3 h-11 rounded font-medium bg-brand-error-600 hover:bg-brand-error-700 active:bg-brand-error-800 text-white w-fit">Supprimer</Link>
                 </div>
 
                 <div class="col-span-4 row-span-2 flex flex-col gap-6">

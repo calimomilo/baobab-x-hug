@@ -218,6 +218,6 @@ class CompanyController extends Controller
 
         $company->deleteOrFail();
 
-        // return page inertia /companies
+        return to_route('companies.index');
     }
 }

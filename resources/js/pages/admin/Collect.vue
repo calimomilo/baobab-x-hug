@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Form, Link } from '@inertiajs/vue3';
+import { Form, Link, router } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import DashboardTile from '@/components/DashboardTile.vue';
 import Tag from '@/components/Tag.vue';
@@ -53,8 +53,7 @@ type season = {
 }
 
 const props = defineProps<{
-    collect: collectType,
-    open: string | null
+    collect: collectType
 }>()
 
 // COMPUTE RESULTS
@@ -124,6 +123,11 @@ const score = computed(() => {
 });
 
 const confirmComplete = ref(false);
+
+const complete = () => {
+    confirmComplete.value = false;
+    router.reload({only: ['collect']});
+}
         
 </script>
 
@@ -224,10 +228,13 @@ const confirmComplete = ref(false);
             </div>
         </section>
 
+        <!-- COMPLETE COLLECT -->
+
         <section v-if="confirmComplete" id="confirmComplete" class="w-full fixed top-0 h-[100vh] z-100 bg-black/60 font-medium text-md justify-center items-center font-cooper py-16 px-25">
             <div class="bg-white rounded-lg p-20">
                 <h2 class="font-bold text-2xl -mt-2 mb-6">Compléter la collecte</h2>
-                <Form :action="`/admin/collects/${props.collect.id}/complete`" method="put" #default="{ errors, invalid, validate }" class="flex flex-col gap-4 mx-auto max-w-200">
+                <Form :action="`/admin/collects/${props.collect.id}/complete`" method="put" #default="{ errors, invalid, validate }" @success="complete"
+                class="flex flex-col gap-4 mx-auto max-w-200">
                     <div class="flex gap-4">
                         <div class="grow">
                             <label for="appointments" class="block text-sm mb-1 text-neutral-700" >Rendez-vous pris <span class="text-brand-error-600 font-bold">*</span></label>
@@ -242,7 +249,7 @@ const confirmComplete = ref(false);
                     </div>
                     <div class="flex gap-4 justify-end">
                         <div @click="confirmComplete = false" class="flex items-center px-3 h-11 rounded font-medium bg-brand-neutral-50 hover:bg-brand-neutral-100 active:bg-brand-neutral-200 w-fit">Annuler</div>
-                        <button @click="confirmComplete = false" class="flex items-center px-3 h-11 rounded font-medium bg-brand-teal-300 hover:bg-brand-teal-400 active:bg-brand-teal-500">Compléter</button>
+                        <button class="flex items-center px-3 h-11 rounded font-medium bg-brand-teal-300 hover:bg-brand-teal-400 active:bg-brand-teal-500">Compléter</button>
                     </div>
                 </Form>
 

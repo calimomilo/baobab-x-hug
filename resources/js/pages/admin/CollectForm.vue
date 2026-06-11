@@ -123,7 +123,7 @@ console.log(seasonsSelect);
                         <input type="text" name="appointment_link" id="appointment_link" :defaultValue="formData?.appointment_link" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-sage-400 focus:border-transparent" @change="validate('appointment_link')">
                         <div v-if="invalid('appointment_link')" class="text-sm text-brand-error-600 mt-1">{{ errors['appointment_link'] }}</div>
                     </div>
-                    <Button class="self-center flex items-center px-15 h-11 mt-4 rounded font-medium text-xl text-white font-semibold bg-brand-rose-400 hover:bg-brand-rose-500/100 active:bg-brand-rose-600/100">Créer</Button>
+                    <Button class="self-center flex items-center px-15 h-11 mt-4 rounded font-medium text-xl text-white font-semibold bg-brand-rose-400 hover:bg-brand-rose-500/100 active:bg-brand-rose-600/100">{{ props.formData? 'Modifier' : 'Créer' }}</Button>
                 </Form>
             </div>
         </section>

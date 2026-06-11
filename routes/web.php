@@ -37,10 +37,10 @@ Route::middleware('auth')->group(function () {
         Route::put('/collects/{id}/complete', [CollectController::class, 'complete']);
         Route::put('/collects/{id}/incomplete', [CollectController::class, 'incomplete']);
 
-        Route::get('/seasons/open', [SeasonController::class, 'showOpen']);
+        Route::get('/seasons/open', [SeasonController::class, 'showOpen'])->name('seasons.open');
         Route::post('/seasons/open', [SeasonController::class, 'open']);
         Route::resource('seasons', SeasonController::class)->only(['destroy']);
-        Route::get('/seasons/{id}/close', [SeasonController::class, 'showClose']);
+        Route::get('/seasons/{id}/close', [SeasonController::class, 'showClose'])->name('seasons.close');
         Route::put('/seasons/{id}/close', [SeasonController::class, 'close']);
     });
 

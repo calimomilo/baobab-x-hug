@@ -9,15 +9,16 @@ use App\Models\Season;
 use App\Services\BloodLeagueScorer;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class SeasonController extends Controller
 {
     /**
-     * Display the specified collect.
+     * Display the specified season.
      */
     public function show(string $id)
     {
-        // voir comment on affiche le dashboard pour faire pareil
+        // Si on a le temps, voir comment on affiche le dashboard pour faire pareil
 
         // return page inertia /seasons/$seasons->year
     }
@@ -54,11 +55,16 @@ class SeasonController extends Controller
      */
     public function showClose(string $id)
     {
-        $companies = Company::pluck('id', null);
-        $season = Season::findOrFail($id);
+        $season = Season::with('collects')->findOrFail($id);
+
+        if ($season->status == SeasonStatus::CLOSED->value) {
+            return to_route('dashboard');
+        }
+
+        $companies = Company::get(['id', 'company_name']);
         $winners = app(BloodLeagueScorer::class)->electWinners($season->id);
 
-        // return inertia page /seasons/season->id/close
+        return Inertia::render('admin/SeasonClose', ['companies' => $companies, 'season' => $season, 'winners' => $winners]);
     }
 
     /**
@@ -89,7 +95,7 @@ class SeasonController extends Controller
 
         $season->status = SeasonStatus::CLOSED;
 
-        // return inertia page seasons/season->year
+        return to_route('season.open');
     }
 
     /**
@@ -137,6 +143,6 @@ class SeasonController extends Controller
 
         $season->deleteOrFail();
 
-        // return page inertia /dashboard
+        return to_route('seasons.open');
     }
 }

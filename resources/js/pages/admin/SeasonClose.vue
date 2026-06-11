@@ -108,7 +108,7 @@ const categories: Array<category> = ['climber', 'pulse', 'flood', 'new_vein'];
                 <div v-else>
                     <Form :action="`/admin/seasons/${props.season.id}/close`" method="put" #default="{ errors, invalid, validate }" class="flex flex-col gap-4 mx-auto max-w-100">
                         <div v-for="cat, index in categories" :key="index" class="relative">
-                            <AwardIcon v-if="index % 2 === 0" :award="cat" class="absolute z-2 h-35 -left-26 -top-4 -rotate-12"></AwardIcon>
+                            <AwardIcon v-if="index % 2 === 0" :award="cat" class="absolute z-2 h-35 -left-24 -top-4 -rotate-12"></AwardIcon>
                             <AwardIcon v-else :award="cat" class="absolute z-2 h-35 -right-18 -top-4 rotate-8"></AwardIcon>
                             <label :for="cat" class="block text-sm mb-1 text-neutral-700">{{ props.winners[cat].short }} ({{ props.winners[cat].label }})</label>
                             <select hidden :name="cat" :id="cat" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-sage-400 focus:border-transparent">
@@ -118,7 +118,7 @@ const categories: Array<category> = ['climber', 'pulse', 'flood', 'new_vein'];
                             <div v-if="invalid(cat)" class="text-sm text-brand-error-600 mt-1">{{ errors[cat] }}</div>
                         </div>
                         <div class="relative">
-                            <AwardIcon award="golden_heart" class="absolute z-2 h-35 -left-26 -top-4 -rotate-12"></AwardIcon>
+                            <AwardIcon award="golden_heart" class="absolute z-2 h-35 -left-24 -top-4 -rotate-12"></AwardIcon>
                             <label :for="'golden_heart'" class="block text-sm mb-1 text-neutral-700">The Golden Heart (Prix du jury)</label>
                             <select :name="'golden_heart'" :id="'golden_heart'" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-sage-400 focus:border-transparent">
                                 <option value="">Indiquez le prix du jury !</option>

@@ -79,14 +79,14 @@ console.log(seasonsSelect);
                     <div class="flex gap-4 w-full">
                         <div class="grow">
                             <label for="season_year" class="block text-sm mb-1 text-neutral-700">Saison <span class="text-brand-error-600 font-bold">*</span></label>
-                            <select name="season_year" id="season_year" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-sage-400 focus:border-transparent">
+                            <select name="season_year" id="season_year" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-sage-400 focus:border-transparent" @change="validate('season_year')">
                                 <option v-for="year, index in seasonsSelect" :key="index" :value="year" :selected="formData? year === formData.season.year_of : year === currentSeason?.year_of">{{ year }}</option>
                             </select>
                             <div v-if="invalid('season_year')" class="text-sm text-brand-error-600 mt-1">{{ errors['season_year'] }}</div>
                         </div>
                         <div class="grow-2">
                             <label for="company_id" class="block text-sm mb-1 text-neutral-700">Entreprise <span class="text-brand-error-600 font-bold">*</span></label>
-                            <select name="company_id" id="company_id" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-sage-400 focus:border-transparent">
+                            <select name="company_id" id="company_id" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-sage-400 focus:border-transparent" @change="validate('company_id')">
                                 <option value="" :selected="!formData">Choisir une entreprise</option>
                                 <option v-for="company in props.companies" :key="company.id" :value="company.id" :selected="formData?.company_id === company.id">{{ company.company_name }}</option>
                             </select>

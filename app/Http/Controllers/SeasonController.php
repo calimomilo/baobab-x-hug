@@ -26,7 +26,18 @@ class SeasonController extends Controller
     /**
      * Show the form for opening a new season.
      */
-    public function showOpen() {}
+    public function showOpen()
+    {
+        $open = Season::where('status', SeasonStatus::OPEN)->first();
+
+        if ($open) {
+            return to_route('dashboard');
+        }
+
+        $seasons = Season::all();
+
+        return Inertia::render('admin/SeasonOpen', ['seasons' => $seasons]);
+    }
 
     /**
      * Open the specified season.
@@ -37,12 +48,14 @@ class SeasonController extends Controller
             'season_year' => 'required|date_format:Y',
         ]);
 
-        $season = Season::where('year_of', '=', $validated['season_year'], true)->firstOrCreate([
-            'year_of' => $validated['season_year'],
-            'status' => SeasonStatus::FUTURE,
-        ]);
+        $season = Season::where('year_of', $validated['season_year'])->first();
 
-        $season->status = SeasonStatus::OPEN;
+        if (! $season) {
+            $season = Season::create([
+                'year_of' => $validated['season_year'],
+                'status' => SeasonStatus::OPEN,
+            ]);
+        }
 
         // return inertia page dashboard
     }
@@ -91,6 +104,7 @@ class SeasonController extends Controller
         }
 
         $season->status = SeasonStatus::CLOSED;
+        $season->save();
 
         return to_route('seasons.open');
     }

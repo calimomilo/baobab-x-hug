@@ -196,6 +196,11 @@ class DisplayController extends Controller
     public function displayAdmin()
     {
         $season = Season::where('status', 'open')->with('collects.data')->first();
+
+        if (! $season) {
+            return to_route('seasons.open');
+        }
+
         $season->wins = app(BloodLeagueScorer::class)->electWinners($season->id);
 
         $collectIds = $season->collects->pluck('company_id');

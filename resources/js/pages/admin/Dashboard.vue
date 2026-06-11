@@ -147,6 +147,11 @@ const companiesSorted = computed(() => props.companies.toSorted((a, b) => b.scor
     <AdminLayout title="Dashboard" desc="Dashboard du module d'administration de la Blood League">
         <section id="dashboard" class="relative min-h-[calc(100vh-76px)] grid grid-cols-12 auto-rows-min gap-6 font-medium font-cooper py-16 px-40">
             <h1 class="col-span-12 font-bold text-4xl">Dashboard saison active : {{ props.season.year_of }}</h1>
+            <div class="flex gap-4 justify-around col-span-12 items-center">
+                <Link href="/admin/contacts" class="flex items-center px-3 h-11 rounded font-medium bg-brand-teal-400 hover:bg-teal-sage-500 active:bg-brand-teal-600 text-white w-fit">Formulaires de contact</Link>
+                <Link href="/admin/collects/create" class="flex items-center px-3 h-11 rounded font-medium bg-brand-sage-400 hover:bg-brand-sage-500 active:bg-brand-sage-600 text-white w-fit">Nouvelle collecte</Link>
+                <Link href="/admin/companies/create" class="flex items-center px-3 h-11 rounded font-medium bg-brand-rose-400 hover:bg-brand-rose-500 active:bg-brand-rose-600 text-white w-fit">Ajouter une entreprise</Link>
+            </div>
             <DashboardTile color="rose" size="12" class="py-20">
                 <div class="flex justify-between w-full">
                     <div class="flex flex-col w-200 gap-1 justify-center items-center">

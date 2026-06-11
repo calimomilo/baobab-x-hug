@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link, router } from '@inertiajs/vue3';
-import { onMounted, onUnmounted } from 'vue';
+import { computed, onMounted, onUnmounted } from 'vue';
 import LogoLoop from '@/components/bits/LogoLoop.vue';
 import type { LogoItemImage } from '@/components/bits/LogoLoop.vue';
 import Card from '@/components/Card.vue';
@@ -40,6 +40,10 @@ props.companies?.forEach((company) => {
     });
 });
 
+const countdown = computed(() => {
+    return props.collect?.countdown.split('minutes')[0] + 'minutes';
+})
+
 let interval = 0;
 
 onMounted(() => {
@@ -73,7 +77,7 @@ onUnmounted(() => {
                     <div class="flex gap-10">
                         <div class="flex flex-col justify-center gap-2 bg-brand-teal-300 text-brand-teal-900 rounded-lg px-6 py-8 py-auto w-full min-w-38 text-center lg:gap-4 lg:py-12">
                             <p class="text-xl font-semibold lg:text-3xl">{{ props.collect.date_of }}</p>
-                            <p class="lg:text-xl">{{ props.collect.countdown }}</p>
+                            <p class="lg:text-xl">{{ countdown }}</p>
                         </div>
                         <Link :href="`/${props.displayData.slug}/checker`" class="hidden grow md:inline-block lg:shrink-0">
                             <img src="/assets/round_button_verify.svg" alt="Bouton noir rond avec le texte Vérifier mon éligibilité" class="relative h-full w-full scale-130 rotate-3 transition duration-150 ease-in-out hover:scale-140 hover:rotate-30 md:right-1 md:bottom-2 lg:bottom-4 lg:left-2">

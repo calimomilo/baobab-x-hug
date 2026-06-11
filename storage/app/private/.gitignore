@@ -1,2 +1,5 @@
 *
 !.gitignore
+!kits/
+kits/*
+!kits/*.zip

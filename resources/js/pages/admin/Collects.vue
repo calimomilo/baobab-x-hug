@@ -160,7 +160,7 @@ const collectsCompleted = computed(() => collectsActive.value.filter((c) => {
 <template>
     <AdminLayout title="Collectes" desc="Liste des collectes">
         <section id="collects" class="relative min-h-[calc(100vh-76px)] font-medium text-md font-cooper py-16 px-25">
-            <Link href="/admin/dashboard" class="relative bottom-6 right-16 flex items-center px-3 h-11 rounded font-medium hover:bg-brand-neutral-50 active:bg-brand-neutral-100 w-fit">← Tableau de bord</Link>
+            <Link href="/admin/dashboard" class="relative bottom-6 right-16 flex items-center px-3 h-11 rounded font-medium hover:bg-brand-neutral-50 active:bg-brand-neutral-100 w-fit">← Dashboard</Link>
             <div class="flex justify-between">
                 <div class="w-50">
                     <button v-if="activeSeasonPosition < seasons.length - 1" class="flex items-center px-3 h-11 rounded font-medium hover:bg-brand-neutral-50 active:bg-brand-neutral-100 w-fit" @click="prevSeason">← {{ seasons[activeSeasonPosition+1].year_of }}</button>
@@ -216,11 +216,11 @@ const collectsCompleted = computed(() => collectsActive.value.filter((c) => {
                 <tbody v-else>
                     <tr class="border border-brand-neutral-100 font-semibold text-brand-sage-400"><td class="px-2 py-1">Saison terminée</td></tr>
                     <tr v-for="collect in collectsActive" :key="collect.id">
-                        <td class="p-2 border border-brand-neutral-100">{{ collect.company.company_name }}</td>
-                        <td class="p-2 border border-brand-neutral-100">{{ formatDate(collect.date_of, collect.start_time, collect.end_time) }}</td>
-                        <td class="p-2 border border-brand-neutral-100">{{ collect.location }}</td>
-                        <td class="p-2 border border-brand-neutral-100">{{ collect.appointments !== 0? collect.appointments : collect.appointment_clicks }}</td>
-                        <td class="p-2 border border-brand-neutral-100">{{ score(collect) }}</td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ collect.company.company_name }}</Link></td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ formatDate(collect.date_of, collect.start_time, collect.end_time) }}</Link></td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ collect.location }}</Link></td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ collect.appointments !== 0? collect.appointments : collect.appointment_clicks }}</Link></td>
+                        <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/collects/${collect.id}`">{{ score(collect) }}</Link></td>
                     </tr>
                 </tbody>
             </table>

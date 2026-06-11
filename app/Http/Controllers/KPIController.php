@@ -5,44 +5,15 @@ namespace App\Http\Controllers;
 use App\Enums\DataType;
 use App\Models\Collect;
 use App\Models\CollectData;
-use App\Models\Company;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Inertia\Inertia;
 
 class KPIController extends Controller
 {
-    public function showDonorResult(Request $request, string $slug)
-    {
-        $validated = $request->validate([
-            'user_uuid' => 'required|string',
-            'collect.id' => 'required|exists:collects,id',
-            'collect.appointment_link' => 'required|exists:collects,appointment_link',
-        ]);
-
-        $company = Company::where('slug', $slug)->with('collects')->first();
-
-        if (! $company) {
-            return to_route('home');
-        }
-
-        $companyDisplayData = [
-            'name' => $company->company_name,
-            'slug' => $company->slug,
-            'primary_color' => $company->primary_color,
-            'secondary_color' => $company->secondary_color,
-            'logo_url' => $company->logo_url,
-        ];
-
-        return Inertia::render('Result', ['displayData' => $companyDisplayData, 'collect' => $validated['collect'], 'type' => 'donor']);
-    }
-
     public function donorResult(Request $request, string $slug)
     {
         $validated = $request->validate([
             'user_uuid' => 'required|string',
             'collect.id' => 'required|exists:collects,id',
-            'collect.appointment_link' => 'required|exists:collects,appointment_link',
         ]);
 
         $data = new CollectData(['session_id' => $validated['user_uuid'], 'data_type' => DataType::DONOR_RESULT]);
@@ -54,46 +25,7 @@ class KPIController extends Controller
             $collect->data()->save($data);
         }
 
-        $company = Company::where('slug', $slug)->with('collects')->first();
-
-        if (! $company) {
-            return to_route('home');
-        }
-
-        $companyDisplayData = [
-            'name' => $company->company_name,
-            'slug' => $company->slug,
-            'primary_color' => $company->primary_color,
-            'secondary_color' => $company->secondary_color,
-            'logo_url' => $company->logo_url,
-        ];
-
-        return Inertia::render('Result', ['displayData' => $companyDisplayData, 'collect' => $validated['collect'], 'type' => 'donor']);
-    }
-
-    public function showSupporterResult(Request $request, string $slug)
-    {
-        $validated = $request->validate([
-            'user_uuid' => 'required|string',
-            'collect.id' => 'required|exists:collects,id',
-            'collect.appointment_link' => 'required|exists:collects,appointment_link',
-        ]);
-
-        $company = Company::where('slug', $slug)->with('collects')->first();
-
-        if (! $company) {
-            return to_route('home');
-        }
-
-        $companyDisplayData = [
-            'name' => $company->company_name,
-            'slug' => $company->slug,
-            'primary_color' => $company->primary_color,
-            'secondary_color' => $company->secondary_color,
-            'logo_url' => $company->logo_url,
-        ];
-
-        return Inertia::render('Result', ['displayData' => $companyDisplayData, 'collect' => $validated['collect'], 'type' => 'supporter']);
+        return to_route('donor', ['slug' => $slug, 'id' => $collect->id]);
     }
 
     public function supporterResult(Request $request, string $slug)
@@ -101,7 +33,6 @@ class KPIController extends Controller
         $validated = $request->validate([
             'user_uuid' => 'required|string',
             'collect.id' => 'required|exists:collects,id',
-            'collect.appointment_link' => 'required|exists:collects,appointment_link',
         ]);
 
         $data = new CollectData(['session_id' => $validated['user_uuid'], 'data_type' => DataType::SUPPORTER_RESULT]);
@@ -113,21 +44,7 @@ class KPIController extends Controller
             $collect->data()->save($data);
         }
 
-        $company = Company::where('slug', $slug)->with('collects')->first();
-
-        if (! $company) {
-            return to_route('home');
-        }
-
-        $companyDisplayData = [
-            'name' => $company->company_name,
-            'slug' => $company->slug,
-            'primary_color' => $company->primary_color,
-            'secondary_color' => $company->secondary_color,
-            'logo_url' => $company->logo_url,
-        ];
-
-        return Inertia::render('Result', ['displayData' => $companyDisplayData, 'collect' => $validated['collect'], 'type' => 'supporter']);
+        return to_route('supporter', ['slug' => $slug, 'id' => $collect->id]);
     }
 
     public function appointmentClick(Request $request, string $slug)
@@ -135,7 +52,6 @@ class KPIController extends Controller
         $validated = $request->validate([
             'user_uuid' => 'required|string',
             'collect.id' => 'required|exists:collects,id',
-            'collect.appointment_link' => 'required|exists:collects,appointment_link',
         ]);
 
         $data = new CollectData(['session_id' => $validated['user_uuid'], 'data_type' => DataType::APPOINTMENT_CLIC]);
@@ -146,14 +62,6 @@ class KPIController extends Controller
         if (! $existing) {
             $collect->data()->save($data);
         }
-
-        $company = Company::where('slug', $slug)->with('collects')->first();
-
-        if (! $company) {
-            return to_route('home');
-        }
-
-        return Inertia::location($validated['collect']['appointment_link']);
     }
 
     public function donorShare(Request $request, string $slug)
@@ -161,7 +69,6 @@ class KPIController extends Controller
         $validated = $request->validate([
             'user_uuid' => 'required|string',
             'collect.id' => 'required|exists:collects,id',
-            'collect.appointment_link' => 'required|exists:collects,appointment_link',
         ]);
 
         $data = new CollectData(['session_id' => $validated['user_uuid'], 'data_type' => DataType::DONOR_SHARE]);
@@ -172,16 +79,6 @@ class KPIController extends Controller
         if (! $existing) {
             $collect->data()->save($data);
         }
-
-        $company = Company::where('slug', $slug)->with('collects')->first();
-
-        if (! $company) {
-            return to_route('home');
-        }
-
-        Storage::download('logos/rolex.png'); // mettre le fichier dans storage/app/public
-
-        return to_route('donor');
     }
 
     public function supporterShare(Request $request, string $slug)
@@ -189,7 +86,6 @@ class KPIController extends Controller
         $validated = $request->validate([
             'user_uuid' => 'required|string',
             'collect.id' => 'required|exists:collects,id',
-            'collect.appointment_link' => 'required|exists:collects,appointment_link',
         ]);
 
         $data = new CollectData(['session_id' => $validated['user_uuid'], 'data_type' => DataType::SUPPORTER_SHARE]);
@@ -200,15 +96,5 @@ class KPIController extends Controller
         if (! $existing) {
             $collect->data()->save($data);
         }
-
-        $company = Company::where('slug', $slug)->with('collects')->first();
-
-        if (! $company) {
-            return to_route('home');
-        }
-
-        Storage::download('logos/rolex.png'); // mettre le fichier dans storage/app/public
-
-        return to_route('supporter');
     }
 }

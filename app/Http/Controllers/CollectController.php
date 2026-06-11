@@ -70,10 +70,6 @@ class CollectController extends Controller
             ]);
         }
 
-        if ($season->status === SeasonStatus::CLOSED) {
-            return response()->json(['message' => 'Season closed.'], 422);
-        }
-
         $collect = new Collect;
 
         $collect->date_of = $validated['date_of'];
@@ -136,9 +132,22 @@ class CollectController extends Controller
             'location' => 'required|string|max:500',
             'appointment_link' => 'required|string|max:500',
             'employees' => 'required|integer|min:0',
+            'season_year' => 'required|date_format:Y',
         ]);
 
         $collect = Collect::findOrFail($id);
+        $season = Season::where('year_of', $validated['season_year'])->first();
+
+        if (! $season) {
+            $season = Season::create([
+                'year_of' => $validated['season_year'],
+                'status' => SeasonStatus::FUTURE,
+            ]);
+        }
+
+        if ($season->status === SeasonStatus::CLOSED->value) {
+            return;
+        }
 
         $collect->updateOrFail([
             'date_of' => $validated['date_of'],
@@ -190,10 +199,13 @@ class CollectController extends Controller
      */
     public function incomplete(string $id)
     {
-        $collect = Collect::findOrFail($id);
+        $collect = Collect::with('season')->findOrFail($id);
+
+        if ($collect->season->status === SeasonStatus::CLOSED->value) {
+            return;
+        }
 
         $collect->completed = 0;
-
         $collect->save();
 
         return to_route('collects.show', ['collect' => $collect]);

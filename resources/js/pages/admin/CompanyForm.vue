@@ -134,7 +134,7 @@ randomString.value = props.formData?.slug ?? randString();
                             <div v-if="invalid('anonymous')" class="text-sm text-brand-error-600 mt-1">{{ errors['anonymous'] }}</div>
                         </div>
                     </div>
-                    <Button class="self-center flex items-center px-15 h-11 mt-4 rounded font-medium text-xl text-white font-semibold bg-brand-rose-400 hover:bg-brand-rose-500/100 active:bg-brand-rose-600/100">Créer</Button>
+                    <Button class="self-center flex items-center px-15 h-11 mt-4 rounded font-medium text-xl text-white font-semibold bg-brand-rose-400 hover:bg-brand-rose-500/100 active:bg-brand-rose-600/100">{{ props.formData? 'Modifier' : 'Créer' }}</Button>
                 </Form>
             </div>
         </section>

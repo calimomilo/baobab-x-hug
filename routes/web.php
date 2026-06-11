@@ -5,12 +5,11 @@ use App\Http\Controllers\CollectController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\DisplayController;
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\KPIController;
 use App\Http\Controllers\SeasonController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
-
-// Route::inertia('/', 'Welcome')->name('home');
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('/auth/login', 'showLogin')->name('login');
@@ -37,10 +36,10 @@ Route::middleware('auth')->group(function () {
         Route::put('/collects/{id}/complete', [CollectController::class, 'complete']);
         Route::put('/collects/{id}/incomplete', [CollectController::class, 'incomplete']);
 
-        Route::get('/seasons/open', [SeasonController::class, 'showOpen']);
+        Route::get('/seasons/open', [SeasonController::class, 'showOpen'])->name('seasons.open');
         Route::post('/seasons/open', [SeasonController::class, 'open']);
         Route::resource('seasons', SeasonController::class)->only(['destroy']);
-        Route::get('/seasons/{id}/close', [SeasonController::class, 'showClose']);
+        Route::get('/seasons/{id}/close', [SeasonController::class, 'showClose'])->name('seasons.close');
         Route::put('/seasons/{id}/close', [SeasonController::class, 'close']);
     });
 
@@ -60,14 +59,20 @@ Route::controller(DisplayController::class)->group(function () {
 
     Route::get('/{slug}/don-du-sang#conditions', 'displayDonDuSang')->name('conditions.slug');
     Route::get('/{slug}/checker/{step?}', 'displayChecker')->name('checker');
+
+    Route::get('/{slug}/{id}/donor', 'displayDonor')->name('donor');
+    Route::get('/{slug}/{id}/supporter', 'displaySupporter')->name('supporter');
 });
 
 Route::controller(KPIController::class)->group(function () {
-    Route::get('/{slug}/donor', 'showDonorResult')->name('donor');
-    Route::get('/{slug}/supporter', 'showSupporterResult')->name('supporter');
-    Route::post('/{slug}/donor', 'donorResult');
-    Route::post('/{slug}/supporter', 'supporterResult');
+    Route::post('/{slug}/donor', 'donorResult')->name('donor-result');
+    Route::post('/{slug}/supporter', 'supporterResult')->name('supporter-result');
     Route::post('/{slug}/appointment-click', 'appointmentClick')->name('appointment-click');
     Route::post('/{slug}/donor-share', 'donorShare')->name('donor-share');
     Route::post('/{slug}/supporter-share', 'supporterShare')->name('supporter-share');
+});
+
+Route::controller(DownloadController::class)->prefix('download')->group(function () {
+    Route::get('/kits/donor', 'downloadDonorKit')->name('download.donor');
+    Route::get('/kits/supporter', 'downloadSupporterKit')->name('download.supporter');
 });

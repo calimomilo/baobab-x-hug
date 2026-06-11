@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\Category;
 use App\Enums\Label;
 use App\Models\Collect;
 use App\Models\Company;
@@ -150,6 +151,15 @@ class BloodLeagueScorer
 
         // $this->persistWinners($seasonId, $winners);
 
+        $winners['climber']['label'] = Category::THE_CLIMBER->label();
+        $winners['climber']['short'] = Category::THE_CLIMBER;
+        $winners['flood']['label'] = Category::THE_FLOOD->label();
+        $winners['flood']['short'] = Category::THE_FLOOD;
+        $winners['pulse']['label'] = Category::THE_PULSE->label();
+        $winners['pulse']['short'] = Category::THE_PULSE;
+        $winners['new_vein']['label'] = Category::THE_NEW_VEIN->label();
+        $winners['new_vein']['short'] = Category::THE_NEW_VEIN;
+
         return $winners;
     }
 
@@ -176,20 +186,20 @@ class BloodLeagueScorer
             return null;
         }
 
-        return Season::where('year_of', '<', $season->year_of, true)
+        return Season::where('year_of', '<', $season->year_of)
             ->orderByDesc('year_of')
             ->value('id');
     }
 
     private function isNewcomer(int $companyId, int $seasonId): bool
     {
-        $currentYear = Season::where('id', '=', $seasonId, true)->value('year_of');
+        $currentYear = Season::where('id', $seasonId)->value('year_of');
 
         if ($currentYear === null) {
             return false;
         }
 
-        $participatedBefore = Collect::where('company_id', '=', $companyId, true)
+        $participatedBefore = Collect::where('company_id', $companyId)
             ->where('completed', 1)
             ->whereHas('season', fn ($q) => $q->where('year_of', '<', $currentYear))
             ->exists();

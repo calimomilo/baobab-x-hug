@@ -14,7 +14,37 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('/auth/login', 'showLogin')->name('login');
-    Route::post('/auth/login', 'login');
+    Route::post('/auth/login', 'login')->middleware([HandlePrecognitiveRequests::class]);
+});
+
+Route::get('/contact', [ContactFormController::class, 'create'])->name('contact');
+Route::post('/contact', [ContactFormController::class, 'store'])->middleware([HandlePrecognitiveRequests::class]);
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/admin', function () {
+        return to_route('dashboard');
+    });
+
+    Route::prefix('admin')->group(function () {
+        Route::get('/dashboard', [DisplayController::class, 'displayAdmin'])->name('dashboard');
+
+        Route::resource('companies', CompanyController::class);
+
+        Route::resource('contacts', ContactFormController::class)->only(['index', 'show', 'destroy']);
+
+        Route::resource('collects', CollectController::class);
+        Route::put('/collects/{id}/complete', [CollectController::class, 'complete']);
+        Route::put('/collects/{id}/incomplete', [CollectController::class, 'incomplete']);
+
+        Route::get('/seasons/open', [SeasonController::class, 'showOpen']);
+        Route::post('/seasons/open', [SeasonController::class, 'open']);
+        Route::resource('seasons', SeasonController::class)->only(['show', 'edit', 'update', 'destroy']);
+        Route::get('/seasons/{id}/close', [SeasonController::class, 'showClose']);
+        Route::put('/seasons/{id}/close', [SeasonController::class, 'close']);
+    });
+
+    Route::post('/auth/logout', [AuthController::class, 'logout']);
 });
 
 Route::controller(DisplayController::class)->group(function () {
@@ -40,29 +70,4 @@ Route::controller(KPIController::class)->group(function () {
     Route::post('/{slug}/appointment-click', 'appointmentClick')->name('appointment-click');
     Route::post('/{slug}/donor-share', 'donorShare')->name('donor-share');
     Route::post('/{slug}/supporter-share', 'supporterShare')->name('supporter-share');
-});
-
-Route::get('/contact', [ContactFormController::class, 'create'])->name('contact');
-Route::post('/contact', [ContactFormController::class, 'store'])->middleware([HandlePrecognitiveRequests::class]);
-
-Route::middleware('auth')->group(function () {
-    Route::resource('companies', CompanyController::class);
-
-    Route::resource('contacts', ContactFormController::class)->only(['index', 'show', 'destroy']);
-
-    Route::resource('collects', CollectController::class);
-    Route::put('/collects/{id}/complete', [CollectController::class, 'complete']);
-    Route::put('/collects/{id}/incomplete', [CollectController::class, 'incomplete']);
-
-    Route::get('/seasons/open', [SeasonController::class, 'showOpen']);
-    Route::post('/seasons/open', [SeasonController::class, 'open']);
-    Route::resource('seasons', SeasonController::class)->only(['show', 'edit', 'update', 'destroy']);
-    Route::get('/seasons/{id}/close', [SeasonController::class, 'showClose']);
-    Route::put('/seasons/{id}/close', [SeasonController::class, 'close']);
-
-    Route::post('/auth/logout', [AuthController::class, 'logout']);
-});
-
-Route::middleware(['auth'])->group(function () {
-    Route::inertia('dashboard', 'Dashboard')->name('dashboard');
 });

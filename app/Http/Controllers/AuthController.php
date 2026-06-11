@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class AuthController extends Controller
 {
     public function showLogin()
     {
-        // return page inertia;
+        return Inertia::render('Login');
     }
 
     public function login(Request $request)
@@ -22,11 +23,11 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/');
+            return redirect()->intended('/admin');
         }
 
         return back()->withErrors([
-            'username' => '!! écrire le message d\'erreur',
+            'username' => 'L\utilisateur ou le mot de passe ne sont pas valables.',
         ])->onlyInput('username');
     }
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
 import { Menu } from 'lucide-vue-next';
+import { ref } from 'vue';
 import MenuButton from '@/components/MenuButton.vue';
 import {
     Sheet,
@@ -9,12 +10,16 @@ import {
     SheetTitle,
     SheetTrigger,
  } from '@/components/ui/sheet';
+import { getItem, setItem } from '@/lib/sessionStorage';
 
 const props = defineProps({
     title : {type: String, default: 'HUG Blood League'},
     desc : {type: String, default: 'Site de la HUG Blood League'},
     displayData: Object || null
 })
+
+const firstVisit = ref(sessionStorage.getItem('firstVisit'));
+setItem('firstVisit', 'if you find this, hi !');
 
 </script>
 
@@ -71,6 +76,13 @@ const props = defineProps({
                     <MenuButton :href="props.displayData? `/${props.displayData.slug}/checker` : '/contact'" display="desktop" type="highlight-pink">{{ props.displayData? 'Vérifier mon éligibilité' : 'Organiser une collecte' }}</MenuButton>
                 </div>
             </header>
+        </div>
+        <div v-if="firstVisit === null" class="w-full z-100 fixed top-24">
+            <div class="relative px-6 py-4 bg-brand-rose-400 text-white rounded-lg w-fit h-fit mx-auto shadow-lg">
+                <button @click="firstVisit = getItem('firstVisit');" class="w-11 h-11 absolute top-0 right-0">✕</button>
+                <h2 class="text-lg font-semibold lg:text-2xl">Attention !</h2>
+                <p class="lg:text-lg mt-2 font-medium">Ce site est un site fictif réalisé dans le cadre d'un cours à la HEIG-VD. N'organisez pas de collecte !</p>
+            </div>
         </div>
         <slot />
         <footer class="flex flex-col gap-y-10 gap-x-6 justify-between justify-items-start py-20 px-10 text-sm font-medium md:text-md md:flex-row" :class="{'bg-brand-sage-300 text-brand-sage-950' : !props.displayData}" :style="`background-color: ${props.displayData? props.displayData.primary_color + '60' : ''}`">

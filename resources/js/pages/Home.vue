@@ -39,7 +39,6 @@ props.companies?.forEach((company) => {
         href: '',
     });
 });
-console.log(props.collect);
 
 let interval = 0;
 

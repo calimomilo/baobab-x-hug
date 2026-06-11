@@ -15,7 +15,7 @@ class ContactFormController extends Controller
     {
         $contactForms = ContactForm::orderBy('created_at', 'desc')->get();
 
-        // return page inertia
+        return Inertia::render('admin/Contacts', ['contactForms' => $contactForms]);
     }
 
     /**
@@ -75,6 +75,6 @@ class ContactFormController extends Controller
 
         $contact->deleteOrFail();
 
-        // return page inertia /contacts
+        return to_route('contacts.index');
     }
 }

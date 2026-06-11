@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { Form, Link } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
 import DashboardTile from '@/components/DashboardTile.vue';
 import Tag from '@/components/Tag.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
@@ -54,6 +54,7 @@ type season = {
 
 const props = defineProps<{
     collect: collectType,
+    open: string | null
 }>()
 
 // COMPUTE RESULTS
@@ -121,6 +122,8 @@ const scoreSupporters = computed(() => {
 const score = computed(() => {
     return scoreEfficacite.value + 5 + scoreDonneurs.value + scoreSupporters.value;
 });
+
+const confirmComplete = ref(false);
         
 </script>
 
@@ -138,8 +141,8 @@ const score = computed(() => {
             <div class="grid grid-cols-12 auto-rows-min gap-6 my-6">
                 <div class="flex gap-4 justify-end col-span-8 self-end">
                     <Link v-if="!props.collect.completed" :href="`/admin/collects/${props.collect.id}/edit`" class="flex items-center px-3 h-11 rounded font-medium bg-brand-neutral-50 hover:bg-brand-neutral-100 active:bg-brand-neutral-200 w-fit">Modifier</Link>
-                    <Link v-if="!props.collect.completed && Date.parse(props.collect.date_of) < Date.now()" :href="`/admin/${props.collect.id}/collects/complete`" class="flex items-center px-3 h-11 rounded font-medium bg-brand-teal-300 hover:bg-brand-teal-400 active:bg-brand-teal-500 w-fit">Compléter</Link>
-                    <Link v-if="props.collect.completed" :href="`/admin/${props.collect.id}/collects/incomplete`" class="flex items-center px-3 h-11 rounded font-medium bg-brand-teal-300 hover:bg-brand-teal-400 active:bg-brand-teal-500 w-fit">Compléter</Link>
+                    <button v-if="!props.collect.completed && Date.parse(props.collect.date_of) < Date.now()" @click="confirmComplete = true" class="flex items-center px-3 h-11 rounded font-medium bg-brand-teal-300 hover:bg-brand-teal-400 active:bg-brand-teal-500 w-fit">Compléter</button>
+                    <Link v-if="props.collect.completed" :href="`/admin/collects/${props.collect.id}/incomplete`" method="put" class="flex items-center px-3 h-11 rounded font-medium bg-brand-teal-300 hover:bg-brand-teal-400 active:bg-brand-teal-500 w-fit">Brouillon</Link>
                     <Link :href="`/admin/collects/${props.collect.id}`" method="delete" class="flex items-center px-3 h-11 rounded font-medium bg-brand-error-600 hover:bg-brand-error-700 active:bg-brand-error-800 text-white w-fit">Supprimer</Link>
                 </div>
                 <DashboardTile color="rose" class="col-span-4 row-span-2 items-end text-end pr-12">
@@ -190,11 +193,11 @@ const score = computed(() => {
                             </tr>
                             <tr>
                                 <td class="text-end pb-2 pr-6">Lien de prise de rdv :</td>
-                                <td class="pb-2">{{ props.collect.appointment_link }}</td>
+                                <td class="pb-2"><a :href="props.collect.appointment_link" target="_blank" class="underline text-brand-indigo-600 hover:text-brand-indigo-400 mt-2">{{ props.collect.appointment_link }}</a></td>
                             </tr>
                             <tr>
                                 <td class="text-end pb-2 pr-6">Employé.e.s :</td>
-                                <td class="pb-2">{{ props.collect.completed? props.collect.employees : '/' }}</td>
+                                <td class="pb-2">{{ props.collect.employees ?? '/' }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -218,6 +221,31 @@ const score = computed(() => {
                         </div>
                     </div>
                 </DashboardTile>
+            </div>
+        </section>
+
+        <section v-if="confirmComplete" id="confirmComplete" class="w-full fixed top-0 h-[100vh] z-100 bg-black/60 font-medium text-md justify-center items-center font-cooper py-16 px-25">
+            <div class="bg-white rounded-lg p-20">
+                <h2 class="font-bold text-2xl -mt-2 mb-6">Compléter la collecte</h2>
+                <Form :action="`/admin/collects/${props.collect.id}/complete`" method="put" #default="{ errors, invalid, validate }" class="flex flex-col gap-4 mx-auto max-w-200">
+                    <div class="flex gap-4">
+                        <div class="grow">
+                            <label for="appointments" class="block text-sm mb-1 text-neutral-700" >Rendez-vous pris <span class="text-brand-error-600 font-bold">*</span></label>
+                            <input type="number" min="0" :value="props.collect.appointments" name="appointments" id="appointments" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-sage-400 focus:border-transparent" @change="validate('appointments')">
+                            <div v-if="invalid('appointments')" class="text-sm text-brand-error-600 mt-1">{{ errors['appointments'] }}</div>
+                        </div>
+                        <div class="grow">
+                            <label for="donations" class="block text-sm mb-1 text-neutral-700" >Dons effectifs <span class="text-brand-error-600 font-bold">*</span></label>
+                            <input type="number" min="0" :value="props.collect.donations" name="donations" id="donations" class="w-full px-3 py-2 border border-neutral-300 rounded focus:ring-2 focus:ring-brand-sage-400 focus:border-transparent" @change="validate('donations')">
+                            <div v-if="invalid('donations')" class="text-sm text-brand-error-600 mt-1">{{ errors['donations'] }}</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 justify-end">
+                        <div @click="confirmComplete = false" class="flex items-center px-3 h-11 rounded font-medium bg-brand-neutral-50 hover:bg-brand-neutral-100 active:bg-brand-neutral-200 w-fit">Annuler</div>
+                        <button @click="confirmComplete = false" class="flex items-center px-3 h-11 rounded font-medium bg-brand-teal-300 hover:bg-brand-teal-400 active:bg-brand-teal-500">Compléter</button>
+                    </div>
+                </Form>
+
             </div>
         </section>
     </AdminLayout>

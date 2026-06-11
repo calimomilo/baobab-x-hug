@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Category;
 use App\Enums\DataType;
 use App\Models\Company;
 use App\Models\Season;
@@ -104,12 +105,17 @@ class CompanyController extends Controller
         $season = Season::where('status', 'open')->first();
 
         $company = Company::with([
-            'wins.season',
+            'wins',
             'collects' => [
                 'season',
                 'data',
             ],
         ])->findOrFail($id);
+
+        $company->wins->map(function ($win) {
+            $win->pivot->slug = Category::from($win->pivot->category)->slug();
+            $win->pivot->label = Category::from($win->pivot->category)->label();
+        });
 
         if (! $company) {
             return response()->json(['message' => 'Company not found.'], 404);

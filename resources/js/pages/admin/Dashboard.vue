@@ -228,8 +228,8 @@ const companiesSorted = computed(() => props.companies.toSorted((a, b) => b.scor
                     </thead>
                     <tbody>
                         <tr v-for="category, index in props.season.wins" :key="index">
-                            <td class="p-2 border border-brand-neutral-100">{{ category.short }}</td>
-                            <td class="p-2 border border-brand-neutral-100">{{ props.companies.find((c) => c.id === category.company_id)?.company_name }}</td>
+                            <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/companies/${category.company_id}`">{{ category.short }}</Link></td>
+                            <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/companies/${category.company_id}`">{{ props.companies.find((c) => c.id === category.company_id)?.company_name }}</Link></td>
                         </tr>
                     </tbody>
                 </table>
@@ -246,9 +246,9 @@ const companiesSorted = computed(() => props.companies.toSorted((a, b) => b.scor
                     </thead>
                     <tbody>
                         <tr v-for="company, index in companiesSorted.slice(0, 5)" :key="company.id">
-                            <td class="p-2 border border-brand-neutral-100">{{ index+1 }}</td>
-                            <td class="p-2 border border-brand-neutral-100">{{ company.company_name }}</td>
-                            <td class="p-2 border border-brand-neutral-100">{{ company.score.total }}</td>
+                            <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/companies/${company.id}`">{{ index+1 }}</Link></td>
+                            <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/companies/${company.id}`">{{ company.company_name }}</Link></td>
+                            <td class="p-2 border border-brand-neutral-100"><Link :href="`/admin/companies/${company.id}`">{{ company.score.total }}</Link></td>
                         </tr>
                         <tr v-if="companiesSorted.length === 0" class="border border-brand-neutral-100"><td class="p-2 italic  text-brand-neutral-500">Aucune entreprise</td></tr>
                         <tr v-if="companiesSorted.length > 5" class="italic  text-brand-neutral-500">

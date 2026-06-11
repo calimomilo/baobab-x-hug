@@ -178,7 +178,7 @@ const score = computed(() => {
                         <tbody>
                             <tr>
                                 <td class="text-end pb-2 pr-6">Entreprise organisatrice :</td>
-                                <td class="pb-2">{{ props.collect.company.company_name }} ({{ props.collect.company.address }})</td>
+                                <td class="pb-2"><Link :href="`/admin/companies/${props.collect.company_id}`" class="underline hover:text-brand-sage-800 mt-2">{{ props.collect.company.company_name }}</Link> ({{ props.collect.company.address }})</td>
                             </tr>
                             <tr>
                                 <td class="text-end pb-2 pr-6">Lieu :</td>

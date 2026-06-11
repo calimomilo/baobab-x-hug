@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\Category;
 use App\Enums\Label;
 use App\Models\Collect;
 use App\Models\Company;
@@ -10,6 +11,16 @@ use Illuminate\Support\Facades\DB;
 
 class BloodLeagueScorer
 {
+    /**
+     * Seuils de score (sur un total max de 102) déterminant le label.
+     * Un label par seuil absolu garde chaque entreprise dans sa division
+     * indépendamment du classement des autres, ce qui autorise des totaux
+     * distincts au sein d'un même label (contrairement à un calcul par rang).
+     */
+    private const LABEL_LEGEND_MIN = 55;
+
+    private const LABEL_GOLD_MIN = 42;
+
     /**
      * Calcule le score complet d'une entreprise pour une saison
      */
@@ -80,28 +91,11 @@ class BloodLeagueScorer
             return null; // pas participé
         }
 
-        // Récupère les scores de toutes les entreprises de cette saison
-        $allCompanies = Company::pluck('id', null);
-        $scores = [];
-        foreach ($allCompanies as $id) {
-            $s = $this->computeScore($id, $seasonId)['total'];
-            if ($s > 0) {
-                $scores[] = $s;
-            }
-        }
-
-        rsort($scores);
-        $rank = array_search($myScore, $scores);
-        $percentile = ($rank / count($scores)) * 100;
-
-        if ($percentile <= 15) {
-            return Label::LEGEND;
-        }
-        if ($percentile <= 50) {
-            return Label::GOLD;
-        }
-
-        return Label::CLASSIC;
+        return match (true) {
+            $myScore >= self::LABEL_LEGEND_MIN => Label::LEGEND,
+            $myScore >= self::LABEL_GOLD_MIN => Label::GOLD,
+            default => Label::CLASSIC,
+        };
     }
 
     /**
@@ -150,6 +144,15 @@ class BloodLeagueScorer
 
         // $this->persistWinners($seasonId, $winners);
 
+        $winners['climber']['label'] = Category::THE_CLIMBER->label();
+        $winners['climber']['short'] = Category::THE_CLIMBER;
+        $winners['flood']['label'] = Category::THE_FLOOD->label();
+        $winners['flood']['short'] = Category::THE_FLOOD;
+        $winners['pulse']['label'] = Category::THE_PULSE->label();
+        $winners['pulse']['short'] = Category::THE_PULSE;
+        $winners['new_vein']['label'] = Category::THE_NEW_VEIN->label();
+        $winners['new_vein']['short'] = Category::THE_NEW_VEIN;
+
         return $winners;
     }
 
@@ -176,20 +179,20 @@ class BloodLeagueScorer
             return null;
         }
 
-        return Season::where('year_of', '<', $season->year_of, true)
+        return Season::where('year_of', '<', $season->year_of)
             ->orderByDesc('year_of')
             ->value('id');
     }
 
     private function isNewcomer(int $companyId, int $seasonId): bool
     {
-        $currentYear = Season::where('id', '=', $seasonId, true)->value('year_of');
+        $currentYear = Season::where('id', $seasonId)->value('year_of');
 
         if ($currentYear === null) {
             return false;
         }
 
-        $participatedBefore = Collect::where('company_id', '=', $companyId, true)
+        $participatedBefore = Collect::where('company_id', $companyId)
             ->where('completed', 1)
             ->whereHas('season', fn ($q) => $q->where('year_of', '<', $currentYear))
             ->exists();

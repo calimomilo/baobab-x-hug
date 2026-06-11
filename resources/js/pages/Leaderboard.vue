@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import Badge from '@/components/Badge.vue';
 import CharacterLoop from '@/components/CharacterLoop.vue';
 import CompanyCard from '@/components/CompanyCard.vue';
@@ -28,17 +28,24 @@ const props = defineProps({
 
 // COMPUTE RESULTS
 
-const companiesAmount = props.companies?.length ?? 1;
-const donationsAmount = props.companies?.map((company) => company.score.donations).reduce((carry, amount) => {
-    return carry + amount;
+const companiesAmount = computed(() => props.companies?.length ?? 0);
+const donationsAmount = computed(() => props.companies?.reduce((carry, amount) => {
+    return carry + amount.score.donations;
+}, 0));
+const supportersAmount = computed(() => props.companies?.reduce((carry, amount) => {
+    return carry + amount.score.supporters;
+}, 0));
+const efficiencyMean = computed(() => {
+    if (companiesAmount.value === 0) {
+        return 0;
+    }
+    
+    const sum = props.companies?.reduce((carry, amount) => {
+        return carry + amount.score.efficiency;
+    }, 0) ?? 0;
+
+    return Math.round(sum*100/companiesAmount.value)/100.0;
 });
-const supportersAmount = props.companies?.map((company) => company.score.supporters).reduce((carry, amount) => {
-    return carry + amount;
-});
-const efficiencySum = props.companies?.map((company) => company.score.efficiency).reduce((carry, amount) => {
-    return carry + amount;
-}) ?? 0;
-const efficiencyMean = Math.round(efficiencySum/companiesAmount);
 
 // FILTER COMPANIES
 

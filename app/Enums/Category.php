@@ -23,4 +23,18 @@ enum Category: string
             self::THE_GOLDEN_HEART => 'Prix du jury',
         };
     }
+
+    /**
+     * Retourne le slug de chaque médaille
+     */
+    public function slug(): string
+    {
+        return match ($this) {
+            self::THE_CLIMBER => 'climber',
+            self::THE_FLOOD => 'flood',
+            self::THE_PULSE => 'pulse',
+            self::THE_NEW_VEIN => 'new_vein',
+            self::THE_GOLDEN_HEART => 'golden_heart',
+        };
+    }
 }

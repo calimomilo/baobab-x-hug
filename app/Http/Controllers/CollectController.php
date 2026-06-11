@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\DataType;
 use App\Enums\SeasonStatus;
 use App\Models\Collect;
 use App\Models\Company;
 use App\Models\Season;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CollectController extends Controller
 {
@@ -15,9 +17,19 @@ class CollectController extends Controller
      */
     public function index()
     {
-        $collects = Collect::orderBy('created_at', 'desc')->with(['company', 'season', 'data'])->get();
+        $collects = Collect::orderBy('date_of', 'desc')->with(['company', 'season', 'data'])->get();
 
-        // return page inertia /collects
+        $collects->map(function ($collect) {
+            $collect->donor_results = $collect->data->where('data_type', DataType::DONOR_RESULT)->count();
+            $collect->supporter_results = $collect->data->where('data_type', DataType::SUPPORTER_RESULT)->count();
+            $collect->appointment_clicks = $collect->data->where('data_type', DataType::APPOINTMENT_CLIC)->count();
+            $collect->donor_shares = $collect->data->where('data_type', DataType::DONOR_SHARE)->count();
+            $collect->supporter_shares = $collect->data->where('data_type', DataType::SUPPORTER_RESULT)->count();
+
+            $collect->makeHidden('data');
+        });
+
+        return Inertia::render('admin/Collects', ['collects' => $collects]);
     }
 
     /**
@@ -25,7 +37,10 @@ class CollectController extends Controller
      */
     public function create()
     {
-        // return page inertia /collects/create
+        $companies = Company::all();
+        $seasons = Season::all();
+
+        return Inertia::render('admin/CollectForm', ['companies' => $companies, 'seasons' => $seasons]);
     }
 
     /**
@@ -44,13 +59,13 @@ class CollectController extends Controller
         ]);
 
         $company = Company::findOrFail($request->company_id);
-        $season = Season::where('year_of', '=', $validated['season_year'], true)->firstOrCreate([
-            'year_of' => $validated['season_year'],
-            'status' => SeasonStatus::FUTURE,
-        ]);
+        $season = Season::where('year_of', $validated['season_year'])->first();
 
-        if ($season->status === SeasonStatus::CLOSED) {
-            return response()->json(['message' => 'Season closed.'], 422);
+        if (! $season) {
+            $season = Season::create([
+                'year_of' => $validated['season_year'],
+                'status' => SeasonStatus::FUTURE,
+            ]);
         }
 
         $collect = new Collect;
@@ -70,7 +85,7 @@ class CollectController extends Controller
 
         $collect->save();
 
-        // return page inertia /collects/$collect->id
+        return to_route('collects.show', ['collect' => $collect]);
     }
 
     /**
@@ -80,7 +95,15 @@ class CollectController extends Controller
     {
         $collect = Collect::with(['company', 'season', 'data'])->findOrFail($id);
 
-        // return page inertia /collects/$collect->$id
+        $collect->donor_results = $collect->data->where('data_type', DataType::DONOR_RESULT)->count();
+        $collect->supporter_results = $collect->data->where('data_type', DataType::SUPPORTER_RESULT)->count();
+        $collect->appointment_clicks = $collect->data->where('data_type', DataType::APPOINTMENT_CLIC)->count();
+        $collect->donor_shares = $collect->data->where('data_type', DataType::DONOR_SHARE)->count();
+        $collect->supporter_shares = $collect->data->where('data_type', DataType::SUPPORTER_RESULT)->count();
+
+        $collect->makeHidden('data');
+
+        return Inertia::render('admin/Collect', ['collect' => $collect]);
     }
 
     /**
@@ -88,9 +111,11 @@ class CollectController extends Controller
      */
     public function edit(string $id)
     {
-        $collect = Collect::findOrFail($id);
+        $companies = Company::all();
+        $seasons = Season::all();
+        $collect = Collect::with(['season', 'company'])->findOrFail($id);
 
-        // return page inertia /collects/$collect->$id/edit
+        return Inertia::render('admin/CollectForm', ['companies' => $companies, 'seasons' => $seasons, 'formData' => $collect]);
     }
 
     /**
@@ -99,15 +124,28 @@ class CollectController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'date_of' => 'required|date|after:now',
+            'date_of' => 'required|date',
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:start_time',
             'location' => 'required|string|max:500',
             'appointment_link' => 'required|string|max:500',
             'employees' => 'required|integer|min:0',
+            'season_year' => 'required|date_format:Y',
         ]);
 
         $collect = Collect::findOrFail($id);
+        $season = Season::where('year_of', $validated['season_year'])->first();
+
+        if (! $season) {
+            $season = Season::create([
+                'year_of' => $validated['season_year'],
+                'status' => SeasonStatus::FUTURE,
+            ]);
+        }
+
+        if ($season->status === SeasonStatus::CLOSED->value) {
+            return;
+        }
 
         $collect->updateOrFail([
             'date_of' => $validated['date_of'],
@@ -118,7 +156,7 @@ class CollectController extends Controller
             'employees' => $validated['employees'],
         ]);
 
-        // return page inertia /collects/$collect->id
+        return to_route('collects.show', ['collect' => $collect]);
     }
 
     /**
@@ -130,21 +168,28 @@ class CollectController extends Controller
 
         $collect->deleteOrFail();
 
-        // return page inertia /collects
+        return to_route('collects.index');
     }
 
     /**
      * Mark the specified collect as complete
      */
-    public function complete(string $id)
+    public function complete(Request $request, string $id)
     {
+        $validated = $request->validate([
+            'appointments' => 'required|integer|min:0',
+            'donations' => 'required|integer|min:0',
+        ]);
+
         $collect = Collect::findOrFail($id);
 
-        $collect->complete = 1;
+        $collect->appointments = $validated['appointments'];
+        $collect->donations = $validated['donations'];
+        $collect->completed = 1;
 
         $collect->save();
 
-        // return page inertia /collects/$collect->$id
+        return to_route('collects.show', ['collect' => $collect]);
     }
 
     /**
@@ -152,12 +197,15 @@ class CollectController extends Controller
      */
     public function incomplete(string $id)
     {
-        $collect = Collect::findOrFail($id);
+        $collect = Collect::with('season')->findOrFail($id);
 
-        $collect->complete = 0;
+        if ($collect->season->status === SeasonStatus::CLOSED->value) {
+            return;
+        }
 
+        $collect->completed = 0;
         $collect->save();
 
-        // return page inertia /collects/$collect->$id
+        return to_route('collects.show', ['collect' => $collect]);
     }
 }

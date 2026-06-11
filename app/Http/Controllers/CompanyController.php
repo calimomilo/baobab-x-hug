@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Category;
+use App\Enums\DataType;
 use App\Models\Company;
+use App\Models\Season;
+use App\Services\BloodLeagueScorer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class CompanyController extends Controller
 {
@@ -12,9 +19,40 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::orderBy('created_at', 'desc')->with('collects.data')->get();
+        $season = Season::where('status', 'open')->first();
 
-        // return page inertia /companies
+        $companies = Company::orderBy('company_name', 'asc')->with('collects')->get();
+
+        $companies->map(function ($company) use ($season) {
+            $label = app(BloodLeagueScorer::class)->computeLabel($company->id, $season->id);
+
+            if (! $label) {
+                $company->label = [
+                    'name' => 'Aucune participation',
+                    'slug' => 'outsider',
+                ];
+            } else {
+                $company->label = [
+                    'name' => $label->name(),
+                    'slug' => $label,
+                ];
+            }
+
+            $score = app(BloodLeagueScorer::class)->computeScore($company->id, $season->id);
+            $company->total = $score['total'];
+            $company->score = [
+                'donations' => $score['raw']['donations'],
+                'supporters' => $score['raw']['supporter_shares'],
+                'efficiency' => $score['raw']['taux_efficacite'],
+            ];
+
+            $seasonCollects = $company->collects->where('season_id', $season->id);
+            $company->currentCollects = $seasonCollects->count();
+        });
+
+        $companies->makeHidden('collects');
+
+        return Inertia::render('admin/Companies', ['season' => $season, 'companies' => $companies]);
     }
 
     /**
@@ -22,7 +60,9 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        // return page inertia /companies/create
+        $slugs = Company::pluck('slug');
+
+        return Inertia::render('admin/CompanyForm', ['slugs' => $slugs]);
     }
 
     /**
@@ -41,8 +81,13 @@ class CompanyController extends Controller
             'primary_color' => 'required|hex_color',
             'secondary_color' => 'required|hex_color',
             'logo_url' => 'required|image',
-            'anonymous' => 'required|boolean',
+            'anonymous' => 'boolean',
         ]);
+
+        $file = $request->file('logo_url');
+        $path = '/storage/'.Storage::disk('public')->put('/logos', $file);
+
+        $validated['logo_url'] = $path;
 
         $company = Company::create([
             'company_name' => $validated['company_name'],
@@ -58,47 +103,82 @@ class CompanyController extends Controller
             'anonymous' => $validated['anonymous'],
         ]);
 
-        // return page inertia /companies/$company->slug
+        return to_route('companies.show', ['company' => $company]);
     }
 
     /**
      * Display the specified company.
      */
-    public function show(string $slug)
+    public function show(string $id)
     {
+        $season = Season::where('status', 'open')->first();
+
         $company = Company::with([
             'wins',
-            'collect' => [
+            'collects' => [
                 'season',
                 'data',
             ],
-        ])->where('slug', $slug)->first();
+        ])->findOrFail($id);
+
+        $company->wins->map(function ($win) {
+            $win->pivot->slug = Category::from($win->pivot->category)->slug();
+            $win->pivot->label = Category::from($win->pivot->category)->label();
+        });
 
         if (! $company) {
-            return response()->json(['message' => 'Company not found.'], 404);
+            return;
         }
 
-        // return page inertia /companies/$company->slug
+        $label = app(BloodLeagueScorer::class)->computeLabel($company->id, $season->id);
+
+        if (! $label) {
+            $company->label = [
+                'name' => 'Aucune participation',
+                'slug' => 'outsider',
+            ];
+        } else {
+            $company->label = [
+                'name' => $label->name(),
+                'slug' => $label,
+            ];
+        }
+
+        $score = app(BloodLeagueScorer::class)->computeScore($company->id, $season->id);
+        $company->score = $score;
+
+        $company->collects->map(function ($collect) {
+            $collect->donor_results = $collect->data->where('data_type', DataType::DONOR_RESULT)->count();
+            $collect->supporter_results = $collect->data->where('data_type', DataType::SUPPORTER_RESULT)->count();
+            $collect->appointment_clicks = $collect->data->where('data_type', DataType::APPOINTMENT_CLIC)->count();
+            $collect->donor_shares = $collect->data->where('data_type', DataType::DONOR_SHARE)->count();
+            $collect->supporter_shares = $collect->data->where('data_type', DataType::SUPPORTER_RESULT)->count();
+
+            $collect->makeHidden('data');
+        });
+
+        return Inertia::render('admin/Company', ['seasons' => Season::all(), 'company' => $company]);
     }
 
     /**
      * Show the form for editing the specified company.
      */
-    public function edit(string $slug)
+    public function edit(string $id)
     {
-        $company = Company::where('slug', '=', $slug, true)->first();
+        $slugs = Company::pluck('slug');
+        $company = Company::findOrFail($id);
 
         if (! $company) {
-            return response()->json(['message' => 'Company not found.'], 404);
+            return;
         }
 
-        // return page inertia /companies/$company->slug/edit
+        return Inertia::render('admin/CompanyForm', ['slugs' => $slugs, 'formData' => $company]);
     }
 
     /**
      * Update the specified company in storage.
      */
-    public function update(Request $request, string $slug)
+    public function update(Request $request, string $id)
     {
         $validated = $request->validate([
             'company_name' => 'required|string|min:2|max:255',
@@ -106,17 +186,29 @@ class CompanyController extends Controller
             'contact_name' => 'nullable|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
-            'slug' => 'required|string|alpha_dash:ascii|min:4|max:50|unique:companies',
+            'slug' => ['required', 'string', 'alpha_dash:ascii', 'min:4', 'max:50', Rule::unique('companies')->ignore($id)],
             'primary_color' => 'required|hex_color',
             'secondary_color' => 'required|hex_color',
-            'logo_url' => 'required|image',
+            'logo_url' => 'nullable|image',
             'anonymous' => 'required|boolean',
         ]);
 
-        $company = Company::where('slug', '=', $slug, true)->first();
+        $company = Company::findOrFail($id);
 
         if (! $company) {
-            return response()->json(['message' => 'Company not found.'], 404);
+            return;
+        }
+
+        $file = $request->file('logo_url');
+
+        if ($file) {
+            Storage::disk('public')->delete($company->logo_url);
+
+            $path = '/storage/'.Storage::disk('public')->put('/logos', $file);
+
+            $validated['logo_url'] = $path;
+        } else {
+            $validated['logo_url'] = $company->logo_url;
         }
 
         $company->updateOrFail([
@@ -132,22 +224,22 @@ class CompanyController extends Controller
             'anonymous' => $validated['anonymous'],
         ]);
 
-        // return page inertia /companies/$company->slug
+        return to_route('companies.show', ['company' => $company]);
     }
 
     /**
      * Remove the specified company from storage.
      */
-    public function destroy(string $slug)
+    public function destroy(string $id)
     {
-        $company = Company::where('slug', '=', $slug, true)->first();
+        $company = Company::findOrFail($id);
 
         if (! $company) {
-            return response()->json(['message' => 'Company not found.'], 404);
+            return;
         }
 
         $company->deleteOrFail();
 
-        // return page inertia /companies
+        return to_route('companies.index');
     }
 }

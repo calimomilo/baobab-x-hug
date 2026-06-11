@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('companies', CompanyController::class)->middleware([HandlePrecognitiveRequests::class]);
 
-        Route::resource('contacts', ContactFormController::class)->only(['index', 'show', 'destroy']);
+        Route::resource('contacts', ContactFormController::class)->only(['index', 'destroy']);
 
         Route::resource('collects', CollectController::class)->middleware([HandlePrecognitiveRequests::class]);
         Route::put('/collects/{id}/complete', [CollectController::class, 'complete']);
